@@ -44,6 +44,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -52,6 +60,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -135,25 +145,92 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\GroupLevel.cs" />
-    <Compile Include="Models\Groups.cs" />
-    <Compile Include="Models\MenuApp.cs" />
-    <Compile Include="Models\Roles.cs" />
-    <Compile Include="Models\RoleGroupLevel.cs" />
-    <Compile Include="Models\UserGroupLevel.cs" />
-    <Compile Include="Models\UserRole.cs" />
-    <Compile Include="Models\Users.cs" />
+    <Compile Include="Models\ChatMessage.cs">
+      <DependentUpon>ModelMyApp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ErrorReport.cs">
+      <DependentUpon>ModelMyApp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Group.cs">
+      <DependentUpon>ModelMyApp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GroupLevel.cs">
+      <DependentUpon>ModelMyApp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\kategori.cs">
+      <DependentUpon>ModelMyApp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LogApp.cs">
+      <DependentUpon>ModelMyApp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MenuApp.cs">
+      <DependentUpon>ModelMyApp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ModelMyApp.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelMyApp.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ModelMyApp.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelMyApp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ModelMyApp.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelMyApp.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Role.cs">
+      <DependentUpon>ModelMyApp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RoleGroupLevel.cs">
+      <DependentUpon>ModelMyApp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SettingApp.cs">
+      <DependentUpon>ModelMyApp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\User.cs">
+      <DependentUpon>ModelMyApp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserGroupLevel.cs">
+      <DependentUpon>ModelMyApp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserRole.cs">
+      <DependentUpon>ModelMyApp.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\MyApp.mdf" />
+    <Content Include="App_Data\MyApp_log.ldf">
+      <DependentUpon>MyApp.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Models\ModelMyApp.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelMyApp.edmx</DependentUpon>
+      <LastGenOutput>ModelMyApp.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\ModelMyApp.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelMyApp.edmx</DependentUpon>
+      <LastGenOutput>ModelMyApp.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <EntityDeploy Include="Models\ModelMyApp.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ModelMyApp.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\ModelMyApp.edmx.diagram">
+      <DependentUpon>ModelMyApp.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -177,38 +254,29 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\itemmenu.cshtml" />
     <Content Include="Views\Shared\navmenu.cshtml" />
     <Content Include="Views\Shared\_Template.cshtml" />
-    <Content Include="Views\appdashboard\adminsystem\User\Index.cshtml" />
-    <Content Include="Views\appdashboard\adminsystem\User\Edit.cshtml" />
-    <Content Include="Views\appdashboard\adminsystem\User\Add.cshtml" />
-    <Content Include="Views\appdashboard\masterdata\Group\Index.cshtml" />
-    <Content Include="Views\appdashboard\masterdata\Group\Edit.cshtml" />
-    <Content Include="Views\appdashboard\masterdata\Group\Add.cshtml" />
-    <Content Include="Views\appdashboard\masterdata\Role\Index.cshtml" />
-    <Content Include="Views\appdashboard\masterdata\Role\Add.cshtml" />
-    <Content Include="Views\appdashboard\masterdata\Role\Edit.cshtml" />
-    <Content Include="Views\appdashboard\masterdata\Menu\Index.cshtml" />
-    <Content Include="Views\appdashboard\masterdata\Menu\Add.cshtml" />
-    <Content Include="Views\appdashboard\masterdata\Menu\Edit.cshtml" />
-    <Content Include="Views\appdashboard\adminsystem\User\UserRole\Index.cshtml" />
-    <Content Include="Views\appdashboard\adminsystem\User\UserGroupLevel\Index.cshtml" />
-    <Content Include="Views\appdashboard\adminsystem\GroupLevel\Index.cshtml" />
-    <Content Include="Views\appdashboard\adminsystem\GroupLevel\RoleGroupLevel\Index.cshtml" />
-    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
     <None Include="Views\Shared\action\add-button.cshtml" />
     <None Include="Views\Shared\action\delete-button.cshtml" />
     <None Include="Views\Shared\action\edit-button.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Content\AdminLTE\" />
+    <Folder Include="Helper\" />
+    <Folder Include="Views\appdashboard\adminsystem\GroupLevel\RoleGroupLevel\" />
+    <Folder Include="Views\appdashboard\adminsystem\User\UserGroupLevel\" />
+    <Folder Include="Views\appdashboard\adminsystem\User\UserRole\" />
+    <Folder Include="Views\appdashboard\masterdata\Group\" />
+    <Folder Include="Views\appdashboard\masterdata\Menu\" />
+    <Folder Include="Views\appdashboard\masterdata\Role\" />
     <Folder Include="Views\appdashboard\setting\ChangePassword\" />
     <Folder Include="Views\appdashboard\setting\ChangeProfile\" />
+    <Folder Include="Views\Login\" />
+    <Folder Include="Views\Role\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -217,6 +285,9 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

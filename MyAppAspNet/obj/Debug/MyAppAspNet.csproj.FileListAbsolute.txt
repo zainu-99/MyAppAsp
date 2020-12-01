@@ -37,3 +37,8 @@ E:\Project\visual studio\MyAppAspNet\MyAppAspNet\bin\Antlr3.Runtime.pdb
 E:\Project\visual studio\MyAppAspNet\MyAppAspNet\bin\Newtonsoft.Json.xml
 E:\Project\visual studio\MyAppAspNet\MyAppAspNet\obj\Debug\MyAppAspNet.dll
 E:\Project\visual studio\MyAppAspNet\MyAppAspNet\obj\Debug\MyAppAspNet.pdb
+E:\Project\visual studio\MyAppAspNet\MyAppAspNet\bin\EntityFramework.dll
+E:\Project\visual studio\MyAppAspNet\MyAppAspNet\bin\EntityFramework.xml
+E:\Project\visual studio\MyAppAspNet\MyAppAspNet\obj\Debug\MyAppAspNet.csprojResolveAssemblyReference.cache
+E:\Project\visual studio\MyAppAspNet\MyAppAspNet\bin\EntityFramework.SqlServer.dll
+E:\Project\visual studio\MyAppAspNet\MyAppAspNet\bin\EntityFramework.SqlServer.xml
