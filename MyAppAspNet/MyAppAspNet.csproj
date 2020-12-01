@@ -120,13 +120,24 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ChangePasswordController.cs" />
+    <Compile Include="Controllers\ChangeProfileController.cs" />
+    <Compile Include="Controllers\GroupController.cs" />
+    <Compile Include="Controllers\GroupLevelController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MenuController.cs" />
+    <Compile Include="Controllers\RoleController.cs" />
+    <Compile Include="Controllers\RoleGroupLevelController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\UserGroupLevelController.cs" />
+    <Compile Include="Controllers\UserRoleController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\GroupLevel.cs" />
     <Compile Include="Models\Groups.cs" />
     <Compile Include="Models\MenuApp.cs" />
+    <Compile Include="Models\Roles.cs" />
     <Compile Include="Models\RoleGroupLevel.cs" />
     <Compile Include="Models\UserGroupLevel.cs" />
     <Compile Include="Models\UserRole.cs" />
@@ -171,10 +182,32 @@
     <Content Include="Views\Shared\itemmenu.cshtml" />
     <Content Include="Views\Shared\navmenu.cshtml" />
     <Content Include="Views\Shared\_Template.cshtml" />
+    <Content Include="Views\appdashboard\adminsystem\User\Index.cshtml" />
+    <Content Include="Views\appdashboard\adminsystem\User\Edit.cshtml" />
+    <Content Include="Views\appdashboard\adminsystem\User\Add.cshtml" />
+    <Content Include="Views\appdashboard\masterdata\Group\Index.cshtml" />
+    <Content Include="Views\appdashboard\masterdata\Group\Edit.cshtml" />
+    <Content Include="Views\appdashboard\masterdata\Group\Add.cshtml" />
+    <Content Include="Views\appdashboard\masterdata\Role\Index.cshtml" />
+    <Content Include="Views\appdashboard\masterdata\Role\Add.cshtml" />
+    <Content Include="Views\appdashboard\masterdata\Role\Edit.cshtml" />
+    <Content Include="Views\appdashboard\masterdata\Menu\Index.cshtml" />
+    <Content Include="Views\appdashboard\masterdata\Menu\Add.cshtml" />
+    <Content Include="Views\appdashboard\masterdata\Menu\Edit.cshtml" />
+    <Content Include="Views\appdashboard\adminsystem\User\UserRole\Index.cshtml" />
+    <Content Include="Views\appdashboard\adminsystem\User\UserGroupLevel\Index.cshtml" />
+    <Content Include="Views\appdashboard\adminsystem\GroupLevel\Index.cshtml" />
+    <Content Include="Views\appdashboard\adminsystem\GroupLevel\RoleGroupLevel\Index.cshtml" />
+    <None Include="Views\Shared\action\add-button.cshtml" />
+    <None Include="Views\Shared\action\delete-button.cshtml" />
+    <None Include="Views\Shared\action\edit-button.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\AdminLTE\" />
+    <Folder Include="Views\appdashboard\setting\ChangePassword\" />
+    <Folder Include="Views\appdashboard\setting\ChangeProfile\" />
+    <Folder Include="Views\Login\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
