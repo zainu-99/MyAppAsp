@@ -35,6 +35,5 @@ E:\Project\visual studio\MyAppAspNet\MyAppAspNet\bin\System.Web.WebPages.Deploym
 E:\Project\visual studio\MyAppAspNet\MyAppAspNet\bin\System.Web.WebPages.Razor.xml
 E:\Project\visual studio\MyAppAspNet\MyAppAspNet\bin\Antlr3.Runtime.pdb
 E:\Project\visual studio\MyAppAspNet\MyAppAspNet\bin\Newtonsoft.Json.xml
-E:\Project\visual studio\MyAppAspNet\MyAppAspNet\obj\Debug\MyAppAspNet.csprojResolveAssemblyReference.cache
 E:\Project\visual studio\MyAppAspNet\MyAppAspNet\obj\Debug\MyAppAspNet.dll
 E:\Project\visual studio\MyAppAspNet\MyAppAspNet\obj\Debug\MyAppAspNet.pdb
