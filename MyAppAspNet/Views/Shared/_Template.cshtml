@@ -71,7 +71,7 @@
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         @Html.Partial("~/Views/Shared/navmenu.cshtml")
                         <li class="nav-item">
-                            <a href="login/logout" class="nav-link">
+                            <a href="@Url.Action("Logout", "Authorize")" class="nav-link">
                                 <i class="nav-icon fas fa-sign-out-alt"></i>
                                 <p>
                                     Logout

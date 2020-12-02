@@ -22,7 +22,9 @@ namespace MyAppAspNet.Models
     
         public long id { get; set; }
         public string name { get; set; }
-        public string remark { get; set; }
+        public string note { get; set; }
+        public string url { get; set; }
+        public string controller { get; set; }
         public bool AccessView { get; set; }
         public bool AccessAdd { get; set; }
         public bool AccessEdit { get; set; }

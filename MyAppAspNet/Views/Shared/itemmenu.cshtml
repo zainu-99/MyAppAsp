@@ -1,12 +1,28 @@
-﻿
-<li class="nav-item has-treeview menu-close">
-    <a href="#" class="nav-link ">
-        <p>
-            Menu 1
-            <i class="right fas fa-angle-left"></i>
-        </p>
-    </a>
-    <ul class="nav nav-treeview">
-        
-    </ul>
-</li>
+﻿@if(ViewBag.Menus != null)
+{
+    <li class="nav-item has-treeview menu-close">
+        <a href="#" class="nav-link ">
+            <?=$options["itemmenu"]->icon?>
+            <p>
+                <?=$options["itemmenu"]->menu_text?>
+                <i class="right fas fa-angle-left"></i>
+            </p>
+        </a>
+        <ul class="nav nav-treeview">
+            @for (int i = 0; i < 5; i++)
+            {
+                @Html.Partial("~/Views/Shared/itemmenu.cshtml")
+            }
+        </ul>
+    </li>
+}
+else
+{
+    <li class="nav-item">
+        <a href="<?=base_url().$options[" itemmenu"]->
+            role_url?>" class="nav-link item-menu">
+            <?=$options["itemmenu"]->icon?>
+            <p><?=$options["itemmenu"]->menu_text?></p>
+        </a>
+    </li>
+}

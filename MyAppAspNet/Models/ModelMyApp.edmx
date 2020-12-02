@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="MyAppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="MyAppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="ChatMessage">
           <Key>
             <PropertyRef Name="ID" />
@@ -75,9 +75,8 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="MenuTag" Type="varchar" MaxLength="50" />
+          <Property Name="RoleID" Type="bigint" Nullable="false" />
           <Property Name="MenuText" Type="nvarchar" MaxLength="50" />
-          <Property Name="FormName" Type="varchar" MaxLength="50" />
           <Property Name="IDParentMenu" Type="int" />
           <Property Name="IconMenu" Type="image" />
           <Property Name="OrderSort" Type="int" />
@@ -102,7 +101,9 @@
           </Key>
           <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name" Type="varchar" MaxLength="50" />
-          <Property Name="remark" Type="varchar" MaxLength="250" />
+          <Property Name="note" Type="varchar" MaxLength="250" />
+          <Property Name="url" Type="varchar" MaxLength="250" />
+          <Property Name="controller" Type="varchar" MaxLength="250" />
           <Property Name="AccessView" Type="bit" Nullable="false" />
           <Property Name="AccessAdd" Type="bit" Nullable="false" />
           <Property Name="AccessEdit" Type="bit" Nullable="false" />
@@ -370,8 +371,7 @@
             <End Role="UserRole" EntitySet="UserRole" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MyAppModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -448,20 +448,6 @@
           <Property Name="Note" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="User" Relationship="Self.FK_LogApp_Users" FromRole="LogApp" ToRole="Users" />
         </EntityType>
-        <EntityType Name="MenuApp">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MenuTag" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="MenuText" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FormName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="IDParentMenu" Type="Int32" />
-          <Property Name="IconMenu" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="OrderSort" Type="Int32" />
-          <NavigationProperty Name="MenuApp1" Relationship="Self.FK_MenuApp_MenuApp" FromRole="MenuApp" ToRole="MenuApp1" />
-          <NavigationProperty Name="MenuApp2" Relationship="Self.FK_MenuApp_MenuApp" FromRole="MenuApp1" ToRole="MenuApp" />
-        </EntityType>
         <EntityType Name="RoleGroupLevel">
           <Key>
             <PropertyRef Name="id" />
@@ -476,23 +462,7 @@
           <Property Name="isPrint" Type="Boolean" Nullable="false" />
           <Property Name="isCustom" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="GroupLevel" Relationship="Self.FK_RoleGroupLevel_GroupLevel" FromRole="RoleGroupLevel" ToRole="GroupLevel" />
-          <NavigationProperty Name="Role" Relationship="Self.FK_RoleGroupLevel_Roles" FromRole="RoleGroupLevel" ToRole="Roles" />
-        </EntityType>
-        <EntityType Name="Role">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="remark" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="AccessView" Type="Boolean" Nullable="false" />
-          <Property Name="AccessAdd" Type="Boolean" Nullable="false" />
-          <Property Name="AccessEdit" Type="Boolean" Nullable="false" />
-          <Property Name="AccessDelete" Type="Boolean" Nullable="false" />
-          <Property Name="AccessPrint" Type="Boolean" Nullable="false" />
-          <Property Name="AccessCustom" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="RoleGroupLevels" Relationship="Self.FK_RoleGroupLevel_Roles" FromRole="Roles" ToRole="RoleGroupLevel" />
-          <NavigationProperty Name="UserRoles" Relationship="Self.FK_UserRole_Roles" FromRole="Roles" ToRole="UserRole" />
+          <NavigationProperty Name="Role" Relationship="MyAppModel.FK_RoleGroupLevel_Roles" FromRole="RoleGroupLevel" ToRole="Role" />
         </EntityType>
         <EntityType Name="SettingApp">
           <Key>
@@ -526,8 +496,8 @@
           <Property Name="allow_delete" Type="Boolean" />
           <Property Name="allow_print" Type="Boolean" />
           <Property Name="allow_custom_access" Type="Int32" />
-          <NavigationProperty Name="Role" Relationship="Self.FK_UserRole_Roles" FromRole="UserRole" ToRole="Roles" />
           <NavigationProperty Name="User" Relationship="Self.FK_UserRole_Users" FromRole="UserRole" ToRole="Users" />
+          <NavigationProperty Name="Role" Relationship="MyAppModel.FK_UserRole_Roles" FromRole="UserRole" ToRole="Role" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -635,46 +605,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_MenuApp_MenuApp">
-          <End Role="MenuApp" Type="Self.MenuApp" Multiplicity="0..1" />
-          <End Role="MenuApp1" Type="Self.MenuApp" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MenuApp">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="MenuApp1">
-              <PropertyRef Name="IDParentMenu" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_RoleGroupLevel_Roles">
-          <End Role="Roles" Type="Self.Role" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="RoleGroupLevel" Type="Self.RoleGroupLevel" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Roles">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="RoleGroupLevel">
-              <PropertyRef Name="id_role" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UserRole_Roles">
-          <End Role="Roles" Type="Self.Role" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Roles">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="UserRole">
-              <PropertyRef Name="id_role" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_UserGroupLevel_Users">
           <End Role="Users" Type="Self.User" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -710,9 +640,7 @@
           <EntitySet Name="Groups" EntityType="Self.Group" />
           <EntitySet Name="kategoris" EntityType="Self.kategori" />
           <EntitySet Name="LogApps" EntityType="Self.LogApp" />
-          <EntitySet Name="MenuApps" EntityType="Self.MenuApp" />
           <EntitySet Name="RoleGroupLevels" EntityType="Self.RoleGroupLevel" />
-          <EntitySet Name="Roles" EntityType="Self.Role" />
           <EntitySet Name="SettingApps" EntityType="Self.SettingApp" />
           <EntitySet Name="UserGroupLevels" EntityType="Self.UserGroupLevel" />
           <EntitySet Name="UserRoles" EntityType="Self.UserRole" />
@@ -741,18 +669,6 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="LogApp" EntitySet="LogApps" />
           </AssociationSet>
-          <AssociationSet Name="FK_MenuApp_MenuApp" Association="Self.FK_MenuApp_MenuApp">
-            <End Role="MenuApp" EntitySet="MenuApps" />
-            <End Role="MenuApp1" EntitySet="MenuApps" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RoleGroupLevel_Roles" Association="Self.FK_RoleGroupLevel_Roles">
-            <End Role="Roles" EntitySet="Roles" />
-            <End Role="RoleGroupLevel" EntitySet="RoleGroupLevels" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserRole_Roles" Association="Self.FK_UserRole_Roles">
-            <End Role="Roles" EntitySet="Roles" />
-            <End Role="UserRole" EntitySet="UserRoles" />
-          </AssociationSet>
           <AssociationSet Name="FK_UserGroupLevel_Users" Association="Self.FK_UserGroupLevel_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="UserGroupLevel" EntitySet="UserGroupLevels" />
@@ -761,7 +677,92 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="UserRole" EntitySet="UserRoles" />
           </AssociationSet>
+          <EntitySet Name="MenuApps" EntityType="MyAppModel.MenuApp" />
+          <EntitySet Name="Roles" EntityType="MyAppModel.Role" />
+          <AssociationSet Name="FK_MenuApp_MenuApp" Association="MyAppModel.FK_MenuApp_MenuApp">
+            <End Role="MenuApp" EntitySet="MenuApps" />
+            <End Role="MenuApp1" EntitySet="MenuApps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RoleGroupLevel_Roles" Association="MyAppModel.FK_RoleGroupLevel_Roles">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="RoleGroupLevel" EntitySet="RoleGroupLevels" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRole_Roles" Association="MyAppModel.FK_UserRole_Roles">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="UserRole" EntitySet="UserRoles" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="MenuApp">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleID" Type="Int64" Nullable="false" />
+          <Property Name="MenuText" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IDParentMenu" Type="Int32" />
+          <Property Name="IconMenu" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="OrderSort" Type="Int32" />
+          <NavigationProperty Name="MenuApp1" Relationship="MyAppModel.FK_MenuApp_MenuApp" FromRole="MenuApp" ToRole="MenuApp1" />
+          <NavigationProperty Name="MenuApp2" Relationship="MyAppModel.FK_MenuApp_MenuApp" FromRole="MenuApp1" ToRole="MenuApp" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="note" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="url" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="controller" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="AccessView" Type="Boolean" Nullable="false" />
+          <Property Name="AccessAdd" Type="Boolean" Nullable="false" />
+          <Property Name="AccessEdit" Type="Boolean" Nullable="false" />
+          <Property Name="AccessDelete" Type="Boolean" Nullable="false" />
+          <Property Name="AccessPrint" Type="Boolean" Nullable="false" />
+          <Property Name="AccessCustom" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="RoleGroupLevels" Relationship="MyAppModel.FK_RoleGroupLevel_Roles" FromRole="Role" ToRole="RoleGroupLevel" />
+          <NavigationProperty Name="UserRoles" Relationship="MyAppModel.FK_UserRole_Roles" FromRole="Role" ToRole="UserRole" />
+        </EntityType>
+        <Association Name="FK_MenuApp_MenuApp">
+          <End Type="MyAppModel.MenuApp" Role="MenuApp" Multiplicity="0..1" />
+          <End Type="MyAppModel.MenuApp" Role="MenuApp1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MenuApp">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MenuApp1">
+              <PropertyRef Name="IDParentMenu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RoleGroupLevel_Roles">
+          <End Type="MyAppModel.Role" Role="Role" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="MyAppModel.RoleGroupLevel" Role="RoleGroupLevel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="RoleGroupLevel">
+              <PropertyRef Name="id_role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRole_Roles">
+          <End Type="MyAppModel.Role" Role="Role" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="MyAppModel.UserRole" Role="UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UserRole">
+              <PropertyRef Name="id_role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -839,19 +840,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="MenuApps">
-            <EntityTypeMapping TypeName="MyAppModel.MenuApp">
-              <MappingFragment StoreEntitySet="MenuApp">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="MenuTag" ColumnName="MenuTag" />
-                <ScalarProperty Name="MenuText" ColumnName="MenuText" />
-                <ScalarProperty Name="FormName" ColumnName="FormName" />
-                <ScalarProperty Name="IDParentMenu" ColumnName="IDParentMenu" />
-                <ScalarProperty Name="IconMenu" ColumnName="IconMenu" />
-                <ScalarProperty Name="OrderSort" ColumnName="OrderSort" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="RoleGroupLevels">
             <EntityTypeMapping TypeName="MyAppModel.RoleGroupLevel">
               <MappingFragment StoreEntitySet="RoleGroupLevel">
@@ -864,21 +852,6 @@
                 <ScalarProperty Name="isDelete" ColumnName="isDelete" />
                 <ScalarProperty Name="isPrint" ColumnName="isPrint" />
                 <ScalarProperty Name="isCustom" ColumnName="isCustom" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Roles">
-            <EntityTypeMapping TypeName="MyAppModel.Role">
-              <MappingFragment StoreEntitySet="Roles">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="remark" ColumnName="remark" />
-                <ScalarProperty Name="AccessView" ColumnName="AccessView" />
-                <ScalarProperty Name="AccessAdd" ColumnName="AccessAdd" />
-                <ScalarProperty Name="AccessEdit" ColumnName="AccessEdit" />
-                <ScalarProperty Name="AccessDelete" ColumnName="AccessDelete" />
-                <ScalarProperty Name="AccessPrint" ColumnName="AccessPrint" />
-                <ScalarProperty Name="AccessCustom" ColumnName="AccessCustom" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -934,6 +907,35 @@
                 <ScalarProperty Name="token" ColumnName="token" />
                 <ScalarProperty Name="created_at" ColumnName="created_at" />
                 <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MenuApps">
+            <EntityTypeMapping TypeName="MyAppModel.MenuApp">
+              <MappingFragment StoreEntitySet="MenuApp">
+                <ScalarProperty Name="OrderSort" ColumnName="OrderSort" />
+                <ScalarProperty Name="IconMenu" ColumnName="IconMenu" />
+                <ScalarProperty Name="IDParentMenu" ColumnName="IDParentMenu" />
+                <ScalarProperty Name="MenuText" ColumnName="MenuText" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="MyAppModel.Role">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="AccessCustom" ColumnName="AccessCustom" />
+                <ScalarProperty Name="AccessPrint" ColumnName="AccessPrint" />
+                <ScalarProperty Name="AccessDelete" ColumnName="AccessDelete" />
+                <ScalarProperty Name="AccessEdit" ColumnName="AccessEdit" />
+                <ScalarProperty Name="AccessAdd" ColumnName="AccessAdd" />
+                <ScalarProperty Name="AccessView" ColumnName="AccessView" />
+                <ScalarProperty Name="controller" ColumnName="controller" />
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="note" ColumnName="note" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

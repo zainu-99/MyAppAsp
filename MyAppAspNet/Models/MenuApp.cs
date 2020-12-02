@@ -20,9 +20,8 @@ namespace MyAppAspNet.Models
         }
     
         public int ID { get; set; }
-        public string MenuTag { get; set; }
+        public long RoleID { get; set; }
         public string MenuText { get; set; }
-        public string FormName { get; set; }
         public Nullable<int> IDParentMenu { get; set; }
         public byte[] IconMenu { get; set; }
         public Nullable<int> OrderSort { get; set; }
