@@ -14,7 +14,7 @@ namespace MyAppAspNet.Controllers
         {
             ViewBag.Message = "Dashboard";
             MyAppEntities myAppEntities = new MyAppEntities();
-            var menu = myAppEntities.MenuApps.ToList();
+            var menu = myAppEntities.MenuApps.Where(a => a.IDParentMenu == null).ToList();
             return View("~/Views/appdashboard/Index.cshtml",menu);
         }
     }

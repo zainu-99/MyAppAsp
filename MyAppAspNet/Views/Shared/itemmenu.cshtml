@@ -12,7 +12,10 @@
         <ul class="nav nav-treeview">
             @foreach (var item in Model.MenuApp1)
             {
-                @Html.Partial("~/Views/Shared/itemmenu.cshtml", item)
+              if (item.Role.UserRoles.Where(a => a.allow_view == true).Where(a => a.id_user == 16).FirstOrDefault() != null)
+                 {
+                    @Html.Partial("~/Views/Shared/itemmenu.cshtml", item)
+                 }
             }
         </ul>
     </li>
