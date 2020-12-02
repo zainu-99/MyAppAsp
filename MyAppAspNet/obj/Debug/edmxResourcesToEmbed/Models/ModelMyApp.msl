@@ -4,153 +4,77 @@
     <EntitySetMapping Name="ChatMessages">
       <EntityTypeMapping TypeName="MyAppModel.ChatMessage">
         <MappingFragment StoreEntitySet="ChatMessage">
-          <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="Message" ColumnName="Message" />
-          <ScalarProperty Name="FileAttached" ColumnName="FileAttached" />
-          <ScalarProperty Name="UserID" ColumnName="UserID" />
-          <ScalarProperty Name="UserIDReciever" ColumnName="UserIDReciever" />
-          <ScalarProperty Name="ReadStatus" ColumnName="ReadStatus" />
-          <ScalarProperty Name="DeleteStatusUserSender" ColumnName="DeleteStatusUserSender" />
-          <ScalarProperty Name="DeleteStatusUserReciever" ColumnName="DeleteStatusUserReciever" />
           <ScalarProperty Name="Created_At" ColumnName="Created_At" />
+          <ScalarProperty Name="DeleteStatusUserReciever" ColumnName="DeleteStatusUserReciever" />
+          <ScalarProperty Name="DeleteStatusUserSender" ColumnName="DeleteStatusUserSender" />
+          <ScalarProperty Name="ReadStatus" ColumnName="ReadStatus" />
+          <ScalarProperty Name="UserIDReciever" ColumnName="UserIDReciever" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="FileAttached" ColumnName="FileAttached" />
+          <ScalarProperty Name="Message" ColumnName="Message" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="ErrorReports">
       <EntityTypeMapping TypeName="MyAppModel.ErrorReport">
         <MappingFragment StoreEntitySet="ErrorReport">
-          <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="Action" ColumnName="Action" />
-          <ScalarProperty Name="MsgError" ColumnName="MsgError" />
-          <ScalarProperty Name="Datetime" ColumnName="Datetime" />
-          <ScalarProperty Name="Note" ColumnName="Note" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="Datetime" ColumnName="Datetime" />
+          <ScalarProperty Name="MsgError" ColumnName="MsgError" />
+          <ScalarProperty Name="Action" ColumnName="Action" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="GroupLevels">
       <EntityTypeMapping TypeName="MyAppModel.GroupLevel">
         <MappingFragment StoreEntitySet="GroupLevel">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="id_group" ColumnName="id_group" />
-          <ScalarProperty Name="id_parent" ColumnName="id_parent" />
           <ScalarProperty Name="remark" ColumnName="remark" />
+          <ScalarProperty Name="id_parent" ColumnName="id_parent" />
+          <ScalarProperty Name="id_group" ColumnName="id_group" />
+          <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Groups">
       <EntityTypeMapping TypeName="MyAppModel.Group">
         <MappingFragment StoreEntitySet="Groups">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="name" ColumnName="name" />
-          <ScalarProperty Name="remark" ColumnName="remark" />
-          <ScalarProperty Name="created_at" ColumnName="created_at" />
           <ScalarProperty Name="updated_at" ColumnName="updated_at" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="kategoris">
-      <EntityTypeMapping TypeName="MyAppModel.kategori">
-        <MappingFragment StoreEntitySet="kategori">
+          <ScalarProperty Name="created_at" ColumnName="created_at" />
+          <ScalarProperty Name="remark" ColumnName="remark" />
+          <ScalarProperty Name="name" ColumnName="name" />
           <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="kategori1" ColumnName="kategori" />
-          <ScalarProperty Name="parent_id" ColumnName="parent_id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="LogApps">
       <EntityTypeMapping TypeName="MyAppModel.LogApp">
         <MappingFragment StoreEntitySet="LogApp">
-          <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="Action" ColumnName="Action" />
-          <ScalarProperty Name="TableName" ColumnName="TableName" />
-          <ScalarProperty Name="DataBefore" ColumnName="DataBefore" />
-          <ScalarProperty Name="DataAfter" ColumnName="DataAfter" />
-          <ScalarProperty Name="Datetime" ColumnName="Datetime" />
-          <ScalarProperty Name="UserID" ColumnName="UserID" />
           <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="Datetime" ColumnName="Datetime" />
+          <ScalarProperty Name="DataAfter" ColumnName="DataAfter" />
+          <ScalarProperty Name="DataBefore" ColumnName="DataBefore" />
+          <ScalarProperty Name="TableName" ColumnName="TableName" />
+          <ScalarProperty Name="Action" ColumnName="Action" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="RoleGroupLevels">
       <EntityTypeMapping TypeName="MyAppModel.RoleGroupLevel">
         <MappingFragment StoreEntitySet="RoleGroupLevel">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="id_role" ColumnName="id_role" />
-          <ScalarProperty Name="id_group_level" ColumnName="id_group_level" />
-          <ScalarProperty Name="isView" ColumnName="isView" />
-          <ScalarProperty Name="isAdd" ColumnName="isAdd" />
-          <ScalarProperty Name="isEdit" ColumnName="isEdit" />
-          <ScalarProperty Name="isDelete" ColumnName="isDelete" />
-          <ScalarProperty Name="isPrint" ColumnName="isPrint" />
           <ScalarProperty Name="isCustom" ColumnName="isCustom" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="SettingApps">
-      <EntityTypeMapping TypeName="MyAppModel.SettingApp">
-        <MappingFragment StoreEntitySet="SettingApp">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="name" ColumnName="name" />
-          <ScalarProperty Name="remark" ColumnName="remark" />
-          <ScalarProperty Name="adjustment" ColumnName="adjustment" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="UserGroupLevels">
-      <EntityTypeMapping TypeName="MyAppModel.UserGroupLevel">
-        <MappingFragment StoreEntitySet="UserGroupLevel">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="id_user" ColumnName="id_user" />
+          <ScalarProperty Name="isPrint" ColumnName="isPrint" />
+          <ScalarProperty Name="isDelete" ColumnName="isDelete" />
+          <ScalarProperty Name="isEdit" ColumnName="isEdit" />
+          <ScalarProperty Name="isAdd" ColumnName="isAdd" />
+          <ScalarProperty Name="isView" ColumnName="isView" />
           <ScalarProperty Name="id_group_level" ColumnName="id_group_level" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="UserRoles">
-      <EntityTypeMapping TypeName="MyAppModel.UserRole">
-        <MappingFragment StoreEntitySet="UserRole">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="id_user" ColumnName="id_user" />
           <ScalarProperty Name="id_role" ColumnName="id_role" />
-          <ScalarProperty Name="allow_view" ColumnName="allow_view" />
-          <ScalarProperty Name="allow_add" ColumnName="allow_add" />
-          <ScalarProperty Name="allow_update" ColumnName="allow_update" />
-          <ScalarProperty Name="allow_delete" ColumnName="allow_delete" />
-          <ScalarProperty Name="allow_print" ColumnName="allow_print" />
-          <ScalarProperty Name="allow_custom_access" ColumnName="allow_custom_access" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Users">
-      <EntityTypeMapping TypeName="MyAppModel.User">
-        <MappingFragment StoreEntitySet="Users">
           <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="userid" ColumnName="userid" />
-          <ScalarProperty Name="name" ColumnName="name" />
-          <ScalarProperty Name="email" ColumnName="email" />
-          <ScalarProperty Name="nohp" ColumnName="nohp" />
-          <ScalarProperty Name="address" ColumnName="address" />
-          <ScalarProperty Name="avatar" ColumnName="avatar" />
-          <ScalarProperty Name="gender" ColumnName="gender" />
-          <ScalarProperty Name="status" ColumnName="status" />
-          <ScalarProperty Name="online_offline" ColumnName="online_offline" />
-          <ScalarProperty Name="password_noencrypt" ColumnName="password_noencrypt" />
-          <ScalarProperty Name="password" ColumnName="password" />
-          <ScalarProperty Name="token" ColumnName="token" />
-          <ScalarProperty Name="created_at" ColumnName="created_at" />
-          <ScalarProperty Name="updated_at" ColumnName="updated_at" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="MenuApps">
-      <EntityTypeMapping TypeName="MyAppModel.MenuApp">
-        <MappingFragment StoreEntitySet="MenuApp">
-          <ScalarProperty Name="OrderSort" ColumnName="OrderSort" />
-          <ScalarProperty Name="IconMenu" ColumnName="IconMenu" />
-          <ScalarProperty Name="IDParentMenu" ColumnName="IDParentMenu" />
-          <ScalarProperty Name="MenuText" ColumnName="MenuText" />
-          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -168,6 +92,73 @@
           <ScalarProperty Name="note" ColumnName="note" />
           <ScalarProperty Name="name" ColumnName="name" />
           <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SettingApps">
+      <EntityTypeMapping TypeName="MyAppModel.SettingApp">
+        <MappingFragment StoreEntitySet="SettingApp">
+          <ScalarProperty Name="adjustment" ColumnName="adjustment" />
+          <ScalarProperty Name="remark" ColumnName="remark" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserGroupLevels">
+      <EntityTypeMapping TypeName="MyAppModel.UserGroupLevel">
+        <MappingFragment StoreEntitySet="UserGroupLevel">
+          <ScalarProperty Name="id_group_level" ColumnName="id_group_level" />
+          <ScalarProperty Name="id_user" ColumnName="id_user" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserRoles">
+      <EntityTypeMapping TypeName="MyAppModel.UserRole">
+        <MappingFragment StoreEntitySet="UserRole">
+          <ScalarProperty Name="allow_custom_access" ColumnName="allow_custom_access" />
+          <ScalarProperty Name="allow_print" ColumnName="allow_print" />
+          <ScalarProperty Name="allow_delete" ColumnName="allow_delete" />
+          <ScalarProperty Name="allow_update" ColumnName="allow_update" />
+          <ScalarProperty Name="allow_add" ColumnName="allow_add" />
+          <ScalarProperty Name="allow_view" ColumnName="allow_view" />
+          <ScalarProperty Name="id_role" ColumnName="id_role" />
+          <ScalarProperty Name="id_user" ColumnName="id_user" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="MyAppModel.User">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+          <ScalarProperty Name="created_at" ColumnName="created_at" />
+          <ScalarProperty Name="token" ColumnName="token" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="password_noencrypt" ColumnName="password_noencrypt" />
+          <ScalarProperty Name="online_offline" ColumnName="online_offline" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="gender" ColumnName="gender" />
+          <ScalarProperty Name="avatar" ColumnName="avatar" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="nohp" ColumnName="nohp" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="userid" ColumnName="userid" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MenuApps">
+      <EntityTypeMapping TypeName="MyAppModel.MenuApp">
+        <MappingFragment StoreEntitySet="MenuApp">
+          <ScalarProperty Name="OrderSort" ColumnName="OrderSort" />
+          <ScalarProperty Name="IconMenu" ColumnName="IconMenu" />
+          <ScalarProperty Name="IDParentMenu" ColumnName="IDParentMenu" />
+          <ScalarProperty Name="MenuText" ColumnName="MenuText" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

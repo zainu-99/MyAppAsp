@@ -1,12 +1,9 @@
-﻿@using System.Dynamic
+﻿@model IEnumerable<MyAppAspNet.Models.MenuApp>
 
-@model IEnumerable<MyAppAspNet.Models.MenuApp>
 
-@foreach (var item in Model)
+@foreach (var item in Model.Where(a => a.IDParentMenu==null).ToList())
 {
-    var m = Model.Where(a => a.IDParentMenu == item.ID).ToString();
-    dynamic menumodel = new ExpandoObject();
-    menumodel.menus = Model;
-    menumodel.itemmenu = m;
-    @Html.Partial("~/Views/Shared/itemmenu.cshtml", menumodel);
+    //var dict = new Dictionary<string, object>();
+    //dict["menus"] = Model;
+    @Html.Partial("~/Views/Shared/itemmenu.cshtml",item);
 }

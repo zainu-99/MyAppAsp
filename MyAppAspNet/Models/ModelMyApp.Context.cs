@@ -29,14 +29,13 @@ namespace MyAppAspNet.Models
         public DbSet<ErrorReport> ErrorReports { get; set; }
         public DbSet<GroupLevel> GroupLevels { get; set; }
         public DbSet<Group> Groups { get; set; }
-        public DbSet<kategori> kategoris { get; set; }
         public DbSet<LogApp> LogApps { get; set; }
         public DbSet<RoleGroupLevel> RoleGroupLevels { get; set; }
+        public DbSet<Role> Roles { get; set; }
         public DbSet<SettingApp> SettingApps { get; set; }
         public DbSet<UserGroupLevel> UserGroupLevels { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<MenuApp> MenuApps { get; set; }
-        public DbSet<Role> Roles { get; set; }
     }
 }

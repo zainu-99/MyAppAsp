@@ -18,6 +18,7 @@ namespace MyAppAspNet.Models
         {
             this.RoleGroupLevels = new HashSet<RoleGroupLevel>();
             this.UserRoles = new HashSet<UserRole>();
+            this.MenuApps = new HashSet<MenuApp>();
         }
     
         public long id { get; set; }
@@ -34,5 +35,6 @@ namespace MyAppAspNet.Models
     
         public virtual ICollection<RoleGroupLevel> RoleGroupLevels { get; set; }
         public virtual ICollection<UserRole> UserRoles { get; set; }
+        public virtual ICollection<MenuApp> MenuApps { get; set; }
     }
 }

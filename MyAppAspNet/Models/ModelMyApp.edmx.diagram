@@ -5,30 +5,30 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="b9e8c452ffef46b2a03f6738cef5a84a" Name="Diagram1">
-        <EntityTypeShape EntityType="MyAppModel.ChatMessage" Width="1.5" PointX="3.25" PointY="8.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="MyAppModel.ErrorReport" Width="1.5" PointX="8.25" PointY="9.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="MyAppModel.GroupLevel" Width="1.5" PointX="4.25" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="MyAppModel.Group" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="MyAppModel.kategori" Width="1.5" PointX="10.75" PointY="3" IsExpanded="true" />
-        <EntityTypeShape EntityType="MyAppModel.LogApp" Width="1.5" PointX="8.25" PointY="12.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="MyAppModel.RoleGroupLevel" Width="1.5" PointX="1.25" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="MyAppModel.SettingApp" Width="1.5" PointX="0.75" PointY="13" IsExpanded="true" />
-        <EntityTypeShape EntityType="MyAppModel.UserGroupLevel" Width="1.5" PointX="8.25" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="MyAppModel.UserRole" Width="1.5" PointX="11.25" PointY="6.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="MyAppModel.User" Width="1.5" PointX="6" PointY="10" IsExpanded="true" />
-        <AssociationConnector Association="MyAppModel.FK_ErrorReport_Users" ManuallyRouted="false" />
-        <AssociationConnector Association="MyAppModel.FK_GroupLevel_GroupLevel" ManuallyRouted="false" />
-        <AssociationConnector Association="MyAppModel.FK_GroupLevel_Groups2" ManuallyRouted="false" />
-        <AssociationConnector Association="MyAppModel.FK_RoleGroupLevel_GroupLevel" ManuallyRouted="false" />
-        <AssociationConnector Association="MyAppModel.FK_UserGroupLevel_GroupLevel" ManuallyRouted="false" />
-        <AssociationConnector Association="MyAppModel.FK_LogApp_Users" ManuallyRouted="false" />
-        <AssociationConnector Association="MyAppModel.FK_UserGroupLevel_Users" ManuallyRouted="false" />
-        <AssociationConnector Association="MyAppModel.FK_UserRole_Users" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="MyAppModel.MenuApp" Width="1.5" PointX="6" PointY="2" />
-        <EntityTypeShape EntityType="MyAppModel.Role" Width="1.5" PointX="8.5" PointY="1.25" />
-        <AssociationConnector Association="MyAppModel.FK_MenuApp_MenuApp" />
+        <EntityTypeShape EntityType="MyAppModel.ChatMessage" Width="1.5" PointX="10.75" PointY="7.25" />
+        <EntityTypeShape EntityType="MyAppModel.ErrorReport" Width="1.5" PointX="5.25" PointY="9.625" />
+        <EntityTypeShape EntityType="MyAppModel.GroupLevel" Width="1.5" PointX="3" PointY="5.125" />
+        <EntityTypeShape EntityType="MyAppModel.Group" Width="1.5" PointX="0.75" PointY="5.375" />
+        <EntityTypeShape EntityType="MyAppModel.LogApp" Width="1.5" PointX="5.25" PointY="16.625" />
+        <EntityTypeShape EntityType="MyAppModel.RoleGroupLevel" Width="1.5" PointX="8.25" PointY="5" />
+        <EntityTypeShape EntityType="MyAppModel.Role" Width="1.5" PointX="6" PointY="0.75" />
+        <EntityTypeShape EntityType="MyAppModel.SettingApp" Width="1.5" PointX="5.75" PointY="13.25" />
+        <EntityTypeShape EntityType="MyAppModel.UserGroupLevel" Width="1.5" PointX="5.25" PointY="5.5" />
+        <EntityTypeShape EntityType="MyAppModel.UserRole" Width="1.5" PointX="8.25" PointY="9.25" />
+        <EntityTypeShape EntityType="MyAppModel.User" Width="1.5" PointX="3" PointY="10.125" />
+        <AssociationConnector Association="MyAppModel.FK_ErrorReport_Users" />
+        <AssociationConnector Association="MyAppModel.FK_GroupLevel_GroupLevel" />
+        <AssociationConnector Association="MyAppModel.FK_GroupLevel_Groups2" />
+        <AssociationConnector Association="MyAppModel.FK_RoleGroupLevel_GroupLevel" />
+        <AssociationConnector Association="MyAppModel.FK_UserGroupLevel_GroupLevel" />
+        <AssociationConnector Association="MyAppModel.FK_LogApp_Users" />
         <AssociationConnector Association="MyAppModel.FK_RoleGroupLevel_Roles" />
         <AssociationConnector Association="MyAppModel.FK_UserRole_Roles" />
+        <AssociationConnector Association="MyAppModel.FK_UserGroupLevel_Users" />
+        <AssociationConnector Association="MyAppModel.FK_UserRole_Users" />
+        <EntityTypeShape EntityType="MyAppModel.MenuApp" Width="1.5" PointX="8.25" PointY="1.25" />
+        <AssociationConnector Association="MyAppModel.FK_MenuApp_MenuApp" />
+        <AssociationConnector Association="MyAppModel.FK_MenuApp_Roles" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

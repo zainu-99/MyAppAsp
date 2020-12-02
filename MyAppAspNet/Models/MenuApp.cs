@@ -20,13 +20,14 @@ namespace MyAppAspNet.Models
         }
     
         public int ID { get; set; }
-        public long RoleID { get; set; }
+        public Nullable<long> RoleID { get; set; }
         public string MenuText { get; set; }
         public Nullable<int> IDParentMenu { get; set; }
-        public byte[] IconMenu { get; set; }
+        public string IconMenu { get; set; }
         public Nullable<int> OrderSort { get; set; }
     
         public virtual ICollection<MenuApp> MenuApp1 { get; set; }
         public virtual MenuApp MenuApp2 { get; set; }
+        public virtual Role Role { get; set; }
     }
 }

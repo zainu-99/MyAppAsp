@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="MyAppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="MyAppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="ChatMessage">
           <Key>
             <PropertyRef Name="ID" />
@@ -49,14 +49,6 @@
           <Property Name="created_at" Type="datetime" />
           <Property Name="updated_at" Type="datetime" />
         </EntityType>
-        <EntityType Name="kategori">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" Nullable="false" />
-          <Property Name="kategori" Type="varchar" MaxLength="30" />
-          <Property Name="parent_id" Type="int" />
-        </EntityType>
         <EntityType Name="LogApp">
           <Key>
             <PropertyRef Name="ID" />
@@ -75,10 +67,10 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="RoleID" Type="bigint" Nullable="false" />
+          <Property Name="RoleID" Type="bigint" />
           <Property Name="MenuText" Type="nvarchar" MaxLength="50" />
           <Property Name="IDParentMenu" Type="int" />
-          <Property Name="IconMenu" Type="image" />
+          <Property Name="IconMenu" Type="varchar" MaxLength="50" />
           <Property Name="OrderSort" Type="int" />
         </EntityType>
         <EntityType Name="RoleGroupLevel">
@@ -228,6 +220,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_MenuApp_Roles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="0..1" />
+          <End Role="MenuApp" Type="Self.MenuApp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="MenuApp">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_RoleGroupLevel_GroupLevel">
           <End Role="GroupLevel" Type="Self.GroupLevel" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -317,7 +321,6 @@
           <EntitySet Name="ErrorReport" EntityType="Self.ErrorReport" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GroupLevel" EntityType="Self.GroupLevel" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Groups" EntityType="Self.Groups" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="kategori" EntityType="Self.kategori" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LogApp" EntityType="Self.LogApp" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MenuApp" EntityType="Self.MenuApp" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RoleGroupLevel" EntityType="Self.RoleGroupLevel" Schema="dbo" store:Type="Tables" />
@@ -345,6 +348,10 @@
           <AssociationSet Name="FK_MenuApp_MenuApp" Association="Self.FK_MenuApp_MenuApp">
             <End Role="MenuApp" EntitySet="MenuApp" />
             <End Role="MenuApp1" EntitySet="MenuApp" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MenuApp_Roles" Association="Self.FK_MenuApp_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="MenuApp" EntitySet="MenuApp" />
           </AssociationSet>
           <AssociationSet Name="FK_RoleGroupLevel_GroupLevel" Association="Self.FK_RoleGroupLevel_GroupLevel">
             <End Role="GroupLevel" EntitySet="GroupLevel" />
@@ -375,6 +382,68 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MyAppModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="MyAppEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ChatMessages" EntityType="MyAppModel.ChatMessage" />
+          <EntitySet Name="ErrorReports" EntityType="MyAppModel.ErrorReport" />
+          <EntitySet Name="GroupLevels" EntityType="MyAppModel.GroupLevel" />
+          <EntitySet Name="Groups" EntityType="MyAppModel.Group" />
+          <EntitySet Name="LogApps" EntityType="MyAppModel.LogApp" />
+          <EntitySet Name="RoleGroupLevels" EntityType="MyAppModel.RoleGroupLevel" />
+          <EntitySet Name="Roles" EntityType="MyAppModel.Role" />
+          <EntitySet Name="SettingApps" EntityType="MyAppModel.SettingApp" />
+          <EntitySet Name="UserGroupLevels" EntityType="MyAppModel.UserGroupLevel" />
+          <EntitySet Name="UserRoles" EntityType="MyAppModel.UserRole" />
+          <EntitySet Name="Users" EntityType="MyAppModel.User" />
+          <AssociationSet Name="FK_ErrorReport_Users" Association="MyAppModel.FK_ErrorReport_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="ErrorReport" EntitySet="ErrorReports" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GroupLevel_GroupLevel" Association="MyAppModel.FK_GroupLevel_GroupLevel">
+            <End Role="GroupLevel" EntitySet="GroupLevels" />
+            <End Role="GroupLevel1" EntitySet="GroupLevels" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GroupLevel_Groups2" Association="MyAppModel.FK_GroupLevel_Groups2">
+            <End Role="Group" EntitySet="Groups" />
+            <End Role="GroupLevel" EntitySet="GroupLevels" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RoleGroupLevel_GroupLevel" Association="MyAppModel.FK_RoleGroupLevel_GroupLevel">
+            <End Role="GroupLevel" EntitySet="GroupLevels" />
+            <End Role="RoleGroupLevel" EntitySet="RoleGroupLevels" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserGroupLevel_GroupLevel" Association="MyAppModel.FK_UserGroupLevel_GroupLevel">
+            <End Role="GroupLevel" EntitySet="GroupLevels" />
+            <End Role="UserGroupLevel" EntitySet="UserGroupLevels" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LogApp_Users" Association="MyAppModel.FK_LogApp_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="LogApp" EntitySet="LogApps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RoleGroupLevel_Roles" Association="MyAppModel.FK_RoleGroupLevel_Roles">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="RoleGroupLevel" EntitySet="RoleGroupLevels" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRole_Roles" Association="MyAppModel.FK_UserRole_Roles">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="UserRole" EntitySet="UserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserGroupLevel_Users" Association="MyAppModel.FK_UserGroupLevel_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserGroupLevel" EntitySet="UserGroupLevels" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRole_Users" Association="MyAppModel.FK_UserRole_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserRole" EntitySet="UserRoles" />
+          </AssociationSet>
+          <EntitySet Name="MenuApps" EntityType="MyAppModel.MenuApp" />
+          <AssociationSet Name="FK_MenuApp_MenuApp" Association="MyAppModel.FK_MenuApp_MenuApp">
+            <End Role="MenuApp" EntitySet="MenuApps" />
+            <End Role="MenuApp1" EntitySet="MenuApps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MenuApp_Roles" Association="MyAppModel.FK_MenuApp_Roles">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="MenuApp" EntitySet="MenuApps" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="ChatMessage">
           <Key>
             <PropertyRef Name="ID" />
@@ -399,7 +468,7 @@
           <Property Name="Datetime" Type="DateTime" Precision="3" />
           <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="UserId" Type="Int64" />
-          <NavigationProperty Name="User" Relationship="Self.FK_ErrorReport_Users" FromRole="ErrorReport" ToRole="Users" />
+          <NavigationProperty Name="User" Relationship="MyAppModel.FK_ErrorReport_Users" FromRole="ErrorReport" ToRole="User" />
         </EntityType>
         <EntityType Name="GroupLevel">
           <Key>
@@ -409,11 +478,11 @@
           <Property Name="id_group" Type="Int64" />
           <Property Name="id_parent" Type="Int64" />
           <Property Name="remark" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="GroupLevel1" Relationship="Self.FK_GroupLevel_GroupLevel" FromRole="GroupLevel" ToRole="GroupLevel1" />
-          <NavigationProperty Name="GroupLevel2" Relationship="Self.FK_GroupLevel_GroupLevel" FromRole="GroupLevel1" ToRole="GroupLevel" />
-          <NavigationProperty Name="Group" Relationship="Self.FK_GroupLevel_Groups2" FromRole="GroupLevel" ToRole="Groups" />
-          <NavigationProperty Name="RoleGroupLevels" Relationship="Self.FK_RoleGroupLevel_GroupLevel" FromRole="GroupLevel" ToRole="RoleGroupLevel" />
-          <NavigationProperty Name="UserGroupLevels" Relationship="Self.FK_UserGroupLevel_GroupLevel" FromRole="GroupLevel" ToRole="UserGroupLevel" />
+          <NavigationProperty Name="GroupLevel1" Relationship="MyAppModel.FK_GroupLevel_GroupLevel" FromRole="GroupLevel" ToRole="GroupLevel1" />
+          <NavigationProperty Name="GroupLevel2" Relationship="MyAppModel.FK_GroupLevel_GroupLevel" FromRole="GroupLevel1" ToRole="GroupLevel" />
+          <NavigationProperty Name="Group" Relationship="MyAppModel.FK_GroupLevel_Groups2" FromRole="GroupLevel" ToRole="Group" />
+          <NavigationProperty Name="RoleGroupLevels" Relationship="MyAppModel.FK_RoleGroupLevel_GroupLevel" FromRole="GroupLevel" ToRole="RoleGroupLevel" />
+          <NavigationProperty Name="UserGroupLevels" Relationship="MyAppModel.FK_UserGroupLevel_GroupLevel" FromRole="GroupLevel" ToRole="UserGroupLevel" />
         </EntityType>
         <EntityType Name="Group">
           <Key>
@@ -424,15 +493,7 @@
           <Property Name="remark" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="created_at" Type="DateTime" Precision="3" />
           <Property Name="updated_at" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="GroupLevels" Relationship="Self.FK_GroupLevel_Groups2" FromRole="Groups" ToRole="GroupLevel" />
-        </EntityType>
-        <EntityType Name="kategori">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
-          <Property Name="kategori1" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="parent_id" Type="Int32" />
+          <NavigationProperty Name="GroupLevels" Relationship="MyAppModel.FK_GroupLevel_Groups2" FromRole="Group" ToRole="GroupLevel" />
         </EntityType>
         <EntityType Name="LogApp">
           <Key>
@@ -442,11 +503,11 @@
           <Property Name="Action" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="TableName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DataBefore" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="DataAfter" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DataAfter" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Datetime" Type="DateTime" Precision="3" />
           <Property Name="UserID" Type="Int64" />
           <Property Name="Note" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="User" Relationship="Self.FK_LogApp_Users" FromRole="LogApp" ToRole="Users" />
+          <NavigationProperty Name="User" Relationship="MyAppModel.FK_LogApp_Users" FromRole="LogApp" ToRole="User" />
         </EntityType>
         <EntityType Name="RoleGroupLevel">
           <Key>
@@ -461,8 +522,27 @@
           <Property Name="isDelete" Type="Boolean" Nullable="false" />
           <Property Name="isPrint" Type="Boolean" Nullable="false" />
           <Property Name="isCustom" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="GroupLevel" Relationship="Self.FK_RoleGroupLevel_GroupLevel" FromRole="RoleGroupLevel" ToRole="GroupLevel" />
+          <NavigationProperty Name="GroupLevel" Relationship="MyAppModel.FK_RoleGroupLevel_GroupLevel" FromRole="RoleGroupLevel" ToRole="GroupLevel" />
           <NavigationProperty Name="Role" Relationship="MyAppModel.FK_RoleGroupLevel_Roles" FromRole="RoleGroupLevel" ToRole="Role" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="note" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="url" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="controller" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="AccessView" Type="Boolean" Nullable="false" />
+          <Property Name="AccessAdd" Type="Boolean" Nullable="false" />
+          <Property Name="AccessEdit" Type="Boolean" Nullable="false" />
+          <Property Name="AccessDelete" Type="Boolean" Nullable="false" />
+          <Property Name="AccessPrint" Type="Boolean" Nullable="false" />
+          <Property Name="AccessCustom" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="RoleGroupLevels" Relationship="MyAppModel.FK_RoleGroupLevel_Roles" FromRole="Role" ToRole="RoleGroupLevel" />
+          <NavigationProperty Name="UserRoles" Relationship="MyAppModel.FK_UserRole_Roles" FromRole="Role" ToRole="UserRole" />
+          <NavigationProperty Name="MenuApps" Relationship="MyAppModel.FK_MenuApp_Roles" FromRole="Role" ToRole="MenuApp" />
         </EntityType>
         <EntityType Name="SettingApp">
           <Key>
@@ -480,8 +560,8 @@
           <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="id_user" Type="Int64" />
           <Property Name="id_group_level" Type="Int64" />
-          <NavigationProperty Name="GroupLevel" Relationship="Self.FK_UserGroupLevel_GroupLevel" FromRole="UserGroupLevel" ToRole="GroupLevel" />
-          <NavigationProperty Name="User" Relationship="Self.FK_UserGroupLevel_Users" FromRole="UserGroupLevel" ToRole="Users" />
+          <NavigationProperty Name="GroupLevel" Relationship="MyAppModel.FK_UserGroupLevel_GroupLevel" FromRole="UserGroupLevel" ToRole="GroupLevel" />
+          <NavigationProperty Name="User" Relationship="MyAppModel.FK_UserGroupLevel_Users" FromRole="UserGroupLevel" ToRole="User" />
         </EntityType>
         <EntityType Name="UserRole">
           <Key>
@@ -496,8 +576,8 @@
           <Property Name="allow_delete" Type="Boolean" />
           <Property Name="allow_print" Type="Boolean" />
           <Property Name="allow_custom_access" Type="Int32" />
-          <NavigationProperty Name="User" Relationship="Self.FK_UserRole_Users" FromRole="UserRole" ToRole="Users" />
           <NavigationProperty Name="Role" Relationship="MyAppModel.FK_UserRole_Roles" FromRole="UserRole" ToRole="Role" />
+          <NavigationProperty Name="User" Relationship="MyAppModel.FK_UserRole_Users" FromRole="UserRole" ToRole="User" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -518,18 +598,18 @@
           <Property Name="token" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="created_at" Type="DateTime" Precision="3" />
           <Property Name="updated_at" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="ErrorReports" Relationship="Self.FK_ErrorReport_Users" FromRole="Users" ToRole="ErrorReport" />
-          <NavigationProperty Name="LogApps" Relationship="Self.FK_LogApp_Users" FromRole="Users" ToRole="LogApp" />
-          <NavigationProperty Name="UserGroupLevels" Relationship="Self.FK_UserGroupLevel_Users" FromRole="Users" ToRole="UserGroupLevel" />
-          <NavigationProperty Name="UserRoles" Relationship="Self.FK_UserRole_Users" FromRole="Users" ToRole="UserRole" />
+          <NavigationProperty Name="ErrorReports" Relationship="MyAppModel.FK_ErrorReport_Users" FromRole="User" ToRole="ErrorReport" />
+          <NavigationProperty Name="LogApps" Relationship="MyAppModel.FK_LogApp_Users" FromRole="User" ToRole="LogApp" />
+          <NavigationProperty Name="UserGroupLevels" Relationship="MyAppModel.FK_UserGroupLevel_Users" FromRole="User" ToRole="UserGroupLevel" />
+          <NavigationProperty Name="UserRoles" Relationship="MyAppModel.FK_UserRole_Users" FromRole="User" ToRole="UserRole" />
         </EntityType>
         <Association Name="FK_ErrorReport_Users">
-          <End Role="Users" Type="Self.User" Multiplicity="0..1">
+          <End Type="MyAppModel.User" Role="User" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="ErrorReport" Type="Self.ErrorReport" Multiplicity="*" />
+          <End Type="MyAppModel.ErrorReport" Role="ErrorReport" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Users">
+            <Principal Role="User">
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="ErrorReport">
@@ -538,8 +618,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_GroupLevel_GroupLevel">
-          <End Role="GroupLevel" Type="Self.GroupLevel" Multiplicity="0..1" />
-          <End Role="GroupLevel1" Type="Self.GroupLevel" Multiplicity="*" />
+          <End Type="MyAppModel.GroupLevel" Role="GroupLevel" Multiplicity="0..1" />
+          <End Type="MyAppModel.GroupLevel" Role="GroupLevel1" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="GroupLevel">
               <PropertyRef Name="id" />
@@ -550,12 +630,12 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_GroupLevel_Groups2">
-          <End Role="Groups" Type="Self.Group" Multiplicity="0..1">
+          <End Type="MyAppModel.Group" Role="Group" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="GroupLevel" Type="Self.GroupLevel" Multiplicity="*" />
+          <End Type="MyAppModel.GroupLevel" Role="GroupLevel" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Groups">
+            <Principal Role="Group">
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="GroupLevel">
@@ -564,10 +644,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_RoleGroupLevel_GroupLevel">
-          <End Role="GroupLevel" Type="Self.GroupLevel" Multiplicity="0..1">
+          <End Type="MyAppModel.GroupLevel" Role="GroupLevel" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="RoleGroupLevel" Type="Self.RoleGroupLevel" Multiplicity="*" />
+          <End Type="MyAppModel.RoleGroupLevel" Role="RoleGroupLevel" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="GroupLevel">
               <PropertyRef Name="id" />
@@ -578,10 +658,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UserGroupLevel_GroupLevel">
-          <End Role="GroupLevel" Type="Self.GroupLevel" Multiplicity="0..1">
+          <End Type="MyAppModel.GroupLevel" Role="GroupLevel" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="UserGroupLevel" Type="Self.UserGroupLevel" Multiplicity="*" />
+          <End Type="MyAppModel.UserGroupLevel" Role="UserGroupLevel" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="GroupLevel">
               <PropertyRef Name="id" />
@@ -592,146 +672,16 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_LogApp_Users">
-          <End Role="Users" Type="Self.User" Multiplicity="0..1">
+          <End Type="MyAppModel.User" Role="User" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="LogApp" Type="Self.LogApp" Multiplicity="*" />
+          <End Type="MyAppModel.LogApp" Role="LogApp" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Users">
+            <Principal Role="User">
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="LogApp">
               <PropertyRef Name="UserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UserGroupLevel_Users">
-          <End Role="Users" Type="Self.User" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="UserGroupLevel" Type="Self.UserGroupLevel" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="UserGroupLevel">
-              <PropertyRef Name="id_user" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UserRole_Users">
-          <End Role="Users" Type="Self.User" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="UserRole">
-              <PropertyRef Name="id_user" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="MyAppEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="ChatMessages" EntityType="Self.ChatMessage" />
-          <EntitySet Name="ErrorReports" EntityType="Self.ErrorReport" />
-          <EntitySet Name="GroupLevels" EntityType="Self.GroupLevel" />
-          <EntitySet Name="Groups" EntityType="Self.Group" />
-          <EntitySet Name="kategoris" EntityType="Self.kategori" />
-          <EntitySet Name="LogApps" EntityType="Self.LogApp" />
-          <EntitySet Name="RoleGroupLevels" EntityType="Self.RoleGroupLevel" />
-          <EntitySet Name="SettingApps" EntityType="Self.SettingApp" />
-          <EntitySet Name="UserGroupLevels" EntityType="Self.UserGroupLevel" />
-          <EntitySet Name="UserRoles" EntityType="Self.UserRole" />
-          <EntitySet Name="Users" EntityType="Self.User" />
-          <AssociationSet Name="FK_ErrorReport_Users" Association="Self.FK_ErrorReport_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="ErrorReport" EntitySet="ErrorReports" />
-          </AssociationSet>
-          <AssociationSet Name="FK_GroupLevel_GroupLevel" Association="Self.FK_GroupLevel_GroupLevel">
-            <End Role="GroupLevel" EntitySet="GroupLevels" />
-            <End Role="GroupLevel1" EntitySet="GroupLevels" />
-          </AssociationSet>
-          <AssociationSet Name="FK_GroupLevel_Groups2" Association="Self.FK_GroupLevel_Groups2">
-            <End Role="Groups" EntitySet="Groups" />
-            <End Role="GroupLevel" EntitySet="GroupLevels" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RoleGroupLevel_GroupLevel" Association="Self.FK_RoleGroupLevel_GroupLevel">
-            <End Role="GroupLevel" EntitySet="GroupLevels" />
-            <End Role="RoleGroupLevel" EntitySet="RoleGroupLevels" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserGroupLevel_GroupLevel" Association="Self.FK_UserGroupLevel_GroupLevel">
-            <End Role="GroupLevel" EntitySet="GroupLevels" />
-            <End Role="UserGroupLevel" EntitySet="UserGroupLevels" />
-          </AssociationSet>
-          <AssociationSet Name="FK_LogApp_Users" Association="Self.FK_LogApp_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="LogApp" EntitySet="LogApps" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserGroupLevel_Users" Association="Self.FK_UserGroupLevel_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="UserGroupLevel" EntitySet="UserGroupLevels" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserRole_Users" Association="Self.FK_UserRole_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="UserRole" EntitySet="UserRoles" />
-          </AssociationSet>
-          <EntitySet Name="MenuApps" EntityType="MyAppModel.MenuApp" />
-          <EntitySet Name="Roles" EntityType="MyAppModel.Role" />
-          <AssociationSet Name="FK_MenuApp_MenuApp" Association="MyAppModel.FK_MenuApp_MenuApp">
-            <End Role="MenuApp" EntitySet="MenuApps" />
-            <End Role="MenuApp1" EntitySet="MenuApps" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RoleGroupLevel_Roles" Association="MyAppModel.FK_RoleGroupLevel_Roles">
-            <End Role="Role" EntitySet="Roles" />
-            <End Role="RoleGroupLevel" EntitySet="RoleGroupLevels" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserRole_Roles" Association="MyAppModel.FK_UserRole_Roles">
-            <End Role="Role" EntitySet="Roles" />
-            <End Role="UserRole" EntitySet="UserRoles" />
-          </AssociationSet>
-        </EntityContainer>
-        <EntityType Name="MenuApp">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="RoleID" Type="Int64" Nullable="false" />
-          <Property Name="MenuText" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="IDParentMenu" Type="Int32" />
-          <Property Name="IconMenu" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="OrderSort" Type="Int32" />
-          <NavigationProperty Name="MenuApp1" Relationship="MyAppModel.FK_MenuApp_MenuApp" FromRole="MenuApp" ToRole="MenuApp1" />
-          <NavigationProperty Name="MenuApp2" Relationship="MyAppModel.FK_MenuApp_MenuApp" FromRole="MenuApp1" ToRole="MenuApp" />
-        </EntityType>
-        <EntityType Name="Role">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="note" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="url" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="controller" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="AccessView" Type="Boolean" Nullable="false" />
-          <Property Name="AccessAdd" Type="Boolean" Nullable="false" />
-          <Property Name="AccessEdit" Type="Boolean" Nullable="false" />
-          <Property Name="AccessDelete" Type="Boolean" Nullable="false" />
-          <Property Name="AccessPrint" Type="Boolean" Nullable="false" />
-          <Property Name="AccessCustom" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="RoleGroupLevels" Relationship="MyAppModel.FK_RoleGroupLevel_Roles" FromRole="Role" ToRole="RoleGroupLevel" />
-          <NavigationProperty Name="UserRoles" Relationship="MyAppModel.FK_UserRole_Roles" FromRole="Role" ToRole="UserRole" />
-        </EntityType>
-        <Association Name="FK_MenuApp_MenuApp">
-          <End Type="MyAppModel.MenuApp" Role="MenuApp" Multiplicity="0..1" />
-          <End Type="MyAppModel.MenuApp" Role="MenuApp1" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MenuApp">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="MenuApp1">
-              <PropertyRef Name="IDParentMenu" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -763,7 +713,73 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        <Association Name="FK_UserGroupLevel_Users">
+          <End Type="MyAppModel.User" Role="User" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="MyAppModel.UserGroupLevel" Role="UserGroupLevel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UserGroupLevel">
+              <PropertyRef Name="id_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRole_Users">
+          <End Type="MyAppModel.User" Role="User" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="MyAppModel.UserRole" Role="UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UserRole">
+              <PropertyRef Name="id_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="MenuApp">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleID" Type="Int64" />
+          <Property Name="MenuText" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IDParentMenu" Type="Int32" />
+          <Property Name="IconMenu" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OrderSort" Type="Int32" />
+          <NavigationProperty Name="MenuApp1" Relationship="MyAppModel.FK_MenuApp_MenuApp" FromRole="MenuApp" ToRole="MenuApp1" />
+          <NavigationProperty Name="MenuApp2" Relationship="MyAppModel.FK_MenuApp_MenuApp" FromRole="MenuApp1" ToRole="MenuApp" />
+          <NavigationProperty Name="Role" Relationship="MyAppModel.FK_MenuApp_Roles" FromRole="MenuApp" ToRole="Role" />
+        </EntityType>
+        <Association Name="FK_MenuApp_MenuApp">
+          <End Type="MyAppModel.MenuApp" Role="MenuApp" Multiplicity="0..1" />
+          <End Type="MyAppModel.MenuApp" Role="MenuApp1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MenuApp">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MenuApp1">
+              <PropertyRef Name="IDParentMenu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MenuApp_Roles">
+          <End Type="MyAppModel.Role" Role="Role" Multiplicity="0..1" />
+          <End Type="MyAppModel.MenuApp" Role="MenuApp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="MenuApp">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -772,153 +788,77 @@
           <EntitySetMapping Name="ChatMessages">
             <EntityTypeMapping TypeName="MyAppModel.ChatMessage">
               <MappingFragment StoreEntitySet="ChatMessage">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Message" ColumnName="Message" />
-                <ScalarProperty Name="FileAttached" ColumnName="FileAttached" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="UserIDReciever" ColumnName="UserIDReciever" />
-                <ScalarProperty Name="ReadStatus" ColumnName="ReadStatus" />
-                <ScalarProperty Name="DeleteStatusUserSender" ColumnName="DeleteStatusUserSender" />
-                <ScalarProperty Name="DeleteStatusUserReciever" ColumnName="DeleteStatusUserReciever" />
                 <ScalarProperty Name="Created_At" ColumnName="Created_At" />
+                <ScalarProperty Name="DeleteStatusUserReciever" ColumnName="DeleteStatusUserReciever" />
+                <ScalarProperty Name="DeleteStatusUserSender" ColumnName="DeleteStatusUserSender" />
+                <ScalarProperty Name="ReadStatus" ColumnName="ReadStatus" />
+                <ScalarProperty Name="UserIDReciever" ColumnName="UserIDReciever" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="FileAttached" ColumnName="FileAttached" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ErrorReports">
             <EntityTypeMapping TypeName="MyAppModel.ErrorReport">
               <MappingFragment StoreEntitySet="ErrorReport">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Action" ColumnName="Action" />
-                <ScalarProperty Name="MsgError" ColumnName="MsgError" />
-                <ScalarProperty Name="Datetime" ColumnName="Datetime" />
-                <ScalarProperty Name="Note" ColumnName="Note" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Datetime" ColumnName="Datetime" />
+                <ScalarProperty Name="MsgError" ColumnName="MsgError" />
+                <ScalarProperty Name="Action" ColumnName="Action" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="GroupLevels">
             <EntityTypeMapping TypeName="MyAppModel.GroupLevel">
               <MappingFragment StoreEntitySet="GroupLevel">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="id_group" ColumnName="id_group" />
-                <ScalarProperty Name="id_parent" ColumnName="id_parent" />
                 <ScalarProperty Name="remark" ColumnName="remark" />
+                <ScalarProperty Name="id_parent" ColumnName="id_parent" />
+                <ScalarProperty Name="id_group" ColumnName="id_group" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Groups">
             <EntityTypeMapping TypeName="MyAppModel.Group">
               <MappingFragment StoreEntitySet="Groups">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="remark" ColumnName="remark" />
-                <ScalarProperty Name="created_at" ColumnName="created_at" />
                 <ScalarProperty Name="updated_at" ColumnName="updated_at" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="kategoris">
-            <EntityTypeMapping TypeName="MyAppModel.kategori">
-              <MappingFragment StoreEntitySet="kategori">
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="remark" ColumnName="remark" />
+                <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="kategori1" ColumnName="kategori" />
-                <ScalarProperty Name="parent_id" ColumnName="parent_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="LogApps">
             <EntityTypeMapping TypeName="MyAppModel.LogApp">
               <MappingFragment StoreEntitySet="LogApp">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Action" ColumnName="Action" />
-                <ScalarProperty Name="TableName" ColumnName="TableName" />
-                <ScalarProperty Name="DataBefore" ColumnName="DataBefore" />
-                <ScalarProperty Name="DataAfter" ColumnName="DataAfter" />
-                <ScalarProperty Name="Datetime" ColumnName="Datetime" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Datetime" ColumnName="Datetime" />
+                <ScalarProperty Name="DataAfter" ColumnName="DataAfter" />
+                <ScalarProperty Name="DataBefore" ColumnName="DataBefore" />
+                <ScalarProperty Name="TableName" ColumnName="TableName" />
+                <ScalarProperty Name="Action" ColumnName="Action" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="RoleGroupLevels">
             <EntityTypeMapping TypeName="MyAppModel.RoleGroupLevel">
               <MappingFragment StoreEntitySet="RoleGroupLevel">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="id_role" ColumnName="id_role" />
-                <ScalarProperty Name="id_group_level" ColumnName="id_group_level" />
-                <ScalarProperty Name="isView" ColumnName="isView" />
-                <ScalarProperty Name="isAdd" ColumnName="isAdd" />
-                <ScalarProperty Name="isEdit" ColumnName="isEdit" />
-                <ScalarProperty Name="isDelete" ColumnName="isDelete" />
-                <ScalarProperty Name="isPrint" ColumnName="isPrint" />
                 <ScalarProperty Name="isCustom" ColumnName="isCustom" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="SettingApps">
-            <EntityTypeMapping TypeName="MyAppModel.SettingApp">
-              <MappingFragment StoreEntitySet="SettingApp">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="remark" ColumnName="remark" />
-                <ScalarProperty Name="adjustment" ColumnName="adjustment" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="UserGroupLevels">
-            <EntityTypeMapping TypeName="MyAppModel.UserGroupLevel">
-              <MappingFragment StoreEntitySet="UserGroupLevel">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="id_user" ColumnName="id_user" />
+                <ScalarProperty Name="isPrint" ColumnName="isPrint" />
+                <ScalarProperty Name="isDelete" ColumnName="isDelete" />
+                <ScalarProperty Name="isEdit" ColumnName="isEdit" />
+                <ScalarProperty Name="isAdd" ColumnName="isAdd" />
+                <ScalarProperty Name="isView" ColumnName="isView" />
                 <ScalarProperty Name="id_group_level" ColumnName="id_group_level" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="UserRoles">
-            <EntityTypeMapping TypeName="MyAppModel.UserRole">
-              <MappingFragment StoreEntitySet="UserRole">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="id_user" ColumnName="id_user" />
                 <ScalarProperty Name="id_role" ColumnName="id_role" />
-                <ScalarProperty Name="allow_view" ColumnName="allow_view" />
-                <ScalarProperty Name="allow_add" ColumnName="allow_add" />
-                <ScalarProperty Name="allow_update" ColumnName="allow_update" />
-                <ScalarProperty Name="allow_delete" ColumnName="allow_delete" />
-                <ScalarProperty Name="allow_print" ColumnName="allow_print" />
-                <ScalarProperty Name="allow_custom_access" ColumnName="allow_custom_access" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="MyAppModel.User">
-              <MappingFragment StoreEntitySet="Users">
                 <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="userid" ColumnName="userid" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="nohp" ColumnName="nohp" />
-                <ScalarProperty Name="address" ColumnName="address" />
-                <ScalarProperty Name="avatar" ColumnName="avatar" />
-                <ScalarProperty Name="gender" ColumnName="gender" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="online_offline" ColumnName="online_offline" />
-                <ScalarProperty Name="password_noencrypt" ColumnName="password_noencrypt" />
-                <ScalarProperty Name="password" ColumnName="password" />
-                <ScalarProperty Name="token" ColumnName="token" />
-                <ScalarProperty Name="created_at" ColumnName="created_at" />
-                <ScalarProperty Name="updated_at" ColumnName="updated_at" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="MenuApps">
-            <EntityTypeMapping TypeName="MyAppModel.MenuApp">
-              <MappingFragment StoreEntitySet="MenuApp">
-                <ScalarProperty Name="OrderSort" ColumnName="OrderSort" />
-                <ScalarProperty Name="IconMenu" ColumnName="IconMenu" />
-                <ScalarProperty Name="IDParentMenu" ColumnName="IDParentMenu" />
-                <ScalarProperty Name="MenuText" ColumnName="MenuText" />
-                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -939,6 +879,73 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="SettingApps">
+            <EntityTypeMapping TypeName="MyAppModel.SettingApp">
+              <MappingFragment StoreEntitySet="SettingApp">
+                <ScalarProperty Name="adjustment" ColumnName="adjustment" />
+                <ScalarProperty Name="remark" ColumnName="remark" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserGroupLevels">
+            <EntityTypeMapping TypeName="MyAppModel.UserGroupLevel">
+              <MappingFragment StoreEntitySet="UserGroupLevel">
+                <ScalarProperty Name="id_group_level" ColumnName="id_group_level" />
+                <ScalarProperty Name="id_user" ColumnName="id_user" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserRoles">
+            <EntityTypeMapping TypeName="MyAppModel.UserRole">
+              <MappingFragment StoreEntitySet="UserRole">
+                <ScalarProperty Name="allow_custom_access" ColumnName="allow_custom_access" />
+                <ScalarProperty Name="allow_print" ColumnName="allow_print" />
+                <ScalarProperty Name="allow_delete" ColumnName="allow_delete" />
+                <ScalarProperty Name="allow_update" ColumnName="allow_update" />
+                <ScalarProperty Name="allow_add" ColumnName="allow_add" />
+                <ScalarProperty Name="allow_view" ColumnName="allow_view" />
+                <ScalarProperty Name="id_role" ColumnName="id_role" />
+                <ScalarProperty Name="id_user" ColumnName="id_user" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="MyAppModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="token" ColumnName="token" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="password_noencrypt" ColumnName="password_noencrypt" />
+                <ScalarProperty Name="online_offline" ColumnName="online_offline" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="avatar" ColumnName="avatar" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="nohp" ColumnName="nohp" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MenuApps">
+            <EntityTypeMapping TypeName="MyAppModel.MenuApp">
+              <MappingFragment StoreEntitySet="MenuApp">
+                <ScalarProperty Name="OrderSort" ColumnName="OrderSort" />
+                <ScalarProperty Name="IconMenu" ColumnName="IconMenu" />
+                <ScalarProperty Name="IDParentMenu" ColumnName="IDParentMenu" />
+                <ScalarProperty Name="MenuText" ColumnName="MenuText" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -955,7 +962,7 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
-        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </Options>

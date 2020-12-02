@@ -183,9 +183,6 @@
     <Compile Include="Models\GroupLevel.cs">
       <DependentUpon>ModelMyApp.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\kategori.cs">
-      <DependentUpon>ModelMyApp.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\LogApp.cs">
       <DependentUpon>ModelMyApp.tt</DependentUpon>
     </Compile>
@@ -229,9 +226,9 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\MyApp.mdf" />
-    <Content Include="App_Data\MyApp_log.ldf">
-      <DependentUpon>MyApp.mdf</DependentUpon>
+    <Content Include="App_Data\MyAppAsp.mdf" />
+    <Content Include="App_Data\MyAppAsp_log.ldf">
+      <DependentUpon>MyAppAsp.mdf</DependentUpon>
     </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -302,7 +299,6 @@
     <Folder Include="Views\appdashboard\masterdata\Role\" />
     <Folder Include="Views\appdashboard\setting\ChangePassword\" />
     <Folder Include="Views\appdashboard\setting\ChangeProfile\" />
-    <Folder Include="Views\Role\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

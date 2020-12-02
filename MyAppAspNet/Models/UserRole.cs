@@ -24,7 +24,7 @@ namespace MyAppAspNet.Models
         public Nullable<bool> allow_print { get; set; }
         public Nullable<int> allow_custom_access { get; set; }
     
-        public virtual User User { get; set; }
         public virtual Role Role { get; set; }
+        public virtual User User { get; set; }
     }
 }

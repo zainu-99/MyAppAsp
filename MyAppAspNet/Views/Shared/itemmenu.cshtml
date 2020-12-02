@@ -1,19 +1,18 @@
 ﻿@model MyAppAspNet.Models.MenuApp
-
-@if (Model == null)
+@if (Model.MenuApp1.Count > 0)
 {
     <li class="nav-item has-treeview menu-close">
         <a href="#" class="nav-link ">
-            <i class="fa fa-angle-left"></i>
+            @Html.Raw(Model.IconMenu)
             <p>
-                Menu Parent 1
+                @Model.MenuText
                 <i class="right fas fa-angle-left"></i>
             </p>
         </a>
         <ul class="nav nav-treeview">
-            @foreach (var item in Model.)
+            @foreach (var item in Model.MenuApp1)
             {
-                @Html.Partial("~/Views/Shared/itemmenu.cshtml")
+                @Html.Partial("~/Views/Shared/itemmenu.cshtml", item)
             }
         </ul>
     </li>
@@ -21,9 +20,11 @@
 else
 {
     <li class="nav-item">
-        <a href="" class="nav-link item-menu">
-            <i class="fa fa-angle-left"></i>
-            <p>Menu 1</p>
+        @{ 
+        }
+        <a href="@Html.Raw(Model.Role.url)" class="nav-link item-menu">
+            @Html.Raw(Model.IconMenu)
+            <p>@Model.MenuText</p>
         </a>
     </li>
 }

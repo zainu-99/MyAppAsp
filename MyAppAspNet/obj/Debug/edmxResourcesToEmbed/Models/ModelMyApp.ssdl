@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="MyAppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="MyAppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="ChatMessage">
     <Key>
       <PropertyRef Name="ID" />
@@ -44,14 +44,6 @@
     <Property Name="created_at" Type="datetime" />
     <Property Name="updated_at" Type="datetime" />
   </EntityType>
-  <EntityType Name="kategori">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="int" Nullable="false" />
-    <Property Name="kategori" Type="varchar" MaxLength="30" />
-    <Property Name="parent_id" Type="int" />
-  </EntityType>
   <EntityType Name="LogApp">
     <Key>
       <PropertyRef Name="ID" />
@@ -70,10 +62,10 @@
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="RoleID" Type="bigint" Nullable="false" />
+    <Property Name="RoleID" Type="bigint" />
     <Property Name="MenuText" Type="nvarchar" MaxLength="50" />
     <Property Name="IDParentMenu" Type="int" />
-    <Property Name="IconMenu" Type="image" />
+    <Property Name="IconMenu" Type="varchar" MaxLength="50" />
     <Property Name="OrderSort" Type="int" />
   </EntityType>
   <EntityType Name="RoleGroupLevel">
@@ -223,6 +215,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_MenuApp_Roles">
+    <End Role="Roles" Type="Self.Roles" Multiplicity="0..1" />
+    <End Role="MenuApp" Type="Self.MenuApp" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="MenuApp">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_RoleGroupLevel_GroupLevel">
     <End Role="GroupLevel" Type="Self.GroupLevel" Multiplicity="0..1">
       <OnDelete Action="Cascade" />
@@ -312,7 +316,6 @@
     <EntitySet Name="ErrorReport" EntityType="Self.ErrorReport" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="GroupLevel" EntityType="Self.GroupLevel" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Groups" EntityType="Self.Groups" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="kategori" EntityType="Self.kategori" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="LogApp" EntityType="Self.LogApp" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MenuApp" EntityType="Self.MenuApp" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="RoleGroupLevel" EntityType="Self.RoleGroupLevel" Schema="dbo" store:Type="Tables" />
@@ -340,6 +343,10 @@
     <AssociationSet Name="FK_MenuApp_MenuApp" Association="Self.FK_MenuApp_MenuApp">
       <End Role="MenuApp" EntitySet="MenuApp" />
       <End Role="MenuApp1" EntitySet="MenuApp" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MenuApp_Roles" Association="Self.FK_MenuApp_Roles">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="MenuApp" EntitySet="MenuApp" />
     </AssociationSet>
     <AssociationSet Name="FK_RoleGroupLevel_GroupLevel" Association="Self.FK_RoleGroupLevel_GroupLevel">
       <End Role="GroupLevel" EntitySet="GroupLevel" />
