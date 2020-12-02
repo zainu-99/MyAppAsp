@@ -21,6 +21,7 @@ namespace MyAppAspNet
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
+                      "~/Scripts/popper.js",
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
@@ -31,6 +32,7 @@ namespace MyAppAspNet
                       "~/Content/AdminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css",
                       "~/Content/AdminLTE/plugins/datatables-responsive/css/responsive.bootstrap4.min.css",
                       "~/Content/AdminLTE/dist/css/adminlte.min.css"));
+
             bundles.Add(new ScriptBundle("~/bundles/adminlte").Include(
                      "~/Content/AdminLTE/plugins/jquery/jquery.min.js",
                      "~/Content/AdminLTE/dist/js/adminlte.min.js",

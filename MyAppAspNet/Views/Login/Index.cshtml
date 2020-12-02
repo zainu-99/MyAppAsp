@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewBag.Title = "Sign In";
+    Layout = "";
+}
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    @Styles.Render("~/Content/css")
+    <title>Login</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-md-center">
+
+            <div class="col-6">
+                <h1>Sign In</h1>
+                <div class="alert alert-danger">
+                        
+                </div>
+                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="mb-3">
+                            <label for="InputForEmail" class="form-label">Email address</label>
+                            <input type="email" name="email" class="form-control" id="InputForEmail" value="">
+                        </div>
+                        <div class="mb-3">
+                            <label for="InputForPassword" class="form-label">Password</label>
+                            <input type="password" name="password" class="form-control" id="InputForPassword">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    }
+            </div>
+
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+</body>
+</html>
