@@ -101,4 +101,3 @@ D:\My Projects\MyAppAspNet\MyAppAspNet\bin\Microsoft.Owin.Security.Cookies.xml
 D:\My Projects\MyAppAspNet\MyAppAspNet\bin\Microsoft.Owin.Security.OAuth.xml
 D:\My Projects\MyAppAspNet\MyAppAspNet\bin\Microsoft.Owin.Host.SystemWeb.dll
 D:\My Projects\MyAppAspNet\MyAppAspNet\bin\Microsoft.Owin.Host.SystemWeb.xml
-D:\My Projects\MyAppAspNet\MyAppAspNet\obj\Debug\MyAppAspNet.csprojAssemblyReference.cache

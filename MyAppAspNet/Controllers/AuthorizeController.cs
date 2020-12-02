@@ -15,14 +15,15 @@ namespace MyAppAspNet.Controllers
         // GET: Login
         public ActionResult Login(User user)
         {
+            if(AuthenticationManager.User.Identity.IsAuthenticated) return RedirectToAction("Index", "Home");
             if (user.userid == null) return View();
             MyAppEntities myAppEntities = new MyAppEntities();
-            var s = myAppEntities.Users.Where(a => a.userid == user.userid).Where(a => a.password_noencrypt == user.password).FirstOrDefault();
-            if (s != null)
+            var usr = myAppEntities.Users.Where(a => a.userid == user.userid).Where(a => a.password_noencrypt == user.password).FirstOrDefault();
+            if (usr != null)
             {
                 var claims = new List<Claim>();
-                claims.Add(new Claim(ClaimTypes.NameIdentifier, s.userid));
-                claims.Add(new Claim(ClaimTypes.Name, s.name));
+                claims.Add(new Claim(ClaimTypes.NameIdentifier, usr.userid));
+                claims.Add(new Claim(ClaimTypes.Name, usr.name));
                 claims.Add(new Claim("userState", user.ToString()));
                 var identity = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
                 AuthenticationManager.SignIn(new AuthenticationProperties()
@@ -34,7 +35,10 @@ namespace MyAppAspNet.Controllers
                 return RedirectToAction("Index", "Home");
             }
             else
+            {
+                TempData["Message"] = "Login Failed, Please Check Email Or Password!";
                 return View();
+            }
         }
         private IAuthenticationManager AuthenticationManager
         {

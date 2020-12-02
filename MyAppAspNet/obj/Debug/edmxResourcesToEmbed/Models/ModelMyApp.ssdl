@@ -70,9 +70,8 @@
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="MenuTag" Type="varchar" MaxLength="50" />
+    <Property Name="RoleID" Type="bigint" Nullable="false" />
     <Property Name="MenuText" Type="nvarchar" MaxLength="50" />
-    <Property Name="FormName" Type="varchar" MaxLength="50" />
     <Property Name="IDParentMenu" Type="int" />
     <Property Name="IconMenu" Type="image" />
     <Property Name="OrderSort" Type="int" />
@@ -97,7 +96,9 @@
     </Key>
     <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="name" Type="varchar" MaxLength="50" />
-    <Property Name="remark" Type="varchar" MaxLength="250" />
+    <Property Name="note" Type="varchar" MaxLength="250" />
+    <Property Name="url" Type="varchar" MaxLength="250" />
+    <Property Name="controller" Type="varchar" MaxLength="250" />
     <Property Name="AccessView" Type="bit" Nullable="false" />
     <Property Name="AccessAdd" Type="bit" Nullable="false" />
     <Property Name="AccessEdit" Type="bit" Nullable="false" />

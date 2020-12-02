@@ -285,10 +285,8 @@
     <Content Include="Views\Shared\itemmenu.cshtml" />
     <Content Include="Views\Shared\navmenu.cshtml" />
     <Content Include="Views\Shared\_Template.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Authorize\Login.cshtml" />
+    <Content Include="Views\appdashboard\Index.cshtml" />
     <None Include="Views\Shared\action\add-button.cshtml" />
     <None Include="Views\Shared\action\delete-button.cshtml" />
     <None Include="Views\Shared\action\edit-button.cshtml" />

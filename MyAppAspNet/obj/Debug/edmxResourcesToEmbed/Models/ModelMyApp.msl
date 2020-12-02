@@ -72,19 +72,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="MenuApps">
-      <EntityTypeMapping TypeName="MyAppModel.MenuApp">
-        <MappingFragment StoreEntitySet="MenuApp">
-          <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="MenuTag" ColumnName="MenuTag" />
-          <ScalarProperty Name="MenuText" ColumnName="MenuText" />
-          <ScalarProperty Name="FormName" ColumnName="FormName" />
-          <ScalarProperty Name="IDParentMenu" ColumnName="IDParentMenu" />
-          <ScalarProperty Name="IconMenu" ColumnName="IconMenu" />
-          <ScalarProperty Name="OrderSort" ColumnName="OrderSort" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="RoleGroupLevels">
       <EntityTypeMapping TypeName="MyAppModel.RoleGroupLevel">
         <MappingFragment StoreEntitySet="RoleGroupLevel">
@@ -97,21 +84,6 @@
           <ScalarProperty Name="isDelete" ColumnName="isDelete" />
           <ScalarProperty Name="isPrint" ColumnName="isPrint" />
           <ScalarProperty Name="isCustom" ColumnName="isCustom" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Roles">
-      <EntityTypeMapping TypeName="MyAppModel.Role">
-        <MappingFragment StoreEntitySet="Roles">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="name" ColumnName="name" />
-          <ScalarProperty Name="remark" ColumnName="remark" />
-          <ScalarProperty Name="AccessView" ColumnName="AccessView" />
-          <ScalarProperty Name="AccessAdd" ColumnName="AccessAdd" />
-          <ScalarProperty Name="AccessEdit" ColumnName="AccessEdit" />
-          <ScalarProperty Name="AccessDelete" ColumnName="AccessDelete" />
-          <ScalarProperty Name="AccessPrint" ColumnName="AccessPrint" />
-          <ScalarProperty Name="AccessCustom" ColumnName="AccessCustom" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -167,6 +139,35 @@
           <ScalarProperty Name="token" ColumnName="token" />
           <ScalarProperty Name="created_at" ColumnName="created_at" />
           <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MenuApps">
+      <EntityTypeMapping TypeName="MyAppModel.MenuApp">
+        <MappingFragment StoreEntitySet="MenuApp">
+          <ScalarProperty Name="OrderSort" ColumnName="OrderSort" />
+          <ScalarProperty Name="IconMenu" ColumnName="IconMenu" />
+          <ScalarProperty Name="IDParentMenu" ColumnName="IDParentMenu" />
+          <ScalarProperty Name="MenuText" ColumnName="MenuText" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Roles">
+      <EntityTypeMapping TypeName="MyAppModel.Role">
+        <MappingFragment StoreEntitySet="Roles">
+          <ScalarProperty Name="AccessCustom" ColumnName="AccessCustom" />
+          <ScalarProperty Name="AccessPrint" ColumnName="AccessPrint" />
+          <ScalarProperty Name="AccessDelete" ColumnName="AccessDelete" />
+          <ScalarProperty Name="AccessEdit" ColumnName="AccessEdit" />
+          <ScalarProperty Name="AccessAdd" ColumnName="AccessAdd" />
+          <ScalarProperty Name="AccessView" ColumnName="AccessView" />
+          <ScalarProperty Name="controller" ColumnName="controller" />
+          <ScalarProperty Name="url" ColumnName="url" />
+          <ScalarProperty Name="note" ColumnName="note" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

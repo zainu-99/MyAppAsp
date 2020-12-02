@@ -17,9 +17,12 @@
 
             <div class="col-6">
                 <h1>Sign In</h1>
+                @if(@TempData["Message"] != null)
+                {
                 <div class="alert alert-danger">
-
+                    @TempData["Message"]
                 </div>
+                }
                 @using (Html.BeginForm("Login", "Authorize", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                 {
 

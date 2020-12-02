@@ -1,4 +1,12 @@
-﻿@for(int i=0;i<5;i++)
+﻿@using System.Dynamic
+
+@model IEnumerable<MyAppAspNet.Models.MenuApp>
+
+@foreach (var item in Model)
 {
-    @Html.Partial("~/Views/Shared/itemmenu.cshtml")
+    var m = Model.Where(a => a.IDParentMenu == item.ID).ToString();
+    dynamic menumodel = new ExpandoObject();
+    menumodel.menus = Model;
+    menumodel.itemmenu = m;
+    @Html.Partial("~/Views/Shared/itemmenu.cshtml", menumodel);
 }

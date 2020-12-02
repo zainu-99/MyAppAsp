@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyAppAspNet.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,21 +12,10 @@ namespace MyAppAspNet.Controllers
     {
         public ActionResult Index()
         {
-            return View();
-        }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            ViewBag.Message = "Dashboard";
+            MyAppEntities myAppEntities = new MyAppEntities();
+            var menu = myAppEntities.MenuApps.ToList();
+            return View("~/Views/appdashboard/Index.cshtml",menu);
         }
     }
 }

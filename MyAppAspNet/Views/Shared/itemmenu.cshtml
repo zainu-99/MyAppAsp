@@ -1,10 +1,11 @@
-﻿@if(ViewBag.Menus != null)
+﻿@model IEnumerable<MyAppAspNet.Models.MenuApp>
+@if (Model = null)
 {
     <li class="nav-item has-treeview menu-close">
         <a href="#" class="nav-link ">
-            <?=$options["itemmenu"]->icon?>
+            <i class="fa fa-angle-left"></i>
             <p>
-                <?=$options["itemmenu"]->menu_text?>
+                Menu Parent 1
                 <i class="right fas fa-angle-left"></i>
             </p>
         </a>
@@ -19,10 +20,9 @@
 else
 {
     <li class="nav-item">
-        <a href="<?=base_url().$options[" itemmenu"]->
-            role_url?>" class="nav-link item-menu">
-            <?=$options["itemmenu"]->icon?>
-            <p><?=$options["itemmenu"]->menu_text?></p>
+        <a href="" class="nav-link item-menu">
+            <i class="fa fa-angle-left"></i>
+            <p>Menu 1</p>
         </a>
     </li>
 }

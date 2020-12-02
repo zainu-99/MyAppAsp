@@ -73,20 +73,6 @@
     <Property Name="Note" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="User" Relationship="Self.FK_LogApp_Users" FromRole="LogApp" ToRole="Users" />
   </EntityType>
-  <EntityType Name="MenuApp">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="MenuTag" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="MenuText" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="FormName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="IDParentMenu" Type="Int32" />
-    <Property Name="IconMenu" Type="Binary" MaxLength="Max" FixedLength="false" />
-    <Property Name="OrderSort" Type="Int32" />
-    <NavigationProperty Name="MenuApp1" Relationship="Self.FK_MenuApp_MenuApp" FromRole="MenuApp" ToRole="MenuApp1" />
-    <NavigationProperty Name="MenuApp2" Relationship="Self.FK_MenuApp_MenuApp" FromRole="MenuApp1" ToRole="MenuApp" />
-  </EntityType>
   <EntityType Name="RoleGroupLevel">
     <Key>
       <PropertyRef Name="id" />
@@ -101,23 +87,7 @@
     <Property Name="isPrint" Type="Boolean" Nullable="false" />
     <Property Name="isCustom" Type="Boolean" Nullable="false" />
     <NavigationProperty Name="GroupLevel" Relationship="Self.FK_RoleGroupLevel_GroupLevel" FromRole="RoleGroupLevel" ToRole="GroupLevel" />
-    <NavigationProperty Name="Role" Relationship="Self.FK_RoleGroupLevel_Roles" FromRole="RoleGroupLevel" ToRole="Roles" />
-  </EntityType>
-  <EntityType Name="Role">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="remark" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-    <Property Name="AccessView" Type="Boolean" Nullable="false" />
-    <Property Name="AccessAdd" Type="Boolean" Nullable="false" />
-    <Property Name="AccessEdit" Type="Boolean" Nullable="false" />
-    <Property Name="AccessDelete" Type="Boolean" Nullable="false" />
-    <Property Name="AccessPrint" Type="Boolean" Nullable="false" />
-    <Property Name="AccessCustom" Type="Boolean" Nullable="false" />
-    <NavigationProperty Name="RoleGroupLevels" Relationship="Self.FK_RoleGroupLevel_Roles" FromRole="Roles" ToRole="RoleGroupLevel" />
-    <NavigationProperty Name="UserRoles" Relationship="Self.FK_UserRole_Roles" FromRole="Roles" ToRole="UserRole" />
+    <NavigationProperty Name="Role" Relationship="MyAppModel.FK_RoleGroupLevel_Roles" FromRole="RoleGroupLevel" ToRole="Role" />
   </EntityType>
   <EntityType Name="SettingApp">
     <Key>
@@ -151,8 +121,8 @@
     <Property Name="allow_delete" Type="Boolean" />
     <Property Name="allow_print" Type="Boolean" />
     <Property Name="allow_custom_access" Type="Int32" />
-    <NavigationProperty Name="Role" Relationship="Self.FK_UserRole_Roles" FromRole="UserRole" ToRole="Roles" />
     <NavigationProperty Name="User" Relationship="Self.FK_UserRole_Users" FromRole="UserRole" ToRole="Users" />
+    <NavigationProperty Name="Role" Relationship="MyAppModel.FK_UserRole_Roles" FromRole="UserRole" ToRole="Role" />
   </EntityType>
   <EntityType Name="User">
     <Key>
@@ -260,46 +230,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_MenuApp_MenuApp">
-    <End Role="MenuApp" Type="Self.MenuApp" Multiplicity="0..1" />
-    <End Role="MenuApp1" Type="Self.MenuApp" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="MenuApp">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="MenuApp1">
-        <PropertyRef Name="IDParentMenu" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_RoleGroupLevel_Roles">
-    <End Role="Roles" Type="Self.Role" Multiplicity="0..1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="RoleGroupLevel" Type="Self.RoleGroupLevel" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Roles">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="RoleGroupLevel">
-        <PropertyRef Name="id_role" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_UserRole_Roles">
-    <End Role="Roles" Type="Self.Role" Multiplicity="0..1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Roles">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="UserRole">
-        <PropertyRef Name="id_role" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_UserGroupLevel_Users">
     <End Role="Users" Type="Self.User" Multiplicity="0..1">
       <OnDelete Action="Cascade" />
@@ -335,9 +265,7 @@
     <EntitySet Name="Groups" EntityType="Self.Group" />
     <EntitySet Name="kategoris" EntityType="Self.kategori" />
     <EntitySet Name="LogApps" EntityType="Self.LogApp" />
-    <EntitySet Name="MenuApps" EntityType="Self.MenuApp" />
     <EntitySet Name="RoleGroupLevels" EntityType="Self.RoleGroupLevel" />
-    <EntitySet Name="Roles" EntityType="Self.Role" />
     <EntitySet Name="SettingApps" EntityType="Self.SettingApp" />
     <EntitySet Name="UserGroupLevels" EntityType="Self.UserGroupLevel" />
     <EntitySet Name="UserRoles" EntityType="Self.UserRole" />
@@ -366,18 +294,6 @@
       <End Role="Users" EntitySet="Users" />
       <End Role="LogApp" EntitySet="LogApps" />
     </AssociationSet>
-    <AssociationSet Name="FK_MenuApp_MenuApp" Association="Self.FK_MenuApp_MenuApp">
-      <End Role="MenuApp" EntitySet="MenuApps" />
-      <End Role="MenuApp1" EntitySet="MenuApps" />
-    </AssociationSet>
-    <AssociationSet Name="FK_RoleGroupLevel_Roles" Association="Self.FK_RoleGroupLevel_Roles">
-      <End Role="Roles" EntitySet="Roles" />
-      <End Role="RoleGroupLevel" EntitySet="RoleGroupLevels" />
-    </AssociationSet>
-    <AssociationSet Name="FK_UserRole_Roles" Association="Self.FK_UserRole_Roles">
-      <End Role="Roles" EntitySet="Roles" />
-      <End Role="UserRole" EntitySet="UserRoles" />
-    </AssociationSet>
     <AssociationSet Name="FK_UserGroupLevel_Users" Association="Self.FK_UserGroupLevel_Users">
       <End Role="Users" EntitySet="Users" />
       <End Role="UserGroupLevel" EntitySet="UserGroupLevels" />
@@ -386,5 +302,90 @@
       <End Role="Users" EntitySet="Users" />
       <End Role="UserRole" EntitySet="UserRoles" />
     </AssociationSet>
+    <EntitySet Name="MenuApps" EntityType="MyAppModel.MenuApp" />
+    <EntitySet Name="Roles" EntityType="MyAppModel.Role" />
+    <AssociationSet Name="FK_MenuApp_MenuApp" Association="MyAppModel.FK_MenuApp_MenuApp">
+      <End Role="MenuApp" EntitySet="MenuApps" />
+      <End Role="MenuApp1" EntitySet="MenuApps" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RoleGroupLevel_Roles" Association="MyAppModel.FK_RoleGroupLevel_Roles">
+      <End Role="Role" EntitySet="Roles" />
+      <End Role="RoleGroupLevel" EntitySet="RoleGroupLevels" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserRole_Roles" Association="MyAppModel.FK_UserRole_Roles">
+      <End Role="Role" EntitySet="Roles" />
+      <End Role="UserRole" EntitySet="UserRoles" />
+    </AssociationSet>
   </EntityContainer>
+  <EntityType Name="MenuApp">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleID" Type="Int64" Nullable="false" />
+    <Property Name="MenuText" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IDParentMenu" Type="Int32" />
+    <Property Name="IconMenu" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="OrderSort" Type="Int32" />
+    <NavigationProperty Name="MenuApp1" Relationship="MyAppModel.FK_MenuApp_MenuApp" FromRole="MenuApp" ToRole="MenuApp1" />
+    <NavigationProperty Name="MenuApp2" Relationship="MyAppModel.FK_MenuApp_MenuApp" FromRole="MenuApp1" ToRole="MenuApp" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="note" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="url" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="controller" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="AccessView" Type="Boolean" Nullable="false" />
+    <Property Name="AccessAdd" Type="Boolean" Nullable="false" />
+    <Property Name="AccessEdit" Type="Boolean" Nullable="false" />
+    <Property Name="AccessDelete" Type="Boolean" Nullable="false" />
+    <Property Name="AccessPrint" Type="Boolean" Nullable="false" />
+    <Property Name="AccessCustom" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="RoleGroupLevels" Relationship="MyAppModel.FK_RoleGroupLevel_Roles" FromRole="Role" ToRole="RoleGroupLevel" />
+    <NavigationProperty Name="UserRoles" Relationship="MyAppModel.FK_UserRole_Roles" FromRole="Role" ToRole="UserRole" />
+  </EntityType>
+  <Association Name="FK_MenuApp_MenuApp">
+    <End Type="MyAppModel.MenuApp" Role="MenuApp" Multiplicity="0..1" />
+    <End Type="MyAppModel.MenuApp" Role="MenuApp1" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MenuApp">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="MenuApp1">
+        <PropertyRef Name="IDParentMenu" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RoleGroupLevel_Roles">
+    <End Type="MyAppModel.Role" Role="Role" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="MyAppModel.RoleGroupLevel" Role="RoleGroupLevel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="RoleGroupLevel">
+        <PropertyRef Name="id_role" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserRole_Roles">
+    <End Type="MyAppModel.Role" Role="Role" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="MyAppModel.UserRole" Role="UserRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="UserRole">
+        <PropertyRef Name="id_role" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>
