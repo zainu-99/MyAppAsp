@@ -9,83 +9,94 @@ namespace MyAppAspNet.Controllers
 {
     public class RoleController : Controller
     {
-        // GET: Role
         public ActionResult Index()
         {
             MyAppEntities myAppEntities = new MyAppEntities();
-            var model = myAppEntities.Roles.OrderByDescending(a => a.url).ThenBy(a => a.name).ToList();
+            var model = myAppEntities.Roles.ToList();
             return View("~/Views/appdashboard/masterdata/Role/Index.cshtml", model);
         }
 
-        // GET: Role/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            MyAppEntities myAppEntities = new MyAppEntities();
+            var model = myAppEntities.Roles.Where(a => a.id == id).FirstOrDefault();
+            return View("~/Views/appdashboard/masterdata/Role/Detail.cshtml", model);
         }
-
-        // GET: Role/Create
         public ActionResult Create()
         {
-            return View();
+            return View("~/Views/appdashboard/masterdata/Role/Add.cshtml");
         }
-
-        // POST: Role/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Roles collection)
         {
             try
             {
-                // TODO: Add insert logic here
-
+                TryUpdateModel(collection);
+                using (var myAppEntities = new MyAppEntities())
+                {
+                    myAppEntities.Roles.Add(collection);
+                    myAppEntities.SaveChanges();
+                }
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                return View("~/Views/appdashboard/masterdata/Role/Add.cshtml");
             }
         }
-
-        // GET: Role/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            MyAppEntities myAppEntities = new MyAppEntities();
+            var model = myAppEntities.Roles.Where(a => a.id == id).FirstOrDefault();
+            return View("~/Views/appdashboard/masterdata/Role/Edit.cshtml", model);
         }
-
-        // POST: Role/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, Roles collection)
         {
             try
             {
-                // TODO: Add update logic here
-
+                TryUpdateModel(collection);
+                using (var myAppEntities = new MyAppEntities())
+                {
+                    var m = myAppEntities.Roles.Where(a => a.id == id).FirstOrDefault();
+                    TryUpdateModel(m);
+                    myAppEntities.SaveChanges();
+                }
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                MyAppEntities myAppEntities = new MyAppEntities();
+                var model = myAppEntities.Roles.Where(a => a.id == id).FirstOrDefault();
+                return View("~/Views/appdashboard/masterdata/Role/Edit.cshtml", model);
             }
         }
-
-        // GET: Role/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            MyAppEntities myAppEntities = new MyAppEntities();
+            var model = myAppEntities.Roles.Where(a => a.id == id).FirstOrDefault();
+            return View("~/Views/appdashboard/masterdata/Role/Delete.cshtml", model);
         }
 
-        // POST: Role/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
             try
             {
-                // TODO: Add delete logic here
-
+                TryUpdateModel(collection);
+                using (var myAppEntities = new MyAppEntities())
+                {
+                    var m = myAppEntities.Roles.Remove(myAppEntities.Roles.FirstOrDefault(x => x.id == id));
+                    TryUpdateModel(m);
+                    myAppEntities.SaveChanges();
+                }
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                MyAppEntities myAppEntities = new MyAppEntities();
+                var model = myAppEntities.Roles.Where(a => a.id == id).FirstOrDefault();
+                return View("~/Views/appdashboard/masterdata/Role/Delete.cshtml", model);
             }
         }
     }

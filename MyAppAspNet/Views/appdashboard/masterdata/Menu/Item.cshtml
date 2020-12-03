@@ -1,0 +1,42 @@
+﻿@model MyAppAspNet.Models.MenuApp
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => Model.Roles.name)
+    </td>
+    <td>
+       @if (Model.MenuApp2 != null)
+       {
+        @Html.Raw(Model.MenuApp2.MenuText) <span>❯</span>  @Model.MenuText
+       }
+       else
+       {
+        @Model.MenuText
+       }
+    </td>
+    <td>
+        @Html.Raw(Model.IconMenu)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.OrderSort)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.MenuApp2.MenuText)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+        @Html.ActionLink("Details", "Details", new { id = Model.ID }) |
+        @Html.ActionLink("Delete", "Delete", new { id = Model.ID })
+    </td>
+</tr>
+@foreach (var item in Model.MenuApp1.OrderBy(a => a.OrderSort).ToList())
+{
+    if(Model.MenuApp2 != null)
+    {
+        Model.MenuText = Model.MenuApp2.MenuText + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+    }
+    else
+    {
+        Model.MenuText = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+    }
+    @Html.Partial("~/Views/appdashboard/masterdata/Menu/Item.cshtml", item);
+}

@@ -9,7 +9,6 @@ namespace MyAppAspNet.Controllers
 {
     public class GroupController : Controller
     {
-        // GET: Group
         public ActionResult Index()
         {
             MyAppEntities myAppEntities = new MyAppEntities();
@@ -17,75 +16,87 @@ namespace MyAppAspNet.Controllers
             return View("~/Views/appdashboard/masterdata/Group/Index.cshtml", model);
         }
 
-        // GET: Group/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            MyAppEntities myAppEntities = new MyAppEntities();
+            var model = myAppEntities.Groups.Where(a => a.id == id).FirstOrDefault();
+            return View("~/Views/appdashboard/masterdata/Group/Detail.cshtml", model);
         }
-
-        // GET: Group/Create
         public ActionResult Create()
         {
-            return View();
+            return View("~/Views/appdashboard/masterdata/Group/Add.cshtml");
         }
-
-        // POST: Group/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Groups collection)
         {
             try
             {
-                // TODO: Add insert logic here
-
+                TryUpdateModel(collection);
+                using (var myAppEntities = new MyAppEntities())
+                {
+                    myAppEntities.Groups.Add(collection);
+                    myAppEntities.SaveChanges();
+                }
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                return View("~/Views/appdashboard/masterdata/Group/Add.cshtml");
             }
         }
-
-        // GET: Group/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            MyAppEntities myAppEntities = new MyAppEntities();
+            var model = myAppEntities.Groups.Where(a => a.id == id).FirstOrDefault();
+            return View("~/Views/appdashboard/masterdata/Group/Edit.cshtml", model);
         }
-
-        // POST: Group/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, Groups collection)
         {
             try
             {
-                // TODO: Add update logic here
-
+                TryUpdateModel(collection);
+                using (var myAppEntities = new MyAppEntities())
+                {
+                    var m = myAppEntities.Groups.Where(a => a.id == id).FirstOrDefault();
+                    TryUpdateModel(m);
+                    myAppEntities.SaveChanges();
+                }
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                MyAppEntities myAppEntities = new MyAppEntities();
+                var model = myAppEntities.Groups.Where(a => a.id == id).FirstOrDefault();
+                return View("~/Views/appdashboard/masterdata/Group/Edit.cshtml", model);
             }
         }
-
-        // GET: Group/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            MyAppEntities myAppEntities = new MyAppEntities();
+            var model = myAppEntities.Groups.Where(a => a.id == id).FirstOrDefault();
+            return View("~/Views/appdashboard/masterdata/Group/Delete.cshtml", model);
         }
-
-        // POST: Group/Delete/5
+        
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
             try
             {
-                // TODO: Add delete logic here
-
+                TryUpdateModel(collection);
+                using (var myAppEntities = new MyAppEntities())
+                {
+                    var m = myAppEntities.Groups.Remove(myAppEntities.Groups.FirstOrDefault(x => x.id == id));
+                    TryUpdateModel(m);
+                    myAppEntities.SaveChanges();
+                }
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                MyAppEntities myAppEntities = new MyAppEntities();
+                var model = myAppEntities.Groups.Where(a => a.id == id).FirstOrDefault();
+                return View("~/Views/appdashboard/masterdata/Group/Delete.cshtml", model);
             }
         }
     }

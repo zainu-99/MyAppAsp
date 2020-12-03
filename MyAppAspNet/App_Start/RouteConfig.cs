@@ -26,7 +26,7 @@ namespace MyAppAspNet
             routes.MapRoute(
                name: "Login",
                url: "Authorize/Login",
-               defaults: new { controller = "Authorize", action = "Login", id = UrlParameter.Optional }
+               defaults: new { controller = "Authorize", action = "Login", id = UrlParameter.Optional}
            );
             var myAppEntities = new MyAppEntities();
             var UserRoles = myAppEntities.UserRole.Where(a => a.id_user == 16).Where(a => a.Roles.url != "").ToList();

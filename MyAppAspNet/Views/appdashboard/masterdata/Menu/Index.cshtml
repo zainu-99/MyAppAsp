@@ -13,6 +13,9 @@
 <table class="table">
     <tr>
         <th>
+            Role Name
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.MenuText)
         </th>
         <th>
@@ -24,35 +27,11 @@
         <th>
             Parent
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Roles.name)
-        </th>
-        <th></th>
+        <th>Action</th>
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.MenuText)
-        </td>
-        <td>
-            @Html.Raw(item.IconMenu)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.OrderSort)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MenuApp2.MenuText)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Roles.name)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
+    @Html.Partial("~/Views/appdashboard/masterdata/Menu/Item.cshtml", item);
 }
 
 </table>

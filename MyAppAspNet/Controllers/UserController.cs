@@ -9,7 +9,6 @@ namespace MyAppAspNet.Controllers
 {
     public class UserController : Controller
     {
-        // GET: User
         public ActionResult Index()
         {
             MyAppEntities myAppEntities = new MyAppEntities();
@@ -17,51 +16,53 @@ namespace MyAppAspNet.Controllers
             return View("~/Views/appdashboard/adminsystem/User/Index.cshtml", model);
         }
 
-        // GET: User/Details/5
         public ActionResult Details(int id)
         {
             MyAppEntities myAppEntities = new MyAppEntities();
             var model = myAppEntities.Users.Where(a => a.id == id).FirstOrDefault();
             return View("~/Views/appdashboard/adminsystem/User/Detail.cshtml", model);
         }
-
-        // GET: User/Create
         public ActionResult Create()
         {
             return View("~/Views/appdashboard/adminsystem/User/Add.cshtml");
         }
-
-        // POST: User/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Users collection)
         {
             try
             {
-                return RedirectToAction("Index","User");
+                TryUpdateModel(collection);
+                using (var myAppEntities = new MyAppEntities())
+                {
+                    myAppEntities.Users.Add(collection);
+                    myAppEntities.SaveChanges();
+                }
+                return RedirectToAction("Index");
             }
             catch
             {
                 return View("~/Views/appdashboard/adminsystem/User/Add.cshtml");
             }
         }
-
-        // GET: User/Edit/5
         public ActionResult Edit(int id)
         {
             MyAppEntities myAppEntities = new MyAppEntities();
             var model = myAppEntities.Users.Where(a => a.id == id).FirstOrDefault();
             return View("~/Views/appdashboard/adminsystem/User/Edit.cshtml", model);
         }
-
-        // POST: User/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
             try
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index", "User");
+                TryUpdateModel(collection);
+                using (var myAppEntities = new MyAppEntities())
+                {
+                    var m = myAppEntities.Users.Where(a => a.id == id).FirstOrDefault();
+                    TryUpdateModel(m);
+                    myAppEntities.SaveChanges();
+                }
+                return RedirectToAction("Index");
             }
             catch
             {
@@ -70,24 +71,26 @@ namespace MyAppAspNet.Controllers
                 return View("~/Views/appdashboard/adminsystem/User/Edit.cshtml", model);
             }
         }
-
-        // GET: User/Delete/5
         public ActionResult Delete(int id)
         {
             MyAppEntities myAppEntities = new MyAppEntities();
             var model = myAppEntities.Users.Where(a => a.id == id).FirstOrDefault();
-            return View("~/Views/appdashboard/adminsystem/User/Delete.cshtml",model);
+            return View("~/Views/appdashboard/adminsystem/User/Delete.cshtml", model);
         }
 
-        // POST: User/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
             try
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index", "User");
+                TryUpdateModel(collection);
+                using (var myAppEntities = new MyAppEntities())
+                {
+                    var m = myAppEntities.Users.Remove(myAppEntities.Users.FirstOrDefault(a => a.id == id));
+                    TryUpdateModel(m);
+                    myAppEntities.SaveChanges();
+                }
+                return RedirectToAction("Index");
             }
             catch
             {

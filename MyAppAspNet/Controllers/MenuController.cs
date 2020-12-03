@@ -9,7 +9,6 @@ namespace MyAppAspNet.Controllers
 {
     public class MenuController : Controller
     {
-        // GET: Menu
         public ActionResult Index()
         {
             MyAppEntities myAppEntities = new MyAppEntities();
@@ -17,75 +16,89 @@ namespace MyAppAspNet.Controllers
             return View("~/Views/appdashboard/masterdata/Menu/Index.cshtml", model);
         }
 
-        // GET: Menu/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            MyAppEntities myAppEntities = new MyAppEntities();
+            var model = myAppEntities.MenuApp.Where(a => a.ID == id).FirstOrDefault();
+            return View("~/Views/appdashboard/masterdata/Menu/Detail.cshtml", model);
         }
-
-        // GET: Menu/Create
         public ActionResult Create()
         {
-            return View();
+            MyAppEntities myAppEntities = new MyAppEntities();
+            var model = myAppEntities.Roles.ToList();
+            return View("~/Views/appdashboard/masterdata/Menu/Add.cshtml",model);
         }
-
-        // POST: Menu/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(MenuApp collection)
         {
             try
             {
-                // TODO: Add insert logic here
-
+                TryUpdateModel(collection);
+                using (var myAppEntities = new MyAppEntities())
+                {
+                    myAppEntities.MenuApp.Add(collection);
+                    myAppEntities.SaveChanges();
+                }
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                return View("~/Views/appdashboard/masterdata/Menu/Add.cshtml");
             }
         }
-
-        // GET: Menu/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            MyAppEntities myAppEntities = new MyAppEntities();
+            var model = myAppEntities.MenuApp.Where(a => a.ID == id).FirstOrDefault();
+            return View("~/Views/appdashboard/masterdata/Menu/Edit.cshtml", model);
         }
-
-        // POST: Menu/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
             try
             {
-                // TODO: Add update logic here
-
+                TryUpdateModel(collection);
+                using (var myAppEntities = new MyAppEntities())
+                {
+                    var m = myAppEntities.MenuApp.Where(a => a.ID == id).FirstOrDefault();
+                    TryUpdateModel(m);
+                    myAppEntities.SaveChanges();
+                }
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                MyAppEntities myAppEntities = new MyAppEntities();
+                var model = myAppEntities.MenuApp.Where(a => a.ID == id).FirstOrDefault();
+                return View("~/Views/appdashboard/masterdata/Menu/Edit.cshtml", model);
             }
         }
-
-        // GET: Menu/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            MyAppEntities myAppEntities = new MyAppEntities();
+            var model = myAppEntities.MenuApp.Where(a => a.ID == id).FirstOrDefault();
+            return View("~/Views/appdashboard/masterdata/Menu/Delete.cshtml", model);
         }
 
-        // POST: Menu/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
             try
             {
-                // TODO: Add delete logic here
-
+                TryUpdateModel(collection);
+                using (var myAppEntities = new MyAppEntities())
+                {
+                    var m = myAppEntities.MenuApp.Remove(myAppEntities.MenuApp.FirstOrDefault(x => x.ID == id));
+                    TryUpdateModel(m);
+                    myAppEntities.SaveChanges();
+                }
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                MyAppEntities myAppEntities = new MyAppEntities();
+                var model = myAppEntities.MenuApp.Where(a => a.ID == id).FirstOrDefault();
+                return View("~/Views/appdashboard/masterdata/Menu/Delete.cshtml", model);
             }
         }
     }
