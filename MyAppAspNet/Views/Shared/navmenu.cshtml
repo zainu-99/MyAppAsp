@@ -1,10 +1,10 @@
-﻿@model IEnumerable<MyAppAspNet.Models.MenuApp>
-
-
-@foreach (var item in Model)
+﻿@if (Session["Menu"] != null)
 {
-    if (item.Role.UserRoles.Where(a => a.allow_view == true).Where(a => a.id_user == 16).FirstOrDefault() != null)
+    foreach (var item in ((IEnumerable<MyAppAspNet.Models.MenuApp>)HttpContext.Current.Session["Menu"]))
     {
-        @Html.Partial("~/Views/Shared/itemmenu.cshtml", item);
+        if (item.Roles.UserRole.Where(a => a.allow_view == true).Where(a => a.id_user == 16).FirstOrDefault() != null)
+        {
+            @Html.Partial("~/Views/Shared/itemmenu.cshtml", item);
+        }
     }
 }

@@ -13,7 +13,7 @@ namespace MyAppAspNet.Controllers
     public class AuthorizeController : Controller
     {
         // GET: Login
-        public ActionResult Login(User user)
+        public ActionResult Login(Users user)
         {
             if(AuthenticationManager.User.Identity.IsAuthenticated) return RedirectToAction("Index", "Home");
             if (user.userid == null) return View();
@@ -24,6 +24,7 @@ namespace MyAppAspNet.Controllers
                 var claims = new List<Claim>();
                 claims.Add(new Claim(ClaimTypes.NameIdentifier, usr.userid));
                 claims.Add(new Claim(ClaimTypes.Name, usr.name));
+                claims.Add(new Claim(ClaimTypes.Email, usr.email));
                 claims.Add(new Claim("userState", user.ToString()));
                 var identity = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
                 AuthenticationManager.SignIn(new AuthenticationProperties()

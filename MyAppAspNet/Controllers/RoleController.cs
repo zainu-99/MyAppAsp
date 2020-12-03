@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyAppAspNet.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +12,9 @@ namespace MyAppAspNet.Controllers
         // GET: Role
         public ActionResult Index()
         {
-            return View();
+            MyAppEntities myAppEntities = new MyAppEntities();
+            var model = myAppEntities.Roles.OrderByDescending(a => a.url).ThenBy(a => a.name).ToList();
+            return View("~/Views/appdashboard/masterdata/Role/Index.cshtml", model);
         }
 
         // GET: Role/Details/5

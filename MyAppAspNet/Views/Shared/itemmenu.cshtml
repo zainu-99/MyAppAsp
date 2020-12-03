@@ -12,7 +12,7 @@
         <ul class="nav nav-treeview">
             @foreach (var item in Model.MenuApp1)
             {
-              if (item.Role.UserRoles.Where(a => a.allow_view == true).Where(a => a.id_user == 16).FirstOrDefault() != null)
+              if (item.Roles.UserRole.Where(a => a.allow_view == true).Where(a => a.id_user == 16).FirstOrDefault() != null)
                  {
                     @Html.Partial("~/Views/Shared/itemmenu.cshtml", item)
                  }
@@ -25,7 +25,7 @@ else
     <li class="nav-item">
         @{ 
         }
-        <a href="@Html.Raw(Model.Role.url)" class="nav-link item-menu">
+        <a href="~/@Html.Raw(Model.Roles.url)" class="nav-link item-menu">
             @Html.Raw(Model.IconMenu)
             <p>@Model.MenuText</p>
         </a>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyAppAspNet.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,19 +12,23 @@ namespace MyAppAspNet.Controllers
         // GET: User
         public ActionResult Index()
         {
-            return View();
+            MyAppEntities myAppEntities = new MyAppEntities();
+            var model = myAppEntities.Users.ToList();
+            return View("~/Views/appdashboard/adminsystem/User/Index.cshtml", model);
         }
 
         // GET: User/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            MyAppEntities myAppEntities = new MyAppEntities();
+            var model = myAppEntities.Users.Where(a => a.id == id).FirstOrDefault();
+            return View("~/Views/appdashboard/adminsystem/User/Detail.cshtml", model);
         }
 
         // GET: User/Create
         public ActionResult Create()
         {
-            return View();
+            return View("~/Views/appdashboard/adminsystem/User/Add.cshtml");
         }
 
         // POST: User/Create
@@ -32,20 +37,20 @@ namespace MyAppAspNet.Controllers
         {
             try
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","User");
             }
             catch
             {
-                return View();
+                return View("~/Views/appdashboard/adminsystem/User/Add.cshtml");
             }
         }
 
         // GET: User/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            MyAppEntities myAppEntities = new MyAppEntities();
+            var model = myAppEntities.Users.Where(a => a.id == id).FirstOrDefault();
+            return View("~/Views/appdashboard/adminsystem/User/Edit.cshtml", model);
         }
 
         // POST: User/Edit/5
@@ -56,18 +61,22 @@ namespace MyAppAspNet.Controllers
             {
                 // TODO: Add update logic here
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "User");
             }
             catch
             {
-                return View();
+                MyAppEntities myAppEntities = new MyAppEntities();
+                var model = myAppEntities.Users.Where(a => a.id == id).FirstOrDefault();
+                return View("~/Views/appdashboard/adminsystem/User/Edit.cshtml", model);
             }
         }
 
         // GET: User/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            MyAppEntities myAppEntities = new MyAppEntities();
+            var model = myAppEntities.Users.Where(a => a.id == id).FirstOrDefault();
+            return View("~/Views/appdashboard/adminsystem/User/Delete.cshtml",model);
         }
 
         // POST: User/Delete/5
@@ -78,11 +87,13 @@ namespace MyAppAspNet.Controllers
             {
                 // TODO: Add delete logic here
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "User");
             }
             catch
             {
-                return View();
+                MyAppEntities myAppEntities = new MyAppEntities();
+                var model = myAppEntities.Users.Where(a => a.id == id).FirstOrDefault();
+                return View("~/Views/appdashboard/adminsystem/User/Delete.cshtml", model);
             }
         }
     }

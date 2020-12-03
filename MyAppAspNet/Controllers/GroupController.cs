@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyAppAspNet.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +12,9 @@ namespace MyAppAspNet.Controllers
         // GET: Group
         public ActionResult Index()
         {
-            return View();
+            MyAppEntities myAppEntities = new MyAppEntities();
+            var model = myAppEntities.Groups.ToList();
+            return View("~/Views/appdashboard/masterdata/Group/Index.cshtml", model);
         }
 
         // GET: Group/Details/5

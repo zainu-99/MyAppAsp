@@ -14,8 +14,10 @@ namespace MyAppAspNet.Controllers
         {
             ViewBag.Message = "Dashboard";
             MyAppEntities myAppEntities = new MyAppEntities();
-            var menu = myAppEntities.MenuApps.Where(a => a.IDParentMenu == null).ToList();
-            return View("~/Views/appdashboard/Index.cshtml",menu);
+            var menu = myAppEntities.MenuApp.Where(a => a.IDParentMenu == null).ToList();
+            ViewBag.Menu = menu;
+            Session["Menu"] = menu;
+            return View("~/Views/appdashboard/Index.cshtml");
         }
     }
 }

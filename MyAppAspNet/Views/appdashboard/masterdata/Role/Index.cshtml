@@ -1,0 +1,91 @@
+﻿@model IEnumerable<MyAppAspNet.Models.Roles>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Template.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<div style="overflow: auto;">
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.note)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.url)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.controller)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AccessView)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AccessAdd)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AccessEdit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AccessDelete)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AccessPrint)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AccessCustom)
+            </th>
+            <th>Action</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.note)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.url)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.controller)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AccessView)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AccessAdd)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AccessEdit)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AccessDelete)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AccessPrint)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AccessCustom)
+                </td>
+                <td nowrap>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.id })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

@@ -172,55 +172,55 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ChatMessage.cs">
-      <DependentUpon>ModelMyApp.tt</DependentUpon>
+      <DependentUpon>MyApp.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ErrorReport.cs">
-      <DependentUpon>ModelMyApp.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Group.cs">
-      <DependentUpon>ModelMyApp.tt</DependentUpon>
+      <DependentUpon>MyApp.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\GroupLevel.cs">
-      <DependentUpon>ModelMyApp.tt</DependentUpon>
+      <DependentUpon>MyApp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Groups.cs">
+      <DependentUpon>MyApp.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\LogApp.cs">
-      <DependentUpon>ModelMyApp.tt</DependentUpon>
+      <DependentUpon>MyApp.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\MenuApp.cs">
-      <DependentUpon>ModelMyApp.tt</DependentUpon>
+      <DependentUpon>MyApp.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ModelMyApp.Context.cs">
+    <Compile Include="Models\MyApp.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ModelMyApp.Context.tt</DependentUpon>
+      <DependentUpon>MyApp.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ModelMyApp.cs">
+    <Compile Include="Models\MyApp.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ModelMyApp.tt</DependentUpon>
+      <DependentUpon>MyApp.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ModelMyApp.Designer.cs">
+    <Compile Include="Models\MyApp.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ModelMyApp.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Role.cs">
-      <DependentUpon>ModelMyApp.tt</DependentUpon>
+      <DependentUpon>MyApp.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\RoleGroupLevel.cs">
-      <DependentUpon>ModelMyApp.tt</DependentUpon>
+      <DependentUpon>MyApp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Roles.cs">
+      <DependentUpon>MyApp.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SettingApp.cs">
-      <DependentUpon>ModelMyApp.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\User.cs">
-      <DependentUpon>ModelMyApp.tt</DependentUpon>
+      <DependentUpon>MyApp.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UserGroupLevel.cs">
-      <DependentUpon>ModelMyApp.tt</DependentUpon>
+      <DependentUpon>MyApp.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UserRole.cs">
-      <DependentUpon>ModelMyApp.tt</DependentUpon>
+      <DependentUpon>MyApp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Users.cs">
+      <DependentUpon>MyApp.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -232,29 +232,29 @@
     </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Models\MyApp.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MyApp.edmx</DependentUpon>
+      <LastGenOutput>MyApp.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\MyApp.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MyApp.edmx</DependentUpon>
+      <LastGenOutput>MyApp.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\popper.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\ModelMyApp.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelMyApp.edmx</DependentUpon>
-      <LastGenOutput>ModelMyApp.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\ModelMyApp.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelMyApp.edmx</DependentUpon>
-      <LastGenOutput>ModelMyApp.cs</LastGenOutput>
-    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Models\ModelMyApp.edmx">
+    <EntityDeploy Include="Models\MyApp.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ModelMyApp.Designer.cs</LastGenOutput>
+      <LastGenOutput>MyApp.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\ModelMyApp.edmx.diagram">
-      <DependentUpon>ModelMyApp.edmx</DependentUpon>
+    <Content Include="Models\MyApp.edmx.diagram">
+      <DependentUpon>MyApp.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -268,7 +268,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -284,6 +286,26 @@
     <Content Include="Views\Shared\_Template.cshtml" />
     <Content Include="Views\Authorize\Login.cshtml" />
     <Content Include="Views\appdashboard\Index.cshtml" />
+    <Content Include="Views\appdashboard\adminsystem\User\Index.cshtml" />
+    <Content Include="Views\appdashboard\adminsystem\User\Edit.cshtml" />
+    <Content Include="Views\appdashboard\adminsystem\User\Detail.cshtml" />
+    <Content Include="Views\appdashboard\adminsystem\User\Add.cshtml" />
+    <Content Include="Views\appdashboard\adminsystem\User\Delete.cshtml" />
+    <Content Include="Views\appdashboard\masterdata\Role\Index.cshtml" />
+    <Content Include="Views\appdashboard\masterdata\Role\Add.cshtml" />
+    <Content Include="Views\appdashboard\masterdata\Role\Edit.cshtml" />
+    <Content Include="Views\appdashboard\masterdata\Role\Delete.cshtml" />
+    <Content Include="Views\appdashboard\masterdata\Role\Detail.cshtml" />
+    <Content Include="Views\appdashboard\masterdata\Group\Index.cshtml" />
+    <Content Include="Views\appdashboard\masterdata\Group\Add.cshtml" />
+    <Content Include="Views\appdashboard\masterdata\Group\Edit.cshtml" />
+    <Content Include="Views\appdashboard\masterdata\Group\Delete.cshtml" />
+    <Content Include="Views\appdashboard\masterdata\Group\Detail.cshtml" />
+    <Content Include="Views\appdashboard\masterdata\Menu\Index.cshtml" />
+    <Content Include="Views\appdashboard\masterdata\Menu\Add.cshtml" />
+    <Content Include="Views\appdashboard\masterdata\Menu\Edit.cshtml" />
+    <Content Include="Views\appdashboard\masterdata\Menu\Delete.cshtml" />
+    <Content Include="Views\appdashboard\masterdata\Menu\Detail.cshtml" />
     <None Include="Views\Shared\action\add-button.cshtml" />
     <None Include="Views\Shared\action\delete-button.cshtml" />
     <None Include="Views\Shared\action\edit-button.cshtml" />
@@ -294,9 +316,6 @@
     <Folder Include="Views\appdashboard\adminsystem\GroupLevel\RoleGroupLevel\" />
     <Folder Include="Views\appdashboard\adminsystem\User\UserGroupLevel\" />
     <Folder Include="Views\appdashboard\adminsystem\User\UserRole\" />
-    <Folder Include="Views\appdashboard\masterdata\Group\" />
-    <Folder Include="Views\appdashboard\masterdata\Menu\" />
-    <Folder Include="Views\appdashboard\masterdata\Role\" />
     <Folder Include="Views\appdashboard\setting\ChangePassword\" />
     <Folder Include="Views\appdashboard\setting\ChangeProfile\" />
   </ItemGroup>
