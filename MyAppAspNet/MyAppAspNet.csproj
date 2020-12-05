@@ -289,7 +289,6 @@
     <Content Include="Views\appdashboard\adminsystem\User\Index.cshtml" />
     <Content Include="Views\appdashboard\adminsystem\User\Edit.cshtml" />
     <Content Include="Views\appdashboard\adminsystem\User\Detail.cshtml" />
-    <Content Include="Views\appdashboard\adminsystem\User\Add.cshtml" />
     <Content Include="Views\appdashboard\adminsystem\User\Delete.cshtml" />
     <Content Include="Views\appdashboard\masterdata\Role\Index.cshtml" />
     <Content Include="Views\appdashboard\masterdata\Role\Add.cshtml" />
@@ -300,13 +299,17 @@
     <Content Include="Views\appdashboard\masterdata\Group\Add.cshtml" />
     <Content Include="Views\appdashboard\masterdata\Group\Edit.cshtml" />
     <Content Include="Views\appdashboard\masterdata\Group\Delete.cshtml" />
-    <Content Include="Views\appdashboard\masterdata\Group\Detail.cshtml" />
     <Content Include="Views\appdashboard\masterdata\Menu\Index.cshtml" />
     <Content Include="Views\appdashboard\masterdata\Menu\Add.cshtml" />
     <Content Include="Views\appdashboard\masterdata\Menu\Edit.cshtml" />
     <Content Include="Views\appdashboard\masterdata\Menu\Delete.cshtml" />
     <Content Include="Views\appdashboard\masterdata\Menu\Detail.cshtml" />
     <Content Include="Views\appdashboard\masterdata\Menu\Item.cshtml" />
+    <Content Include="Views\appdashboard\adminsystem\GroupLevel\Add.cshtml" />
+    <Content Include="Views\appdashboard\adminsystem\GroupLevel\Delete.cshtml" />
+    <Content Include="Views\appdashboard\adminsystem\GroupLevel\Edit.cshtml" />
+    <Content Include="Views\appdashboard\adminsystem\GroupLevel\Index.cshtml" />
+    <Content Include="Views\appdashboard\adminsystem\User\Add.cshtml" />
     <None Include="Views\Shared\action\add-button.cshtml" />
     <None Include="Views\Shared\action\delete-button.cshtml" />
     <None Include="Views\Shared\action\edit-button.cshtml" />

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MyAppAspNet.Models.Groups>
+﻿@model IEnumerable<MyAppAspNet.Models.GroupLevel>
 
 @{
     ViewBag.Title = "Index";
@@ -13,33 +13,28 @@
 <table class="table">
     <tr>
         <th>
-            Name
+           Group
         </th>
         <th>
-            Note
+            Remark
         </th>
         <th>
-            Create At
+            Parent
         </th>
-        <th>
-            Updated At
-        </th>
-        <th>Aciton</th>
+        <th>Action</th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.name)
+            @Html.DisplayFor(modelItem => item.Groups.name)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.remark)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.created_at)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.updated_at)
+            @Html.DisplayFor(modelItem => item.GroupLevel2.Groups.name)-
+            @Html.DisplayFor(modelItem => item.GroupLevel2.remark)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.id }) |

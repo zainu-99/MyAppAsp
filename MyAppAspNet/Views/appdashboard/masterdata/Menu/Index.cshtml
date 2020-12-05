@@ -5,18 +5,16 @@
     Layout = "~/Views/Shared/_Template.cshtml";
 }
 
-<h2>Index</h2>
-
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            Role Name
+            @Html.DisplayNameFor(model => model.MenuText)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.MenuText)
+            Role Name
         </th>
         <th>
             @Html.DisplayNameFor(model => model.IconMenu)
@@ -31,7 +29,10 @@
     </tr>
 
 @foreach (var item in Model) {
-    @Html.Partial("~/Views/appdashboard/masterdata/Menu/Item.cshtml", item);
+    var dir = new Dictionary<String, Object>();
+    dir["sparator"] = "";
+    dir["item"] = item;
+    @Html.Partial("~/Views/appdashboard/masterdata/Menu/Item.cshtml", dir);
 }
 
 </table>

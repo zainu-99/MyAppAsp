@@ -1,7 +1,9 @@
 ﻿using MyAppAspNet.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -9,97 +11,103 @@ namespace MyAppAspNet.Controllers
 {
     public class MenuController : Controller
     {
+        private MyAppEntities db = new MyAppEntities();
+
         public ActionResult Index()
         {
-            MyAppEntities myAppEntities = new MyAppEntities();
-            var model = myAppEntities.MenuApp.ToList();
+            
+            var model = db.MenuApp.Where(a => a.IDParentMenu == null).ToList();
             return View("~/Views/appdashboard/masterdata/Menu/Index.cshtml", model);
         }
 
         public ActionResult Details(int id)
         {
-            MyAppEntities myAppEntities = new MyAppEntities();
-            var model = myAppEntities.MenuApp.Where(a => a.ID == id).FirstOrDefault();
+            
+            var model = db.MenuApp.Where(a => a.ID == id).FirstOrDefault();
             return View("~/Views/appdashboard/masterdata/Menu/Detail.cshtml", model);
         }
         public ActionResult Create()
         {
-            MyAppEntities myAppEntities = new MyAppEntities();
-            var model = myAppEntities.Roles.ToList();
-            return View("~/Views/appdashboard/masterdata/Menu/Add.cshtml",model);
+            ViewBag.IDParentMenu = new SelectList(db.MenuApp, "ID", "MenuText");
+            ViewBag.RoleID = new SelectList(db.Roles, "id", "name");
+            return View("~/Views/appdashboard/masterdata/Menu/Add.cshtml");
         }
         [HttpPost]
-        public ActionResult Create(MenuApp collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "ID,RoleID,MenuText,IDParentMenu,IconMenu,OrderSort")] MenuApp menuApp)
         {
-            try
+            if (ModelState.IsValid)
             {
-                TryUpdateModel(collection);
-                using (var myAppEntities = new MyAppEntities())
-                {
-                    myAppEntities.MenuApp.Add(collection);
-                    myAppEntities.SaveChanges();
-                }
+                db.MenuApp.Add(menuApp);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View("~/Views/appdashboard/masterdata/Menu/Add.cshtml");
-            }
+
+            ViewBag.IDParentMenu = new SelectList(db.MenuApp, "ID", "MenuText", menuApp.IDParentMenu);
+            ViewBag.RoleID = new SelectList(db.Roles, "id", "name", menuApp.RoleID);
+            return View("~/Views/appdashboard/masterdata/Menu/Add.cshtml", menuApp);
         }
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
-            MyAppEntities myAppEntities = new MyAppEntities();
-            var model = myAppEntities.MenuApp.Where(a => a.ID == id).FirstOrDefault();
-            return View("~/Views/appdashboard/masterdata/Menu/Edit.cshtml", model);
-        }
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
+            if (id == null)
             {
-                TryUpdateModel(collection);
-                using (var myAppEntities = new MyAppEntities())
-                {
-                    var m = myAppEntities.MenuApp.Where(a => a.ID == id).FirstOrDefault();
-                    TryUpdateModel(m);
-                    myAppEntities.SaveChanges();
-                }
-                return RedirectToAction("Index");
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            catch
+            MenuApp menuApp = db.MenuApp.Find(id);
+            if (menuApp == null)
             {
-                MyAppEntities myAppEntities = new MyAppEntities();
-                var model = myAppEntities.MenuApp.Where(a => a.ID == id).FirstOrDefault();
-                return View("~/Views/appdashboard/masterdata/Menu/Edit.cshtml", model);
+                return HttpNotFound();
             }
-        }
-        public ActionResult Delete(int id)
-        {
-            MyAppEntities myAppEntities = new MyAppEntities();
-            var model = myAppEntities.MenuApp.Where(a => a.ID == id).FirstOrDefault();
-            return View("~/Views/appdashboard/masterdata/Menu/Delete.cshtml", model);
+            ViewBag.IDParentMenu = new SelectList(db.MenuApp.Where(a => a.ID != id), "ID", "MenuText", menuApp.IDParentMenu);
+            ViewBag.RoleID = new SelectList(db.Roles, "id", "name", menuApp.RoleID);
+            return View("~/Views/appdashboard/masterdata/Menu/Edit.cshtml", menuApp);
         }
 
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "ID,RoleID,MenuText,IDParentMenu,IconMenu,OrderSort")] MenuApp menuApp)
         {
-            try
+            if (ModelState.IsValid)
             {
-                TryUpdateModel(collection);
-                using (var myAppEntities = new MyAppEntities())
-                {
-                    var m = myAppEntities.MenuApp.Remove(myAppEntities.MenuApp.FirstOrDefault(x => x.ID == id));
-                    TryUpdateModel(m);
-                    myAppEntities.SaveChanges();
-                }
+                db.Entry(menuApp).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch
+            ViewBag.IDParentMenu = new SelectList(db.MenuApp.Where(a => a.ID != menuApp.ID), "ID", "MenuText", menuApp.IDParentMenu);
+            ViewBag.RoleID = new SelectList(db.Roles, "id", "name", menuApp.RoleID);
+            return View("~/Views/appdashboard/masterdata/Menu/Edit.cshtml", menuApp);
+        }
+
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
             {
-                MyAppEntities myAppEntities = new MyAppEntities();
-                var model = myAppEntities.MenuApp.Where(a => a.ID == id).FirstOrDefault();
-                return View("~/Views/appdashboard/masterdata/Menu/Delete.cshtml", model);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            MenuApp menuApp = db.MenuApp.Find(id);
+            if (menuApp == null)
+            {
+                return HttpNotFound();
+            }
+            return View("~/Views/appdashboard/masterdata/Menu/Delete.cshtml", menuApp);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            MenuApp menuApp = db.MenuApp.Find(id);
+            db.MenuApp.Remove(menuApp);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

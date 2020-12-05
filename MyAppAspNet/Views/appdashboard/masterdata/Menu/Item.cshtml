@@ -1,42 +1,30 @@
-﻿@model MyAppAspNet.Models.MenuApp
-<tr>
+﻿@model Dictionary<String,Object>
+<tr @if((string)Model["sparator"] == "") { @Html.Raw("style='font-weight:bold'") }>
     <td>
-        @Html.DisplayFor(modelItem => Model.Roles.name)
+@Html.Raw((string)Model["sparator"]) ❯ @Html.DisplayFor(modelItem => ((MyAppAspNet.Models.MenuApp)Model["item"]).MenuText)
     </td>
     <td>
-       @if (Model.MenuApp2 != null)
-       {
-        @Html.Raw(Model.MenuApp2.MenuText) <span>❯</span>  @Model.MenuText
-       }
-       else
-       {
-        @Model.MenuText
-       }
+        @Html.DisplayFor(modelItem => ((MyAppAspNet.Models.MenuApp)Model["item"]).Roles.name)
     </td>
     <td>
-        @Html.Raw(Model.IconMenu)
+        @Html.Raw(((MyAppAspNet.Models.MenuApp)Model["item"]).IconMenu)
     </td>
     <td>
-        @Html.DisplayFor(modelItem => Model.OrderSort)
+        @Html.DisplayFor(modelItem => ((MyAppAspNet.Models.MenuApp)Model["item"]).OrderSort)
     </td>
     <td>
-        @Html.DisplayFor(modelItem => Model.MenuApp2.MenuText)
+        @Html.DisplayFor(modelItem => ((MyAppAspNet.Models.MenuApp)Model["item"]).MenuApp2.MenuText)
     </td>
     <td>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-        @Html.ActionLink("Details", "Details", new { id = Model.ID }) |
-        @Html.ActionLink("Delete", "Delete", new { id = Model.ID })
+        @Html.ActionLink("Edit", "Edit", new { id = ((MyAppAspNet.Models.MenuApp)Model["item"]).ID }) |
+        @Html.ActionLink("Details", "Details", new { id = ((MyAppAspNet.Models.MenuApp)Model["item"]).ID }) |
+        @Html.ActionLink("Delete", "Delete", new { id = ((MyAppAspNet.Models.MenuApp)Model["item"]).ID })
     </td>
 </tr>
-@foreach (var item in Model.MenuApp1.OrderBy(a => a.OrderSort).ToList())
+@foreach (var item in ((MyAppAspNet.Models.MenuApp)Model["item"]).MenuApp1.OrderBy(a => a.OrderSort).ToList())
 {
-    if(Model.MenuApp2 != null)
-    {
-        Model.MenuText = Model.MenuApp2.MenuText + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-    }
-    else
-    {
-        Model.MenuText = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-    }
-    @Html.Partial("~/Views/appdashboard/masterdata/Menu/Item.cshtml", item);
+    var dir = new Dictionary<String, Object>();
+    dir["sparator"] = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+ (string)Model["sparator"];
+    dir["item"] = item;
+    @Html.Partial("~/Views/appdashboard/masterdata/Menu/Item.cshtml", dir);
 }

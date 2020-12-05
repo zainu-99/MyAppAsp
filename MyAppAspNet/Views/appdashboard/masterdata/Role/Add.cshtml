@@ -5,15 +5,12 @@
     Layout = "~/Views/Shared/_Template.cshtml";
 }
 
-<h2>Add</h2>
 
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Roles</h4>
-        <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.name, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -48,65 +45,24 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.AccessView, htmlAttributes: new { @class = "control-label col-md-2" })
+            <label class="control-label col-md-2" for="controller">Have Access</label>
             <div class="col-md-10">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.AccessView)
+                    @Html.EditorFor(model => model.AccessView) <span>View</span>
                     @Html.ValidationMessageFor(model => model.AccessView, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.AccessAdd, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.AccessAdd)
+                    @Html.EditorFor(model => model.AccessAdd) <span>Add</span>
                     @Html.ValidationMessageFor(model => model.AccessAdd, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.AccessEdit, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.AccessEdit)
+                    @Html.EditorFor(model => model.AccessEdit) <span>Edit</span>
+                    @Html.ValidationMessageFor(model => model.AccessEdit, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.AccessDelete) <span>Delete</span>
+                    @Html.ValidationMessageFor(model => model.AccessDelete, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.AccessPrint) <span>Print</span>
+                    @Html.ValidationMessageFor(model => model.AccessEdit, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.AccessCustom) <span>Custom</span>
                     @Html.ValidationMessageFor(model => model.AccessEdit, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.AccessDelete, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.AccessDelete)
-                    @Html.ValidationMessageFor(model => model.AccessDelete, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.AccessPrint, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.AccessPrint)
-                    @Html.ValidationMessageFor(model => model.AccessPrint, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.AccessCustom, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.AccessCustom)
-                    @Html.ValidationMessageFor(model => model.AccessCustom, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />

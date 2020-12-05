@@ -1,89 +1,136 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using MyAppAspNet.Models;
 
 namespace MyAppAspNet.Controllers
 {
     public class GroupLevelController : Controller
     {
-        // GET: GroupLevel
+        private MyAppEntities db = new MyAppEntities();
+
+        // GET: GroupLevels
         public ActionResult Index()
         {
-            return View();
+            var groupLevel = db.GroupLevel.Include(g => g.GroupLevel2).Include(g => g.Groups);
+            return View("~/Views/appdashboard/adminsystem/GroupLevel/Index.cshtml", groupLevel.ToList());
         }
 
-        // GET: GroupLevel/Details/5
-        public ActionResult Details(int id)
+        // GET: GroupLevels/Details/5
+        public ActionResult Details(long? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            GroupLevel groupLevel = db.GroupLevel.Find(id);
+            if (groupLevel == null)
+            {
+                return HttpNotFound();
+            }
+            return View(groupLevel);
         }
 
-        // GET: GroupLevel/Create
+        // GET: GroupLevels/Create
         public ActionResult Create()
         {
-            return View();
+            ViewBag.id_parent = new SelectList(db.GroupLevel, "id", "remark");
+            ViewBag.id_group = new SelectList(db.Groups, "id", "name");
+            return View("~/Views/appdashboard/adminsystem/GroupLevel/Add.cshtml");
         }
 
-        // POST: GroupLevel/Create
+        // POST: GroupLevels/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "id,id_group,id_parent,remark")] GroupLevel groupLevel)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
-
+                db.GroupLevel.Add(groupLevel);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch
+
+            ViewBag.id_parent = new SelectList(db.GroupLevel, "id", "remark", groupLevel.id_parent);
+            ViewBag.id_group = new SelectList(db.Groups, "id", "name", groupLevel.id_group);
+            return View("~/Views/appdashboard/adminsystem/GroupLevel/Add.cshtml",groupLevel);
+        }
+
+        // GET: GroupLevels/Edit/5
+        public ActionResult Edit(long? id)
+        {
+            if (id == null)
             {
-                return View();
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-        }
-
-        // GET: GroupLevel/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: GroupLevel/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
+            GroupLevel groupLevel = db.GroupLevel.Find(id);
+            if (groupLevel == null)
             {
-                // TODO: Add update logic here
+                return HttpNotFound();
+            }
+            ViewBag.id_parent = new SelectList(db.GroupLevel, "id", "remark", groupLevel.id_parent);
+            ViewBag.id_group = new SelectList(db.Groups, "id", "name", groupLevel.id_group);
+            return View("~/Views/appdashboard/adminsystem/GroupLevel/Edit.cshtml",groupLevel);
+        }
 
+        // POST: GroupLevels/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "id,id_group,id_parent,remark")] GroupLevel groupLevel)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(groupLevel).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+            ViewBag.id_parent = new SelectList(db.GroupLevel, "id", "remark", groupLevel.id_parent);
+            ViewBag.id_group = new SelectList(db.Groups, "id", "name", groupLevel.id_group);
+            return View("~/Views/appdashboard/adminsystem/GroupLevel/Edit.cshtml",groupLevel);
         }
 
-        // GET: GroupLevel/Delete/5
-        public ActionResult Delete(int id)
+        // GET: GroupLevels/Delete/5
+        public ActionResult Delete(long? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            GroupLevel groupLevel = db.GroupLevel.Find(id);
+            if (groupLevel == null)
+            {
+                return HttpNotFound();
+            }
+            return View("~/Views/appdashboard/adminsystem/GroupLevel/Delete.cshtml",groupLevel);
         }
 
-        // POST: GroupLevel/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        // POST: GroupLevels/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(long id)
         {
-            try
-            {
-                // TODO: Add delete logic here
+            GroupLevel groupLevel = db.GroupLevel.Find(id);
+            db.GroupLevel.Remove(groupLevel);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
 
-                return RedirectToAction("Index");
-            }
-            catch
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
             {
-                return View();
+                db.Dispose();
             }
+            base.Dispose(disposing);
         }
     }
 }

@@ -9,11 +9,10 @@
 
 <h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>Roles</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.name)
+            Name
         </dt>
 
         <dd>
@@ -21,7 +20,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.note)
+            Note
         </dt>
 
         <dd>
@@ -29,7 +28,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.url)
+            Url
         </dt>
 
         <dd>
@@ -37,7 +36,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.controller)
+            Controller
         </dt>
 
         <dd>
@@ -45,51 +44,15 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.AccessView)
+            Have Access
         </dt>
-
         <dd>
-            @Html.DisplayFor(model => model.AccessView)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.AccessAdd)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AccessAdd)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.AccessEdit)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AccessEdit)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.AccessDelete)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AccessDelete)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.AccessPrint)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AccessPrint)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.AccessCustom)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AccessCustom)
+            @Html.DisplayFor(model => model.AccessView) <span>View</span>
+            @Html.DisplayFor(model => model.AccessAdd) <span>Add</span>
+            @Html.DisplayFor(model => model.AccessEdit) <span>Edit</span>
+            @Html.DisplayFor(model => model.AccessDelete) <span>Delete</span>
+            @Html.DisplayFor(model => model.AccessPrint) <span>Print</span>
+            @Html.DisplayFor(model => model.AccessCustom) <span>Custom</span>
         </dd>
 
     </dl>
