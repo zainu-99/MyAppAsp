@@ -64,7 +64,10 @@
                         <img onerror="this.onerror=null;this.src='@Url.Content("~/Content/AdminLTE/dist/img/user.png")';" src="" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <span class="text-light"><strong>ID : </strong> <br /><strong>Name : </strong>@User.Identity.Name</span>
+                        @{
+                            var claimsIdentity = User.Identity as System.Security.Claims.ClaimsIdentity;
+                        }
+                        <span class="text-light"><strong>ID : </strong> @claimsIdentity.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value <br /><strong>Name : </strong>@User.Identity.Name</span>
                     </div>
                 </div>
                 <nav class="mt-2">

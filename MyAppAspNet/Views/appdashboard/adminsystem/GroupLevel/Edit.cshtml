@@ -27,7 +27,7 @@
         <div class="form-group">
             Parent
             <div class="col-md-10">
-                @Html.DropDownList("id_parent", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("id_parent", null, "No Parent", htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.id_parent, "", new { @class = "text-danger" })
             </div>
         </div>

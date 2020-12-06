@@ -75,7 +75,7 @@ namespace MyAppAspNet.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.id_parent = new SelectList(db.GroupLevel, "id", "remark", groupLevel.id_parent);
+            ViewBag.id_parent = new SelectList(db.GroupLevel.Where(a => a.id != id), "id", "remark", groupLevel.id_parent);
             ViewBag.id_group = new SelectList(db.Groups, "id", "name", groupLevel.id_group);
             return View("~/Views/appdashboard/adminsystem/GroupLevel/Edit.cshtml",groupLevel);
         }
@@ -93,7 +93,7 @@ namespace MyAppAspNet.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.id_parent = new SelectList(db.GroupLevel, "id", "remark", groupLevel.id_parent);
+            ViewBag.id_parent = new SelectList(db.GroupLevel.Where(a => a.id != groupLevel.id), "id", "remark", groupLevel.id_parent);
             ViewBag.id_group = new SelectList(db.Groups, "id", "name", groupLevel.id_group);
             return View("~/Views/appdashboard/adminsystem/GroupLevel/Edit.cshtml",groupLevel);
         }

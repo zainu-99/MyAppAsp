@@ -1,10 +1,17 @@
-﻿@if (Session["Menu"] != null)
+﻿@if (Session["Menu"] == null)
 {
-    foreach (var item in ((IEnumerable<MyAppAspNet.Models.MenuApp>)HttpContext.Current.Session["Menu"]))
+    var myAppEntities = new MyAppAspNet.Models.MyAppEntities();
+    var menu = myAppEntities.MenuApp.Where(a => a.IDParentMenu == null).OrderBy(a => a.OrderSort).ToList();
+    Session["Menu"] = menu;
+}
+@{
+    var claimsIdentity = User.Identity as System.Security.Claims.ClaimsIdentity;
+    var idusr = claimsIdentity.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value;
+}
+@foreach (var item in (Session["Menu"] as IEnumerable<MyAppAspNet.Models.MenuApp>).Where(a => a.Roles.UserRole.Where(b => b.Users.userid == idusr).Count() > 0))
     {
         if (item.Roles.UserRole.Where(a => a.allow_view == true).Where(a => a.id_user == 16).FirstOrDefault() != null)
         {
-            @Html.Partial("~/Views/Shared/itemmenu.cshtml", item);
+@Html.Partial("~/Views/Shared/itemmenu.cshtml", item);
         }
     }
-}

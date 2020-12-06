@@ -10,7 +10,11 @@
             </p>
         </a>
         <ul class="nav nav-treeview">
-            @foreach (var item in Model.MenuApp1.OrderBy(a => a.OrderSort).ToList())
+            @{
+                var claimsIdentity = User.Identity as System.Security.Claims.ClaimsIdentity;
+                var idusr = claimsIdentity.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value;
+            }
+            @foreach (var item in Model.MenuApp1.OrderBy(a => a.OrderSort).Where(a => a.Roles.UserRole.Where(b => b.Users.userid == idusr).Count() > 0))
             {
               if (item.Roles.UserRole.Where(a => a.allow_view == true).Where(a => a.id_user == 16).FirstOrDefault() != null)
                  {

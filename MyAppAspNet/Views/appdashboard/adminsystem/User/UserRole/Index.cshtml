@@ -1,0 +1,76 @@
+﻿@model IEnumerable<MyAppAspNet.Models.UserRole>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Template.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.allow_view)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.allow_add)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.allow_edit)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.allow_delete)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.allow_print)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.allow_custom)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Roles.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Users.userid)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.allow_view)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.allow_add)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.allow_edit)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.allow_delete)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.allow_print)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.allow_custom)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Roles.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Users.userid)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,89 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using MyAppAspNet.Models;
 
 namespace MyAppAspNet.Controllers
 {
     public class UserRoleController : Controller
     {
-        // GET: UserRole
+        private MyAppEntities db = new MyAppEntities();
+
+        [HttpPost]
         public ActionResult Index()
         {
-            return View();
+            var userRole = db.UserRole.Include(u => u.Roles).Include(u => u.Users);
+            return View(userRole.ToList());
         }
 
-        // GET: UserRole/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: UserRole/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: UserRole/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "id,id_user,id_role,allow_view,allow_add,allow_edit,allow_delete,allow_print,allow_custom")] UserRole userRole)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
-
+                db.Entry(userRole).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+            ViewBag.id_role = new SelectList(db.Roles, "id", "name", userRole.id_role);
+            ViewBag.id_user = new SelectList(db.Users, "id", "userid", userRole.id_user);
+            return View(userRole);
         }
 
-        // GET: UserRole/Edit/5
-        public ActionResult Edit(int id)
+        protected override void Dispose(bool disposing)
         {
-            return View();
-        }
-
-        // POST: UserRole/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
+            if (disposing)
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                db.Dispose();
             }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: UserRole/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: UserRole/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            base.Dispose(disposing);
         }
     }
 }

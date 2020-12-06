@@ -27,6 +27,7 @@ namespace MyAppAspNet.Controllers
             return View("~/Views/appdashboard/masterdata/Role/Add.cshtml");
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(Roles collection)
         {
             try
@@ -51,6 +52,7 @@ namespace MyAppAspNet.Controllers
             return View("~/Views/appdashboard/masterdata/Role/Edit.cshtml", model);
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, Roles collection)
         {
             try

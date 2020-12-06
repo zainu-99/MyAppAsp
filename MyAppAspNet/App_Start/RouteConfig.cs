@@ -28,15 +28,17 @@ namespace MyAppAspNet
                url: "Authorize/Login",
                defaults: new { controller = "Authorize", action = "Login", id = UrlParameter.Optional}
            );
+            
             var myAppEntities = new MyAppEntities();
-            var UserRoles = myAppEntities.UserRole.Where(a => a.id_user == 16).Where(a => a.Roles.url != "").ToList();
+            string idusr = "Admin";
+            var UserRoles = myAppEntities.UserRole.Where(a => a.Users.userid == idusr).Where(a => a.Roles.url != "").ToList();
             foreach (var userrole in UserRoles)
             {
                 if (userrole.allow_view == true)
                 {
                     routes.MapRoute(
                     name: userrole.id.ToString() + "view",
-                    url: (userrole.Roles.url).Replace("//", "/"),
+                    url: (userrole.Roles.url + "").Replace("//", "/"),
                     defaults: new { controller = userrole.Roles.controller, action = "Index", id = UrlParameter.Optional }
                     );
                     routes.MapRoute(

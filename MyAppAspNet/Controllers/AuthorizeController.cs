@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using MyAppAspNet.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,10 +23,10 @@ namespace MyAppAspNet.Controllers
             if (usr != null)
             {
                 var claims = new List<Claim>();
+                Session["userid"] = user.userid;
                 claims.Add(new Claim(ClaimTypes.NameIdentifier, usr.userid));
                 claims.Add(new Claim(ClaimTypes.Name, usr.name));
                 claims.Add(new Claim(ClaimTypes.Email, usr.email));
-                claims.Add(new Claim("userState", user.ToString()));
                 var identity = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
                 AuthenticationManager.SignIn(new AuthenticationProperties()
                 {

@@ -1,89 +1,83 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using MyAppAspNet.Models;
+using MyAppAsp.Helper;
 
 namespace MyAppAspNet.Controllers
 {
     public class RoleGroupLevelController : Controller
     {
-        // GET: RoleGroupLevel
-        public ActionResult Index()
+        private MyAppEntities db = new MyAppEntities();
+        public ActionResult Index(int idgroup)
         {
-            return View();
+            DataTable dt = SqlService.GetDataTable("select a.id,a.name,a.note,isView,isAdd,isEdit,isDelete,isPrint,isCustom,AccessView,AccessAdd,AccessEdit,AccessDelete,AccessPrint,AccessCustom from Roles a left join (select * from  RoleGroupLevel where id_group_level=" + idgroup + ") b on a.id =b.id_role order by a.url,a.name");
+            var model = new List<RoleGroupLevel>();
+            foreach(DataRow dr in dt.Rows)
+            {
+                var rgl = new RoleGroupLevel();
+                rgl.Roles = new Roles();
+                rgl.Roles.id = (long)dr.ItemArray[0];
+                rgl.Roles.name = dr.ItemArray[1].ToString();
+                rgl.Roles.note = dr.ItemArray[2].ToString();
+                rgl.isView =(DBNull.Value.Equals( dr.ItemArray[3]))? false : (bool)dr.ItemArray[3];
+                rgl.isAdd = (DBNull.Value.Equals(dr.ItemArray[4])) ? false : (bool)dr.ItemArray[4];
+                rgl.isEdit = (DBNull.Value.Equals(dr.ItemArray[5])) ? false : (bool)dr.ItemArray[5];
+                rgl.isDelete = (DBNull.Value.Equals(dr.ItemArray[6])) ? false : (bool)dr.ItemArray[6];
+                rgl.isPrint = (DBNull.Value.Equals(dr.ItemArray[7])) ? false : (bool)dr.ItemArray[7];
+                rgl.isCustom = (DBNull.Value.Equals(dr.ItemArray[8])) ? false : (bool)dr.ItemArray[8];
+                rgl.Roles.AccessView = (DBNull.Value.Equals(dr.ItemArray[9])) ? false : (bool)dr.ItemArray[9];
+                rgl.Roles.AccessAdd = (DBNull.Value.Equals(dr.ItemArray[10])) ? false : (bool)dr.ItemArray[10];
+                rgl.Roles.AccessEdit = (DBNull.Value.Equals(dr.ItemArray[11])) ? false : (bool)dr.ItemArray[11];
+                rgl.Roles.AccessDelete = (DBNull.Value.Equals(dr.ItemArray[12])) ? false : (bool)dr.ItemArray[12];
+                rgl.Roles.AccessPrint = (DBNull.Value.Equals(dr.ItemArray[13])) ? false : (bool)dr.ItemArray[13];
+                rgl.Roles.AccessCustom = (DBNull.Value.Equals(dr.ItemArray[14])) ? false : (bool)dr.ItemArray[14];
+                model.Add(rgl);
+            }
+            return View("~/Views/appdashboard/adminsystem/GroupLevel/RoleGroupLevel/index.cshtml", model);
         }
 
-        // GET: RoleGroupLevel/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: RoleGroupLevel/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: RoleGroupLevel/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        public String Edit(int idgroup,int id, RoleGroupLevel collection)
         {
             try
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+                TryUpdateModel(collection);
+                using (var myAppEntities = new MyAppEntities())
+                {
+                    if(myAppEntities.RoleGroupLevel.Where(a => a.id_role == collection.Roles.id).Where(a=>a.id_group_level == idgroup).Count()>0)
+                    {
+                        var m = myAppEntities.RoleGroupLevel.Where(a => a.id_group_level == idgroup).FirstOrDefault();
+                        TryUpdateModel(m);
+                        myAppEntities.SaveChanges();
+                    }else
+                    {
+                        myAppEntities.RoleGroupLevel.Add(collection);
+                        myAppEntities.SaveChanges();
+                    }
+                }
+                return "Success";
             }
             catch
             {
-                return View();
+                return "Failed";
             }
         }
 
-        // GET: RoleGroupLevel/Edit/5
-        public ActionResult Edit(int id)
+
+        protected override void Dispose(bool disposing)
         {
-            return View();
-        }
-
-        // POST: RoleGroupLevel/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
+            if (disposing)
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                db.Dispose();
             }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: RoleGroupLevel/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: RoleGroupLevel/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            base.Dispose(disposing);
         }
     }
 }

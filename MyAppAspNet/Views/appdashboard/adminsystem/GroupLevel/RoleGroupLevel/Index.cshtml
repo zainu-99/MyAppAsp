@@ -1,0 +1,114 @@
+﻿@model List<MyAppAspNet.Models.RoleGroupLevel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Template.cshtml";
+}
+
+<h2>Index</h2>
+<table class="table">
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Remark
+        </th>
+        <th>
+            View
+        </th>
+        <th>
+            Add
+        </th>
+        <th>
+            Edit
+        </th>
+        <th>
+            Delete
+        </th>
+        <th>
+            Print
+        </th>
+        <th>
+            Custom
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Roles.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GroupLevel.remark)
+        </td>
+        <td>
+            @if (item.Roles.AccessView)
+            {
+                @Html.EditorFor(modelItem => item.isView, new { htmlAttributes = new { @dataid = item.id, @datafield = "isView"}})
+            }
+
+        </td>
+        <td>
+            @if (item.Roles.AccessAdd)
+            {
+                @Html.EditorFor(modelItem => item.isAdd, new { htmlAttributes = new { @dataid = item.id, @datafield = "isAdd" } })
+            }
+        </td>
+        <td>
+            @if (item.Roles.AccessEdit)
+            {
+                @Html.EditorFor(modelItem => item.isEdit, new { htmlAttributes = new { @dataid = item.id, @datafield = "isEdit" } })
+            }
+        </td>
+        <td>
+            @if (item.Roles.AccessDelete)
+            {
+                @Html.EditorFor(modelItem => item.isDelete, new { htmlAttributes = new { @dataid = item.id, @datafield = "isDelete" } })
+            }
+        </td>
+        <td>
+            @if (item.Roles.AccessPrint)
+            {
+                @Html.EditorFor(modelItem => item.isPrint, new { htmlAttributes = new { @dataid = item.id, @datafield = "isPrint" } })
+            }
+        </td>
+        <td>
+            @if (item.Roles.AccessCustom)
+            {
+                @Html.EditorFor(modelItem => item.isCustom, new { htmlAttributes = new { @dataid = item.id, @datafield = "isCustom" } })
+            }
+        </td>
+    </tr>
+}
+</table>
+@Html.AntiForgeryToken()
+<script>
+    $(document).ready(function () {
+        $("input[type=checkbox]").on("click",function (e) {
+            var idrole = $(this).attr("dataid");
+            var field = $(this).attr("datafield");
+            var fieldvalue = +$(this).is(':checked');
+            checkedAccess(idrole, field, fieldvalue);
+        });
+        function checkedAccess(idrole, filed, fieldvalue) {
+
+            $.ajax({
+                type: 'POST',
+                url: '@HttpContext.Current.Request.Url.AbsoluteUri/edit',
+                data: {
+                    __RequestVerificationToken: $("input[name='__RequestVerificationToken']").val(),
+                    id_role: idrole,
+                    field: fieldvalue
+                },
+                success: function (data) {
+                    alert(data);
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.responseText);
+                    alert(thrownError);
+                }
+            });
+        }
+    });
+</script>

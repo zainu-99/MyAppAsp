@@ -25,8 +25,7 @@ namespace MyAppAspNet
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/bootstrap.css"));
             bundles.Add(new StyleBundle("~/Content/adminlte").Include(
                       "~/Content/AdminLTE/plugins/fontawesome-free/css/all.min.css",
                       "~/Content/AdminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css",

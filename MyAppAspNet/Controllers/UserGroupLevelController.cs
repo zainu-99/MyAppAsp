@@ -1,89 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using MyAppAspNet.Models;
 
 namespace MyAppAspNet.Controllers
 {
     public class UserGroupLevelController : Controller
     {
-        // GET: UserGroupLevel
+        private MyAppEntities db = new MyAppEntities();
+
+        // GET: UserGroupLevels
         public ActionResult Index()
         {
-            return View();
+            var userGroupLevel = db.UserGroupLevel.Include(u => u.GroupLevel).Include(u => u.Users);
+            return View(userGroupLevel.ToList());
         }
 
-        // GET: UserGroupLevel/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: UserGroupLevel/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: UserGroupLevel/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "id,id_user,id_group_level")] UserGroupLevel userGroupLevel)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
-
+                db.Entry(userGroupLevel).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+            ViewBag.id_group_level = new SelectList(db.GroupLevel, "id", "remark", userGroupLevel.id_group_level);
+            ViewBag.id_user = new SelectList(db.Users, "id", "userid", userGroupLevel.id_user);
+            return View(userGroupLevel);
         }
 
-        // GET: UserGroupLevel/Edit/5
-        public ActionResult Edit(int id)
+        protected override void Dispose(bool disposing)
         {
-            return View();
-        }
-
-        // POST: UserGroupLevel/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
+            if (disposing)
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                db.Dispose();
             }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: UserGroupLevel/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: UserGroupLevel/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            base.Dispose(disposing);
         }
     }
 }
