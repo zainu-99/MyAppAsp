@@ -16,9 +16,8 @@
         @Html.DisplayFor(modelItem => ((MyAppAspNet.Models.MenuApp)Model["item"]).MenuApp2.MenuText)
     </td>
     <td>
-        @Html.ActionLink("Edit", "Edit", new { id = ((MyAppAspNet.Models.MenuApp)Model["item"]).ID }) |
-        @Html.ActionLink("Details", "Details", new { id = ((MyAppAspNet.Models.MenuApp)Model["item"]).ID }) |
-        @Html.ActionLink("Delete", "Delete", new { id = ((MyAppAspNet.Models.MenuApp)Model["item"]).ID })
+        @Html.Partial("~/Views/Shared/action/edit-button.cshtml", ((MyAppAspNet.Models.MenuApp)Model["item"]).ID)
+        @Html.Partial("~/Views/Shared/action/delete-button.cshtml", ((MyAppAspNet.Models.MenuApp)Model["item"]).ID)
     </td>
 </tr>
 @foreach (var item in ((MyAppAspNet.Models.MenuApp)Model["item"]).MenuApp1.OrderBy(a => a.OrderSort).ToList())

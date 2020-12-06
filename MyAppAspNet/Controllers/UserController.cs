@@ -1,12 +1,15 @@
-﻿using MyAppAspNet.Models;
+﻿using MyAppAspNet.Helper;
+using MyAppAspNet.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
 
 namespace MyAppAspNet.Controllers
 {
+    [AuthorizeUser]
     public class UserController : Controller
     {
         public ActionResult Index()
@@ -15,12 +18,11 @@ namespace MyAppAspNet.Controllers
             var model = myAppEntities.Users.ToList();
             return View("~/Views/appdashboard/adminsystem/User/Index.cshtml", model);
         }
-
         public ActionResult Details(int id)
         {
             MyAppEntities myAppEntities = new MyAppEntities();
             var model = myAppEntities.Users.Where(a => a.id == id).FirstOrDefault();
-            return View("~/Views/appdashboard/adminsystem/User/Detail.cshtml", model);
+            return View("~/Views/appdashboard/adminsystem/User/Details.cshtml", model);
         }
         public ActionResult Create()
         {

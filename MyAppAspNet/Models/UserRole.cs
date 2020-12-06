@@ -17,12 +17,12 @@ namespace MyAppAspNet.Models
         public long id { get; set; }
         public Nullable<long> id_user { get; set; }
         public Nullable<long> id_role { get; set; }
-        public Nullable<bool> allow_view { get; set; }
-        public Nullable<bool> allow_add { get; set; }
-        public Nullable<bool> allow_edit { get; set; }
-        public Nullable<bool> allow_delete { get; set; }
-        public Nullable<bool> allow_print { get; set; }
-        public Nullable<bool> allow_custom { get; set; }
+        public bool allow_view { get; set; }
+        public bool allow_add { get; set; }
+        public bool allow_edit { get; set; }
+        public bool allow_delete { get; set; }
+        public bool allow_print { get; set; }
+        public bool allow_custom { get; set; }
     
         public virtual Roles Roles { get; set; }
         public virtual Users Users { get; set; }

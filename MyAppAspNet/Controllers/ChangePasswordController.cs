@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace MyAppAspNet.Controllers
 {
+    [AuthorizeUser]
     public class ChangePasswordController : Controller
     {
         // GET: ChangePassword

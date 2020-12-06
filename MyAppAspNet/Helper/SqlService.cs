@@ -2,7 +2,7 @@
 using System.Data;
 using System.Data.SqlClient;
 
-namespace MyAppAsp.Helper
+namespace MyAppAspNet.Helper
 {
     class SqlService
     {

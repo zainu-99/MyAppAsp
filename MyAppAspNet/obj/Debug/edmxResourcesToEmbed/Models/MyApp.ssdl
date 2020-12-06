@@ -122,12 +122,12 @@
     <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="id_user" Type="bigint" />
     <Property Name="id_role" Type="bigint" />
-    <Property Name="allow_view" Type="bit" />
-    <Property Name="allow_add" Type="bit" />
-    <Property Name="allow_edit" Type="bit" />
-    <Property Name="allow_delete" Type="bit" />
-    <Property Name="allow_print" Type="bit" />
-    <Property Name="allow_custom" Type="bit" />
+    <Property Name="allow_view" Type="bit" Nullable="false" />
+    <Property Name="allow_add" Type="bit" Nullable="false" />
+    <Property Name="allow_edit" Type="bit" Nullable="false" />
+    <Property Name="allow_delete" Type="bit" Nullable="false" />
+    <Property Name="allow_print" Type="bit" Nullable="false" />
+    <Property Name="allow_custom" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="Users">
     <Key>

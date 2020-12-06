@@ -7,20 +7,14 @@ using System.Web.Mvc;
 
 namespace MyAppAspNet.Controllers
 {
+    [AuthorizeUser]
     public class RoleController : Controller
     {
         public ActionResult Index()
         {
             MyAppEntities myAppEntities = new MyAppEntities();
-            var model = myAppEntities.Roles.ToList();
+            var model = myAppEntities.Roles.OrderBy(a => a.url).ToList();
             return View("~/Views/appdashboard/masterdata/Role/Index.cshtml", model);
-        }
-
-        public ActionResult Details(int id)
-        {
-            MyAppEntities myAppEntities = new MyAppEntities();
-            var model = myAppEntities.Roles.Where(a => a.id == id).FirstOrDefault();
-            return View("~/Views/appdashboard/masterdata/Role/Detail.cshtml", model);
         }
         public ActionResult Create()
         {

@@ -1,0 +1,22 @@
+﻿@model Dictionary<String, Object>
+<tr @if ((string)Model["sparator"] == "") { @Html.Raw("style='font-weight:bold'")  }>
+    <td>
+        @Html.Raw((string)Model["sparator"]) ❯ @Html.DisplayFor(modelItem => ((MyAppAspNet.Models.UserGroupLevelJoin)Model["item"]).group)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => ((MyAppAspNet.Models.UserGroupLevelJoin)Model["item"]).parent)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => ((MyAppAspNet.Models.UserGroupLevelJoin)Model["item"]).remark)
+    </td>
+    <td>
+        @Html.EditorFor(modelItem => ((MyAppAspNet.Models.UserGroupLevelJoin)Model["item"]).isjoin, new { htmlAttributes = new { @idgrouplevel = ((MyAppAspNet.Models.UserGroupLevelJoin)Model["item"]).id } })
+    </td>
+</tr>
+@foreach (var item in ((MyAppAspNet.Models.UserGroupLevelJoin)Model["item"]).child)
+{
+    var dir = new Dictionary<String, Object>();
+    dir["sparator"] = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + (string)Model["sparator"];
+    dir["item"] = item;
+    @Html.Partial("~/Views/appdashboard/adminsystem/User/UserGroupLevel/Item.cshtml", dir);
+}

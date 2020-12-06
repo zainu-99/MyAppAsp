@@ -1,40 +1,57 @@
-﻿@model IEnumerable<MyAppAspNet.Models.UserGroupLevel>
+﻿@model IEnumerable<MyAppAspNet.Models.UserGroupLevelJoin>
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Template.cshtml";
 }
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.GroupLevel.remark)
+            Group
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Users.userid)
+            Parent
         </th>
-        <th></th>
+        <th>
+            Remark
+        </th>
+        <th>
+            Join
+        </th>
     </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.GroupLevel.remark)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Users.userid)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
-        </td>
-    </tr>
+@foreach (var item in Model)
+{
+    var dir = new Dictionary<String, Object>();
+    dir["sparator"] = "";
+    dir["item"] = item;
+    @Html.Partial("~/Views/appdashboard/adminsystem/User/UserGroupLevel/Item.cshtml", dir);
 }
-
 </table>
+
+<script>
+    $(document).ready(function () {
+        $("input[type=checkbox]").on("click", function (e) {
+            var idgrouplevel = $(this).attr("idgrouplevel");
+            var ischecked = +$(this).is(':checked');
+            checkedJoin(idgrouplevel, ischecked);
+        });
+        function checkedJoin(idgrouplevel, ischecked) {
+            $.ajax({
+                type: 'POST',
+                url: '@HttpContext.Current.Request.Url.AbsoluteUri/edit/' + idgrouplevel,
+                data: {
+                    __RequestVerificationToken: $("input[name='__RequestVerificationToken']").val(),
+                    is_checked: ischecked,
+                },
+                success: function (data) {
+                    //alert(data);
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    //alert(xhr.responseText);
+                    //alert(thrownError);
+                }
+            });
+        }
+    });
+</script>

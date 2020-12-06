@@ -10,6 +10,7 @@ using MyAppAspNet.Models;
 
 namespace MyAppAspNet.Controllers
 {
+    [AuthorizeUser]
     public class GroupLevelController : Controller
     {
         private MyAppEntities db = new MyAppEntities();
@@ -17,25 +18,9 @@ namespace MyAppAspNet.Controllers
         // GET: GroupLevels
         public ActionResult Index()
         {
-            var groupLevel = db.GroupLevel.Include(g => g.GroupLevel2).Include(g => g.Groups);
+            var groupLevel = db.GroupLevel.Include(g => g.GroupLevel2).Include(g => g.Groups).Where(a => a.id_parent == null).ToList();
             return View("~/Views/appdashboard/adminsystem/GroupLevel/Index.cshtml", groupLevel.ToList());
         }
-
-        // GET: GroupLevels/Details/5
-        public ActionResult Details(long? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            GroupLevel groupLevel = db.GroupLevel.Find(id);
-            if (groupLevel == null)
-            {
-                return HttpNotFound();
-            }
-            return View(groupLevel);
-        }
-
         // GET: GroupLevels/Create
         public ActionResult Create()
         {

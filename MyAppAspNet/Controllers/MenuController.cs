@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace MyAppAspNet.Controllers
 {
+    [AuthorizeUser]
     public class MenuController : Controller
     {
         private MyAppEntities db = new MyAppEntities();
@@ -18,13 +19,6 @@ namespace MyAppAspNet.Controllers
             
             var model = db.MenuApp.Where(a => a.IDParentMenu == null).ToList();
             return View("~/Views/appdashboard/masterdata/Menu/Index.cshtml", model);
-        }
-
-        public ActionResult Details(int id)
-        {
-            
-            var model = db.MenuApp.Where(a => a.ID == id).FirstOrDefault();
-            return View("~/Views/appdashboard/masterdata/Menu/Detail.cshtml", model);
         }
         public ActionResult Create()
         {

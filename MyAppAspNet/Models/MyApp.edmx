@@ -127,12 +127,12 @@
           <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="id_user" Type="bigint" />
           <Property Name="id_role" Type="bigint" />
-          <Property Name="allow_view" Type="bit" />
-          <Property Name="allow_add" Type="bit" />
-          <Property Name="allow_edit" Type="bit" />
-          <Property Name="allow_delete" Type="bit" />
-          <Property Name="allow_print" Type="bit" />
-          <Property Name="allow_custom" Type="bit" />
+          <Property Name="allow_view" Type="bit" Nullable="false" />
+          <Property Name="allow_add" Type="bit" Nullable="false" />
+          <Property Name="allow_edit" Type="bit" Nullable="false" />
+          <Property Name="allow_delete" Type="bit" Nullable="false" />
+          <Property Name="allow_print" Type="bit" Nullable="false" />
+          <Property Name="allow_custom" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -522,12 +522,12 @@
           <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="id_user" Type="Int64" />
           <Property Name="id_role" Type="Int64" />
-          <Property Name="allow_view" Type="Boolean" />
-          <Property Name="allow_add" Type="Boolean" />
-          <Property Name="allow_edit" Type="Boolean" />
-          <Property Name="allow_delete" Type="Boolean" />
-          <Property Name="allow_print" Type="Boolean" />
-          <Property Name="allow_custom" Type="Boolean" />
+          <Property Name="allow_view" Type="Boolean" Nullable="false" />
+          <Property Name="allow_add" Type="Boolean" Nullable="false" />
+          <Property Name="allow_edit" Type="Boolean" Nullable="false" />
+          <Property Name="allow_delete" Type="Boolean" Nullable="false" />
+          <Property Name="allow_print" Type="Boolean" Nullable="false" />
+          <Property Name="allow_custom" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Roles" Relationship="Self.FK_UserRole_Roles" FromRole="UserRole" ToRole="Roles" />
           <NavigationProperty Name="Users" Relationship="MyAppModel.FK_UserRole_Users" FromRole="UserRole" ToRole="Users" />
         </EntityType>

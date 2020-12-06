@@ -1,14 +1,11 @@
 ﻿using MyAppAspNet.Models;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
 namespace MyAppAspNet
 {
-    public class RouteConfig
+    public class RouteConfig 
     {
         public static void RegisterRoutes(RouteCollection routes)
         {
@@ -30,61 +27,60 @@ namespace MyAppAspNet
            );
             
             var myAppEntities = new MyAppEntities();
-            string idusr = "Admin";
-            var UserRoles = myAppEntities.UserRole.Where(a => a.Users.userid == idusr).Where(a => a.Roles.url != "").ToList();
+            var UserRoles = myAppEntities.Roles.Where(a => a.url != "").ToList();
             foreach (var userrole in UserRoles)
             {
-                if (userrole.allow_view == true)
+                if (userrole.AccessView == true)
                 {
                     routes.MapRoute(
                     name: userrole.id.ToString() + "view",
-                    url: (userrole.Roles.url + "").Replace("//", "/"),
-                    defaults: new { controller = userrole.Roles.controller, action = "Index", id = UrlParameter.Optional }
+                    url: (userrole.url + "").Replace("//", "/"),
+                    defaults: new { controller = userrole.controller, action = "Index", id = UrlParameter.Optional }
                     );
                     routes.MapRoute(
                     name: userrole.id.ToString() + "details",
-                    url: (userrole.Roles.url + "/Details/{id}").Replace("//", "/"),
-                    defaults: new { controller = userrole.Roles.controller, action = "Details", id = UrlParameter.Optional }
+                    url: (userrole.url + "/Details/{id}").Replace("//", "/"),
+                    defaults: new { controller = userrole.controller, action = "Details", id = UrlParameter.Optional }
                     );
                 }
-                if (userrole.allow_add == true)
+                if (userrole.AccessAdd == true)
                 {
                     routes.MapRoute(
                     name: userrole.id.ToString() + "add",
-                    url: (userrole.Roles.url + "/add").Replace("//", "/"),
-                    defaults: new { controller = userrole.Roles.controller, action = "Create", id = UrlParameter.Optional }
+                    url: (userrole.url + "/add").Replace("//", "/"),
+                    defaults: new { controller = userrole.controller, action = "Create", id = UrlParameter.Optional }
                     );
                 }
-                if (userrole.allow_edit == true)
+                if (userrole.AccessEdit == true)
                 {
                     routes.MapRoute(
                     name: userrole.id.ToString() + "edit",
-                    url: (userrole.Roles.url + "/edit/{id}").Replace("//", "/"),
-                    defaults: new { controller = userrole.Roles.controller, action = "Edit", id = UrlParameter.Optional }
+                    url: (userrole.url + "/edit/{id}").Replace("//", "/"),
+                    defaults: new { controller = userrole.controller, action = "Edit", id = UrlParameter.Optional }
                     );
                 }
-                if (userrole.allow_delete == true)
+                if (userrole.AccessDelete == true)
                 {
                     routes.MapRoute(
                     name: userrole.id.ToString() + "delete",
-                    url: (userrole.Roles.url + "/delete/{id}").Replace("//", "/"),
-                    defaults: new { controller = userrole.Roles.controller, action = "Delete", id = UrlParameter.Optional }
+                    url: (userrole.url + "/delete/{id}").Replace("//", "/"),
+                    defaults: new { controller = userrole.controller, action = "Delete", id = UrlParameter.Optional }
                     );
                 }
-                if (userrole.allow_print == true)
+                if (userrole.AccessPrint == true)
                 {
                     routes.MapRoute(
                     name: userrole.id.ToString() + "print",
-                    url: (userrole.Roles.url + "/print").Replace("//", "/"),
-                    defaults: new { controller = userrole.Roles.controller, action = "Print", id = UrlParameter.Optional }
+                    url: (userrole.url + "/print").Replace("//", "/"),
+                    defaults: new { controller = userrole.controller, action = "Print", id = UrlParameter.Optional }
                     );
                 }
-                if (userrole.allow_custom == true)
+                if (userrole.AccessCustom == true)
                 {
                     routes.MapRoute(
                     name: userrole.id.ToString() + "custom",
-                    url: (userrole.Roles.url + "/custom").Replace("//","/"),
-                    defaults: new { controller = userrole.Roles.controller, action = "Custom", id = UrlParameter.Optional }
+                    url: (userrole.url + "/custom").Replace("//","/"),
+                    defaults: new { controller = userrole.controller, action = "Custom", id = UrlParameter.Optional }
                     );
                 }
 

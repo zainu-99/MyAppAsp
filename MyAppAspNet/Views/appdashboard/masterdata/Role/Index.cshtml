@@ -5,10 +5,8 @@
     Layout = "~/Views/Shared/_Template.cshtml";
 }
 
-<h2>Index</h2>
-
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.Partial("~/Views/Shared/action/add-button.cshtml", "Create New")
 </p>
 <div style="overflow: auto;">
     <table class="table">
@@ -80,9 +78,8 @@
                     @Html.DisplayFor(modelItem => item.AccessCustom)
                 </td>
                 <td nowrap>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.id })
+                    @Html.Partial("~/Views/Shared/action/edit-button.cshtml", item.id) | 
+                    @Html.Partial("~/Views/Shared/action/delete-button.cshtml", item.id)
                 </td>
             </tr>
         }

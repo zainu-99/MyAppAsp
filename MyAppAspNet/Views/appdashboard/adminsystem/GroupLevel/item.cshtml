@@ -1,0 +1,25 @@
+﻿@model Dictionary<String, Object>
+<tr @if ((string)Model["sparator"] == "") { @Html.Raw("style='font-weight:bold'")  }>
+    <td>
+        @Html.Raw((string)Model["sparator"]) ❯ @Html.DisplayFor(modelItem => ((MyAppAspNet.Models.GroupLevel)Model["item"]).Groups.name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => ((MyAppAspNet.Models.GroupLevel)Model["item"]).remark)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => ((MyAppAspNet.Models.GroupLevel)Model["item"]).GroupLevel2.Groups.name)-
+        @Html.DisplayFor(modelItem => ((MyAppAspNet.Models.GroupLevel)Model["item"]).GroupLevel2.remark)
+    </td>
+    <td>
+        <a class="btn btn-xs btn-info text-light" href="@Url.Action("Index", "RoleGroupLevel",new { idgroup = ((MyAppAspNet.Models.GroupLevel)Model["item"]).id })"><i class="fas fa-shield-alt"></i></a>
+        @Html.Partial("~/Views/Shared/action/edit-button.cshtml", ((MyAppAspNet.Models.GroupLevel)Model["item"]).id)
+        @Html.Partial("~/Views/Shared/action/delete-button.cshtml", ((MyAppAspNet.Models.GroupLevel)Model["item"]).id)
+    </td>
+</tr>
+@foreach (var item in ((MyAppAspNet.Models.GroupLevel)Model["item"]).GroupLevel1.OrderBy(a => a.Groups.name).ToList())
+{
+    var dir = new Dictionary<String, Object>();
+    dir["sparator"] = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + (string)Model["sparator"];
+    dir["item"] = item;
+    @Html.Partial("~/Views/appdashboard/adminsystem/GroupLevel/Item.cshtml", dir);
+}

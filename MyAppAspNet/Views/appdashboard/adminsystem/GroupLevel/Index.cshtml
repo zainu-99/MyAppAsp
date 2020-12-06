@@ -5,10 +5,8 @@
     Layout = "~/Views/Shared/_Template.cshtml";
 }
 
-<h2>Index</h2>
-
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.Partial("~/Views/Shared/action/add-button.cshtml", "Create New")
 </p>
 <table class="table">
     <tr>
@@ -23,25 +21,11 @@
         </th>
         <th>Action</th>
     </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Groups.name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.remark)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.GroupLevel2.Groups.name)-
-            @Html.DisplayFor(modelItem => item.GroupLevel2.remark)
-        </td>
-        <td>
-            <a href="@Url.Action("Index", "RoleGroupLevel",new { idgroup = item.id })">Role</a> | 
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
-        </td>
-    </tr>
+@foreach (var item in Model)
+{
+    var dir = new Dictionary<String, Object>();
+    dir["sparator"] = "";
+    dir["item"] = item;
+    @Html.Partial("~/Views/appdashboard/adminsystem/GroupLevel/Item.cshtml", dir);
 }
-
 </table>

@@ -4,71 +4,92 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Template.cshtml";
 }
+    <form>
+        Group
+        <div class="row">
+            <div class="col-md-8">
+                @Html.DropDownList("idgroup", null, "Select Group", htmlAttributes: new { @class = "form-control" })
+            </div>
+            <div class="col-md-2">
+                <input type="submit" class="btn btn-info" value="SEARCH" />
+            </div>
+        </div>
+    </form>
+<br />
+<br/>
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.allow_view)
+            Name
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.allow_add)
+            Remark
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.allow_edit)
+            View
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.allow_delete)
+           Add
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.allow_print)
+           Edit
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.allow_custom)
+            Delete
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Roles.name)
+            Print
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Users.userid)
+           Custom
         </th>
-        <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.allow_view)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.allow_add)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.allow_edit)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.allow_delete)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.allow_print)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.allow_custom)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Roles.name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Users.userid)
+            @Html.DisplayFor(modelItem => item.Roles.note)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+            @if (item.Roles.AccessView)
+            {
+                @Html.EditorFor(modelItem => item.allow_view, new { htmlAttributes = new { @dataid = item.Roles.id, @datafield = "isView" } })
+            }
+
+        </td>
+        <td>
+            @if (item.Roles.AccessAdd)
+            {
+                @Html.EditorFor(modelItem => item.allow_add, new { htmlAttributes = new { @dataid = item.Roles.id, @datafield = "isAdd" } })
+            }
+        </td>
+        <td>
+            @if (item.Roles.AccessEdit)
+            {
+                @Html.EditorFor(modelItem => item.allow_edit, new { htmlAttributes = new { @dataid = item.Roles.id, @datafield = "isEdit" } })
+            }
+        </td>
+        <td>
+            @if (item.Roles.AccessDelete)
+            {
+                @Html.EditorFor(modelItem => item.allow_delete, new { htmlAttributes = new { @dataid = item.Roles.id, @datafield = "isDelete" } })
+            }
+        </td>
+        <td>
+            @if (item.Roles.AccessPrint)
+            {
+                @Html.EditorFor(modelItem => item.allow_print, new { htmlAttributes = new { @dataid = item.Roles.id, @datafield = "isPrint" } })
+            }
+        </td>
+        <td>
+            @if (item.Roles.AccessCustom)
+            {
+                @Html.EditorFor(modelItem => item.allow_custom, new { htmlAttributes = new { @dataid = item.Roles.id, @datafield = "isCustom" } })
+            }
         </td>
     </tr>
 }

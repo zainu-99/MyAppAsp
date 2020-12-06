@@ -23,7 +23,6 @@ namespace MyAppAspNet.Controllers
             if (usr != null)
             {
                 var claims = new List<Claim>();
-                Session["userid"] = user.userid;
                 claims.Add(new Claim(ClaimTypes.NameIdentifier, usr.userid));
                 claims.Add(new Claim(ClaimTypes.Name, usr.name));
                 claims.Add(new Claim(ClaimTypes.Email, usr.email));
@@ -34,6 +33,7 @@ namespace MyAppAspNet.Controllers
                     IsPersistent = false,
                     ExpiresUtc = DateTime.UtcNow.AddDays(7)
                 }, identity);
+                
                 return RedirectToAction("Index", "Home");
             }
             else

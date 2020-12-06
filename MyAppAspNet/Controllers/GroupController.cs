@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace MyAppAspNet.Controllers
 {
+    [AuthorizeUser]
     public class GroupController : Controller
     {
         public ActionResult Index()
@@ -14,13 +15,6 @@ namespace MyAppAspNet.Controllers
             MyAppEntities myAppEntities = new MyAppEntities();
             var model = myAppEntities.Groups.ToList();
             return View("~/Views/appdashboard/masterdata/Group/Index.cshtml", model);
-        }
-
-        public ActionResult Details(int id)
-        {
-            MyAppEntities myAppEntities = new MyAppEntities();
-            var model = myAppEntities.Groups.Where(a => a.id == id).FirstOrDefault();
-            return View("~/Views/appdashboard/masterdata/Group/Detail.cshtml", model);
         }
         public ActionResult Create()
         {

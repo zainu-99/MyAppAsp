@@ -140,12 +140,12 @@
     <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="id_user" Type="Int64" />
     <Property Name="id_role" Type="Int64" />
-    <Property Name="allow_view" Type="Boolean" />
-    <Property Name="allow_add" Type="Boolean" />
-    <Property Name="allow_edit" Type="Boolean" />
-    <Property Name="allow_delete" Type="Boolean" />
-    <Property Name="allow_print" Type="Boolean" />
-    <Property Name="allow_custom" Type="Boolean" />
+    <Property Name="allow_view" Type="Boolean" Nullable="false" />
+    <Property Name="allow_add" Type="Boolean" Nullable="false" />
+    <Property Name="allow_edit" Type="Boolean" Nullable="false" />
+    <Property Name="allow_delete" Type="Boolean" Nullable="false" />
+    <Property Name="allow_print" Type="Boolean" Nullable="false" />
+    <Property Name="allow_custom" Type="Boolean" Nullable="false" />
     <NavigationProperty Name="Roles" Relationship="Self.FK_UserRole_Roles" FromRole="UserRole" ToRole="Roles" />
     <NavigationProperty Name="Users" Relationship="MyAppModel.FK_UserRole_Users" FromRole="UserRole" ToRole="Users" />
   </EntityType>

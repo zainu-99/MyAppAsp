@@ -7,16 +7,17 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MyAppAspNet.Models;
-using MyAppAsp.Helper;
+using MyAppAspNet.Helper;
 
 namespace MyAppAspNet.Controllers
 {
+    [AuthorizeUser]
     public class RoleGroupLevelController : Controller
     {
         private MyAppEntities db = new MyAppEntities();
         public ActionResult Index(int idgroup)
         {
-            DataTable dt = SqlService.GetDataTable("select a.id,a.name,a.note,isView,isAdd,isEdit,isDelete,isPrint,isCustom,AccessView,AccessAdd,AccessEdit,AccessDelete,AccessPrint,AccessCustom from Roles a left join (select * from  RoleGroupLevel where id_group_level=" + idgroup + ") b on a.id =b.id_role order by a.url,a.name");
+            DataTable dt = SqlService.GetDataTable("select a.id,a.name,a.note,isView,isAdd,isEdit,isDelete,isPrint,isCustom,AccessView,AccessAdd,AccessEdit,AccessDelete,AccessPrint,AccessCustom from Roles a left join (select * from  RoleGroupLevel where id_group_level=" + idgroup + ") b on a.id =b.id_role order by a.url");
             var model = new List<RoleGroupLevel>();
             foreach(DataRow dr in dt.Rows)
             {
@@ -44,29 +45,31 @@ namespace MyAppAspNet.Controllers
 
         //[HttpPost]
         //[ValidateAntiForgeryToken]
-        public String Edit(int idgroup,int id, RoleGroupLevel collection)
+        public String Edit(int idgroup,int id, FormCollection collection)
         {
             try
             {
                 TryUpdateModel(collection);
                 using (var myAppEntities = new MyAppEntities())
                 {
-                    if(myAppEntities.RoleGroupLevel.Where(a => a.id_role == collection.Roles.id).Where(a=>a.id_group_level == idgroup).Count()>0)
+                    var key = collection.GetValue("key").AttemptedValue;
+                    var val = collection.GetValue("val").AttemptedValue;
+                    if (myAppEntities.RoleGroupLevel.Where(a => a.id_role == id).Where(a=>a.id_group_level == idgroup).Count()>0)
                     {
-                        var m = myAppEntities.RoleGroupLevel.Where(a => a.id_group_level == idgroup).FirstOrDefault();
-                        TryUpdateModel(m);
-                        myAppEntities.SaveChanges();
-                    }else
+                        string query = "update RoleGroupLevel set " + key +  " = '"+ val +"' where id_role = '" + id + "' and id_group_level = '" + idgroup + "' ";
+                      myAppEntities.RoleGroupLevel.SqlQuery(query).FirstOrDefault();
+                    }
+                    else
                     {
-                        myAppEntities.RoleGroupLevel.Add(collection);
-                        myAppEntities.SaveChanges();
+                        string query = "insert RoleGroupLevel (" + key + ",id_role,id_group_level) values ('"+ val +"','"+ id +"','"+ idgroup +"')";
+                        myAppEntities.RoleGroupLevel.SqlQuery(query).FirstOrDefault();
                     }
                 }
                 return "Success";
             }
-            catch
+            catch( Exception e)
             {
-                return "Failed";
+                return e.Message;
             }
         }
 

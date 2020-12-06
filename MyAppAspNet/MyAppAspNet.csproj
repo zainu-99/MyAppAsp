@@ -170,6 +170,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helper\AuthorizeUserAttribute.cs" />
+    <Compile Include="Helper\MyAppHelper.cs" />
     <Compile Include="Helper\SqlService.cs" />
     <Compile Include="Models\ChatMessage.cs">
       <DependentUpon>MyApp.tt</DependentUpon>
@@ -216,6 +218,7 @@
     <Compile Include="Models\UserGroupLevel.cs">
       <DependentUpon>MyApp.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\UserGroupLevelJoin.cs" />
     <Compile Include="Models\UserRole.cs">
       <DependentUpon>MyApp.tt</DependentUpon>
     </Compile>
@@ -288,7 +291,7 @@
     <Content Include="Views\appdashboard\Index.cshtml" />
     <Content Include="Views\appdashboard\adminsystem\User\Index.cshtml" />
     <Content Include="Views\appdashboard\adminsystem\User\Edit.cshtml" />
-    <Content Include="Views\appdashboard\adminsystem\User\Detail.cshtml" />
+    <Content Include="Views\appdashboard\adminsystem\User\Details.cshtml" />
     <Content Include="Views\appdashboard\adminsystem\User\Delete.cshtml" />
     <Content Include="Views\appdashboard\masterdata\Role\Index.cshtml" />
     <Content Include="Views\appdashboard\masterdata\Role\Add.cshtml" />
@@ -303,7 +306,6 @@
     <Content Include="Views\appdashboard\masterdata\Menu\Add.cshtml" />
     <Content Include="Views\appdashboard\masterdata\Menu\Edit.cshtml" />
     <Content Include="Views\appdashboard\masterdata\Menu\Delete.cshtml" />
-    <Content Include="Views\appdashboard\masterdata\Menu\Detail.cshtml" />
     <Content Include="Views\appdashboard\masterdata\Menu\Item.cshtml" />
     <Content Include="Views\appdashboard\adminsystem\GroupLevel\Add.cshtml" />
     <Content Include="Views\appdashboard\adminsystem\GroupLevel\Delete.cshtml" />
@@ -311,11 +313,14 @@
     <Content Include="Views\appdashboard\adminsystem\GroupLevel\Index.cshtml" />
     <Content Include="Views\appdashboard\adminsystem\User\Add.cshtml" />
     <Content Include="Views\appdashboard\adminsystem\GroupLevel\RoleGroupLevel\Index.cshtml" />
+    <Content Include="Views\appdashboard\adminsystem\GroupLevel\Item.cshtml" />
+    <Content Include="Views\appdashboard\adminsystem\User\UserGroupLevel\Item.cshtml" />
     <None Include="Views\Shared\action\add-button.cshtml" />
     <None Include="Views\Shared\action\delete-button.cshtml" />
+    <Content Include="Views\Shared\action\details-button.cshtml" />
     <None Include="Views\Shared\action\edit-button.cshtml" />
-    <Content Include="Views\appdashboard\adminsystem\User\UserRole\Index.cshtml" />
     <Content Include="Views\appdashboard\adminsystem\User\UserGroupLevel\Index.cshtml" />
+    <Content Include="Views\appdashboard\adminsystem\User\UserRole\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\AdminLTE\" />
