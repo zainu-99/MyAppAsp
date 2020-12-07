@@ -148,7 +148,6 @@
           <Property Name="gender" Type="varchar" MaxLength="50" />
           <Property Name="status" Type="bit" Nullable="false" />
           <Property Name="online_offline" Type="bit" Nullable="false" />
-          <Property Name="password_noencrypt" Type="varchar" MaxLength="50" />
           <Property Name="password" Type="varchar" MaxLength="250" />
           <Property Name="token" Type="varchar" MaxLength="250" />
           <Property Name="created_at" Type="datetime" />
@@ -713,7 +712,6 @@
           <Property Name="gender" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="status" Type="Boolean" Nullable="false" />
           <Property Name="online_offline" Type="Boolean" Nullable="false" />
-          <Property Name="password_noencrypt" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="password" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="token" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="created_at" Type="DateTime" Precision="3" />
@@ -779,7 +777,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -932,7 +930,6 @@
                 <ScalarProperty Name="created_at" ColumnName="created_at" />
                 <ScalarProperty Name="token" ColumnName="token" />
                 <ScalarProperty Name="password" ColumnName="password" />
-                <ScalarProperty Name="password_noencrypt" ColumnName="password_noencrypt" />
                 <ScalarProperty Name="online_offline" ColumnName="online_offline" />
                 <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="gender" ColumnName="gender" />

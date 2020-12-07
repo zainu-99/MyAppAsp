@@ -24,7 +24,7 @@
         <AssociationConnector Association="MyAppModel.FK_MenuApp_Roles" ManuallyRouted="false" />
         <AssociationConnector Association="MyAppModel.FK_RoleGroupLevel_Roles" ManuallyRouted="false" />
         <AssociationConnector Association="MyAppModel.FK_UserRole_Roles" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="MyAppModel.Users" Width="1.5" PointX="6" PointY="10.25" />
+        <EntityTypeShape EntityType="MyAppModel.Users" Width="1.5" PointX="6" PointY="10.375" />
         <AssociationConnector Association="MyAppModel.FK_ErrorReport_Users" />
         <AssociationConnector Association="MyAppModel.FK_LogApp_Users" />
         <AssociationConnector Association="MyAppModel.FK_UserGroupLevel_Users" />

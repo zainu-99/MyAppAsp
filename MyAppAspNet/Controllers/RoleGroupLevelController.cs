@@ -43,8 +43,8 @@ namespace MyAppAspNet.Controllers
             return View("~/Views/appdashboard/adminsystem/GroupLevel/RoleGroupLevel/index.cshtml", model);
         }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public String Edit(int idgroup,int id, FormCollection collection)
         {
             try

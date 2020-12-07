@@ -47,17 +47,32 @@ namespace MyAppAspNet.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,id_user,id_role,allow_view,allow_add,allow_edit,allow_delete,allow_print,allow_custom")] UserRole userRole)
+        public String Edit(int iduser, int id, FormCollection collection)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(userRole).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                TryUpdateModel(collection);
+                using (var myAppEntities = new MyAppEntities())
+                {
+                    var key = collection.GetValue("key").AttemptedValue;
+                    var val = collection.GetValue("val").AttemptedValue;
+                    if (myAppEntities.UserRole.Where(a => a.id_role == id).Where(a => a.id_user == iduser).Count() > 0)
+                    {
+                        string query = "update UserRole set " + key + " = '" + val + "' where id_role = '" + id + "' and id_user = '" + iduser + "' ";
+                        myAppEntities.UserRole.SqlQuery(query).FirstOrDefault();
+                    }
+                    else
+                    {
+                        string query = "insert UserRole (" + key + ",id_role,id_user) values ('" + val + "','" + id + "','" + iduser + "')";
+                        myAppEntities.UserRole.SqlQuery(query).FirstOrDefault();
+                    }
+                }
+                return "Success";
             }
-            ViewBag.id_role = new SelectList(db.Roles, "id", "name", userRole.id_role);
-            ViewBag.id_user = new SelectList(db.Users, "id", "userid", userRole.id_user);
-            return View(userRole);
+            catch (Exception e)
+            {
+                return e.Message;
+            }
         }
         protected override void Dispose(bool disposing)
         {

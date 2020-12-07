@@ -22,22 +22,23 @@ namespace MyAppAspNet
             if(Access == null) Access = rd.GetRequiredString("action");
             string controllerName = rd.GetRequiredString("controller");
             var UserID = MyAppHelper.GetUserIdentityValue(httpContext.User, ClaimTypes.NameIdentifier);
+            var access = myAppEntities.UserRole.Where(a => a.Users.userid == UserID).Where(a => a.Roles.controller == controllerName).FirstOrDefault();
+            httpContext.Items["Access"] = access;
+
             if (Access == AuthorizeUserType.View || Access == "Details")
-                userRoles = myAppEntities.UserRole.Where(a => a.allow_view == true).Where(a => a.Users.userid == UserID).Where(a => a.Roles.controller == controllerName).FirstOrDefault();
+                return access.allow_view;
             else if (Access == AuthorizeUserType.Add)
-                userRoles = myAppEntities.UserRole.Where(a => a.allow_view == true).Where(a => a.Users.userid == UserID).Where(a => a.Roles.controller == controllerName).FirstOrDefault();
+                return access.allow_add;
             else if (Access == AuthorizeUserType.Edit)
-                userRoles = myAppEntities.UserRole.Where(a => a.allow_view == true).Where(a => a.Users.userid == UserID).Where(a => a.Roles.controller == controllerName).FirstOrDefault();
+                return access.allow_edit;
             else if (Access == AuthorizeUserType.Delete)
-                userRoles = myAppEntities.UserRole.Where(a => a.allow_view == true).Where(a => a.Users.userid == UserID).Where(a => a.Roles.controller == controllerName).FirstOrDefault();
+                return access.allow_delete;
             else if (Access == AuthorizeUserType.Print)
-                userRoles = myAppEntities.UserRole.Where(a => a.allow_view == true).Where(a => a.Users.userid == UserID).Where(a => a.Roles.controller == controllerName).FirstOrDefault();
+                return access.allow_print;
             else if (Access == AuthorizeUserType.Custom)
-                userRoles = myAppEntities.UserRole.Where(a => a.allow_view == true).Where(a => a.Users.userid == UserID).Where(a => a.Roles.controller == controllerName).FirstOrDefault();
+                return access.allow_custom;
             else
                 return false;
-
-            return (userRoles != null);
         }
     }
     public class AuthorizeUserType

@@ -33,7 +33,6 @@ namespace MyAppAspNet.Models
         public string gender { get; set; }
         public bool status { get; set; }
         public bool online_offline { get; set; }
-        public string password_noencrypt { get; set; }
         public string password { get; set; }
         public string token { get; set; }
         public Nullable<System.DateTime> created_at { get; set; }

@@ -60,25 +60,25 @@
                     @Html.DisplayFor(modelItem => item.controller)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.AccessView)
+                    @Html.EditorFor(modelItem => item.AccessView, new { htmlAttributes = new { @dataid = item.id, @datafield = "AccessView" } })
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.AccessAdd)
+                    @Html.EditorFor(modelItem => item.AccessAdd, new { htmlAttributes = new { @dataid = item.id, @datafield = "AccessAdd" } })
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.AccessEdit)
+                    @Html.EditorFor(modelItem => item.AccessEdit, new { htmlAttributes = new { @dataid = item.id, @datafield = "AccessEdit" } })
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.AccessDelete)
+                    @Html.EditorFor(modelItem => item.AccessDelete, new { htmlAttributes = new { @dataid = item.id, @datafield = "AccessDelete" } })
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.AccessPrint)
+                    @Html.EditorFor(modelItem => item.AccessPrint, new { htmlAttributes = new { @dataid = item.id, @datafield = "AccessPrint" } })
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.AccessCustom)
+                    @Html.EditorFor(modelItem => item.AccessCustom, new { htmlAttributes = new { @dataid = item.id, @datafield = "AccessCustom" } })
                 </td>
                 <td nowrap>
-                    @Html.Partial("~/Views/Shared/action/edit-button.cshtml", item.id) | 
+                    @Html.Partial("~/Views/Shared/action/edit-button.cshtml", item.id) 
                     @Html.Partial("~/Views/Shared/action/delete-button.cshtml", item.id)
                 </td>
             </tr>
@@ -86,3 +86,31 @@
 
     </table>
 </div>
+<script>
+    $(document).ready(function () {
+        $("input[type=checkbox]").on("click",function (e) {
+            var idrole = $(this).attr("dataid");
+            var field = $(this).attr("datafield");
+            var fieldvalue = $(this).is(':checked');
+            checkedAccess(idrole, field, fieldvalue);
+        });
+        function checkedAccess(idrole, filed, fieldvalue) {
+            $.ajax({
+                type: 'POST',
+                url: '@HttpContext.Current.Request.Url.AbsoluteUri/edit/'+ idrole,
+                data: {
+                    __RequestVerificationToken: $("input[name='__RequestVerificationToken']").val(),
+                    "key": filed,
+                    "val": fieldvalue
+                },
+                success: function (data) {
+                    //alert(data);
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    //alert(xhr.responseText);
+                    //alert(thrownError);
+                }
+            });
+        }
+    });
+</script>

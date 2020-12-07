@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
+using MyAppAspNet.Helper;
 using MyAppAspNet.Models;
 using Newtonsoft.Json;
 using System;
@@ -19,7 +20,8 @@ namespace MyAppAspNet.Controllers
             if(AuthenticationManager.User.Identity.IsAuthenticated) return RedirectToAction("Index", "Home");
             if (user.userid == null) return View();
             MyAppEntities myAppEntities = new MyAppEntities();
-            var usr = myAppEntities.Users.Where(a => a.userid == user.userid).Where(a => a.password_noencrypt == user.password).FirstOrDefault();
+            var pass = MyAppHelper.GetHashMD5(user.password);
+            var usr = myAppEntities.Users.Where(a => a.userid == user.userid).Where(a => a.password == pass).FirstOrDefault();
             if (usr != null)
             {
                 var claims = new List<Claim>();

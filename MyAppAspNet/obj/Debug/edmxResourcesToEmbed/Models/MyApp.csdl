@@ -331,7 +331,6 @@
     <Property Name="gender" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="status" Type="Boolean" Nullable="false" />
     <Property Name="online_offline" Type="Boolean" Nullable="false" />
-    <Property Name="password_noencrypt" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="password" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
     <Property Name="token" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
     <Property Name="created_at" Type="DateTime" Precision="3" />

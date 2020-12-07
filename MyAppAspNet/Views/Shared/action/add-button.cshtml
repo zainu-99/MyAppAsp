@@ -1,1 +1,4 @@
-<a href='@Url.Action("Create")' class="btn btn-sm btn-success"><i class="fa fa-plus-circle"></i> @Html.Raw(Model)</a> 
+@if ((HttpContext.Current.Items["Access"] as MyAppAspNet.Models.UserRole).allow_add)
+{
+    <a href='@Url.Action("Create")' class="btn btn-sm btn-success"><i class="fa fa-plus-circle"></i> @Html.Raw(Model)</a> 
+}

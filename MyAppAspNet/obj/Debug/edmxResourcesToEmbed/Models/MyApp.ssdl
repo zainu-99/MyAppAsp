@@ -143,7 +143,6 @@
     <Property Name="gender" Type="varchar" MaxLength="50" />
     <Property Name="status" Type="bit" Nullable="false" />
     <Property Name="online_offline" Type="bit" Nullable="false" />
-    <Property Name="password_noencrypt" Type="varchar" MaxLength="50" />
     <Property Name="password" Type="varchar" MaxLength="250" />
     <Property Name="token" Type="varchar" MaxLength="250" />
     <Property Name="created_at" Type="datetime" />

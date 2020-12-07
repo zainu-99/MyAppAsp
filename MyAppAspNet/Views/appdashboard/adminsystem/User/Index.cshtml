@@ -31,12 +31,6 @@
         <th>
             Status
         </th> 
-        <th>
-           Created At
-        </th>
-        <th>
-            Updated At
-        </th>
         <th>Action</th>
     </tr>
 
@@ -61,16 +55,10 @@
             @Html.DisplayFor(modelItem => item.gender)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.status)
+            @Html.EditorFor(modelItem => item.status, new { htmlAttributes = new { @dataid = item.id, @datafield = "status" } })
         </td> 
         <td>
-            @Html.DisplayFor(modelItem => item.created_at)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.updated_at)
-        </td>
-        <td>
-            <a href='' class="btn btn-xs btn-warning text-light"><i class="fas fa-key"></i></a> 
+            <a href='' class="btn btn-xs btn-warning text-light" onclick="resetPassword(@item.id);"><i class="fas fa-key"></i></a> 
             <a href='@Url.Action("Index","UserRole",new{ iduser = item.id})' class="btn btn-xs btn-info text-light"><i class="fas fa-shield-alt"></i></a> 
             <a href='@Url.Action("Index","UserGroupLevel",new{ iduser = item.id})' class="btn btn-xs btn-warning text-light"><i class="fas fa-layer-group"></i></a> 
             @Html.Partial("~/Views/Shared/action/edit-button.cshtml", item.id) 
@@ -81,3 +69,52 @@
 }
 
 </table>
+<script>
+    $(document).ready(function () {
+        $("input[type=checkbox]").on("click",function (e) {
+            var iduser = $(this).attr("dataid");
+            var field = $(this).attr("datafield");
+            var fieldvalue = $(this).is(':checked');
+            checkedAccess(iduser, field, fieldvalue);
+        });
+        function checkedAccess(iduser, filed, fieldvalue) {
+            $.ajax({
+                type: 'POST',
+                url: '@HttpContext.Current.Request.Url.AbsolutePath/edit/' + iduser,
+                data: {
+                    __RequestVerificationToken: $("input[name='__RequestVerificationToken']").val(),
+                    "key": filed,
+                    "val": fieldvalue
+                },
+                success: function (data) {
+                    //alert(data);
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    //alert(xhr.responseText);
+                    //alert(thrownError);
+                }
+            });
+        }
+    });
+    function resetPassword(iduser) {
+        var r = confirm("Are You Sure Want To Reset password?");
+        if (r == true) {
+            $.ajax({
+                type: 'POST',
+                url: '@HttpContext.Current.Request.Url.AbsolutePath/edit/' + iduser,
+                data: {
+                    __RequestVerificationToken: $("input[name='__RequestVerificationToken']").val(),
+                    id_user: iduser,
+                    reset_pass: 'reset_pass',
+                },
+                success: function (data) {
+                    //alert(data);
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    //alert(xhr.responseText);
+                    //alert(thrownError);
+                }
+            });
+        }
+    }
+</script>

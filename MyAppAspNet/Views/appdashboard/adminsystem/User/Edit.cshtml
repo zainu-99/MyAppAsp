@@ -13,7 +13,7 @@
         @Html.HiddenFor(model => model.id)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.userid, htmlAttributes: new { @class = "control-label col-md-2" })
+           UserID
             <div class="col-md-10">
                 @Html.EditorFor(model => model.userid, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.userid, "", new { @class = "text-danger" })
@@ -21,7 +21,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.name, htmlAttributes: new { @class = "control-label col-md-2" })
+           Name
             <div class="col-md-10">
                 @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
@@ -29,7 +29,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label col-md-2" })
+            Email
             <div class="col-md-10">
                 @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
@@ -37,7 +37,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.nohp, htmlAttributes: new { @class = "control-label col-md-2" })
+           Phone
             <div class="col-md-10">
                 @Html.EditorFor(model => model.nohp, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.nohp, "", new { @class = "text-danger" })
@@ -45,7 +45,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.address, htmlAttributes: new { @class = "control-label col-md-2" })
+           Address
             <div class="col-md-10">
                 @Html.EditorFor(model => model.address, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.address, "", new { @class = "text-danger" })
@@ -53,7 +53,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.avatar, htmlAttributes: new { @class = "control-label col-md-2" })
+           Avatar
             <div class="col-md-10">
                 @Html.EditorFor(model => model.avatar, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.avatar, "", new { @class = "text-danger" })
@@ -61,20 +61,10 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.gender, htmlAttributes: new { @class = "control-label col-md-2" })
+            Gender
             <div class="col-md-10">
-                @Html.EditorFor(model => model.gender, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.gender, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.status, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.status)
-                    @Html.ValidationMessageFor(model => model.status, "", new { @class = "text-danger" })
-                </div>
+                <input type="radio" @if(Model.gender == "M") { @("Checked"); } name="gender" value="M" />Male 
+                <input type="radio" @if (Model.gender == "F") { @("Checked") ; } name="gender" value="F" />Female
             </div>
         </div>
 

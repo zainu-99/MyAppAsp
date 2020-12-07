@@ -47,16 +47,26 @@ namespace MyAppAspNet.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, Roles collection)
+        public ActionResult Edit(int id, FormCollection collection)
         {
             try
             {
                 TryUpdateModel(collection);
                 using (var myAppEntities = new MyAppEntities())
                 {
-                    var m = myAppEntities.Roles.Where(a => a.id == id).FirstOrDefault();
-                    TryUpdateModel(m);
-                    myAppEntities.SaveChanges();
+                    if (collection.AllKeys.Contains("key"))
+                    {
+                        var key = collection.GetValue("key").AttemptedValue;
+                        var val = collection.GetValue("val").AttemptedValue;
+                        string query = "update Roles set " + key + " = '" + val + "' where id = '" + id + "'";
+                        myAppEntities.UserRole.SqlQuery(query).FirstOrDefault();
+                    }
+                    else
+                    {
+                        var m = myAppEntities.Roles.Where(a => a.id == id).FirstOrDefault();
+                        TryUpdateModel(m);
+                        myAppEntities.SaveChanges();
+                    }
                 }
                 return RedirectToAction("Index");
             }

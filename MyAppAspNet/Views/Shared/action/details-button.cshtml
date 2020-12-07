@@ -1,1 +1,4 @@
-<a href='@Url.Action("Details",new { id = Model })' class="btn btn-xs btn-success"><i class="fa fa-eye"></i></a> 
+@if ((HttpContext.Current.Items["Access"] as MyAppAspNet.Models.UserRole).allow_view)
+{
+<a href='@Url.Action("Details", new { id = Model })' class="btn btn-xs btn-success"><i class="fa fa-eye"></i></a> 
+}

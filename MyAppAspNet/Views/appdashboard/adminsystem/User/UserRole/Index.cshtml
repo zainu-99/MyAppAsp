@@ -8,7 +8,7 @@
         Group
         <div class="row">
             <div class="col-md-8">
-                @Html.DropDownList("idgroup", null, "Select Group", htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("idgroup", null, htmlAttributes: new { @class = "form-control" })
             </div>
             <div class="col-md-2">
                 <input type="submit" class="btn btn-info" value="SEARCH" />
@@ -57,41 +57,69 @@
         <td>
             @if (item.Roles.AccessView)
             {
-                @Html.EditorFor(modelItem => item.allow_view, new { htmlAttributes = new { @dataid = item.Roles.id, @datafield = "isView" } })
+                @Html.EditorFor(modelItem => item.allow_view, new { htmlAttributes = new { @dataid = item.Roles.id, @datafield = "allow_view" } })
             }
 
         </td>
         <td>
             @if (item.Roles.AccessAdd)
             {
-                @Html.EditorFor(modelItem => item.allow_add, new { htmlAttributes = new { @dataid = item.Roles.id, @datafield = "isAdd" } })
+                @Html.EditorFor(modelItem => item.allow_add, new { htmlAttributes = new { @dataid = item.Roles.id, @datafield = "allow_add" } })
             }
         </td>
         <td>
             @if (item.Roles.AccessEdit)
             {
-                @Html.EditorFor(modelItem => item.allow_edit, new { htmlAttributes = new { @dataid = item.Roles.id, @datafield = "isEdit" } })
+                @Html.EditorFor(modelItem => item.allow_edit, new { htmlAttributes = new { @dataid = item.Roles.id, @datafield = "allow_edit" } })
             }
         </td>
         <td>
             @if (item.Roles.AccessDelete)
             {
-                @Html.EditorFor(modelItem => item.allow_delete, new { htmlAttributes = new { @dataid = item.Roles.id, @datafield = "isDelete" } })
+                @Html.EditorFor(modelItem => item.allow_delete, new { htmlAttributes = new { @dataid = item.Roles.id, @datafield = "allow_delete" } })
             }
         </td>
         <td>
             @if (item.Roles.AccessPrint)
             {
-                @Html.EditorFor(modelItem => item.allow_print, new { htmlAttributes = new { @dataid = item.Roles.id, @datafield = "isPrint" } })
+                @Html.EditorFor(modelItem => item.allow_print, new { htmlAttributes = new { @dataid = item.Roles.id, @datafield = "allow_print" } })
             }
         </td>
         <td>
             @if (item.Roles.AccessCustom)
             {
-                @Html.EditorFor(modelItem => item.allow_custom, new { htmlAttributes = new { @dataid = item.Roles.id, @datafield = "isCustom" } })
+                @Html.EditorFor(modelItem => item.allow_custom, new { htmlAttributes = new { @dataid = item.Roles.id, @datafield = "allow_custom" } })
             }
         </td>
     </tr>
 }
 
 </table>
+<script>
+    $(document).ready(function () {
+        $("input[type=checkbox]").on("click",function (e) {
+            var idrole = $(this).attr("dataid");
+            var field = $(this).attr("datafield");
+            var fieldvalue = $(this).is(':checked');
+            checkedAccess(idrole, field, fieldvalue);
+        });
+        function checkedAccess(idrole, filed, fieldvalue) {
+            $.ajax({
+                type: 'POST',
+                url: '@HttpContext.Current.Request.Url.AbsolutePath/edit/'+ idrole,
+                data: {
+                    __RequestVerificationToken: $("input[name='__RequestVerificationToken']").val(),
+                    "key": filed,
+                    "val": fieldvalue
+                },
+                success: function (data) {
+                    //alert(data);
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    //alert(xhr.responseText);
+                    //alert(thrownError);
+                }
+            });
+        }
+    });
+</script>

@@ -148,7 +148,6 @@
           <ScalarProperty Name="created_at" ColumnName="created_at" />
           <ScalarProperty Name="token" ColumnName="token" />
           <ScalarProperty Name="password" ColumnName="password" />
-          <ScalarProperty Name="password_noencrypt" ColumnName="password_noencrypt" />
           <ScalarProperty Name="online_offline" ColumnName="online_offline" />
           <ScalarProperty Name="status" ColumnName="status" />
           <ScalarProperty Name="gender" ColumnName="gender" />
