@@ -3,7 +3,7 @@
 {
     <li class="nav-item has-treeview menu-close">
         <a href="#" class="nav-link ">
-            @Html.Raw(Model.IconMenu)
+           <i class = "nav-item @Html.Raw(Model.IconMenu)"></i>
             <p>
                 @Model.MenuText
                 <i class="right fas fa-angle-left"></i>
@@ -30,7 +30,7 @@ else
         @{ 
         }
         <a href="~/@Html.Raw(Model.Roles.url)" class="nav-link item-menu">
-            @Html.Raw(Model.IconMenu)
+            <i class="nav-item @Html.Raw(Model.IconMenu)"></i>
             <p>@Model.MenuText</p>
         </a>
     </li>

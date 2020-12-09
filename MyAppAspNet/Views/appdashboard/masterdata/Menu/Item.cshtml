@@ -7,7 +7,7 @@
         @Html.DisplayFor(modelItem => ((MyAppAspNet.Models.MenuApp)Model["item"]).Roles.name)
     </td>
     <td>
-        @Html.Raw(((MyAppAspNet.Models.MenuApp)Model["item"]).IconMenu)
+       <i class="nav item @Html.Raw(((MyAppAspNet.Models.MenuApp)Model["item"]).IconMenu)" ></i>
     </td>
     <td>
         @Html.DisplayFor(modelItem => ((MyAppAspNet.Models.MenuApp)Model["item"]).OrderSort)
