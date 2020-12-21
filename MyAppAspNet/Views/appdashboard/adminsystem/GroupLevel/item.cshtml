@@ -15,6 +15,7 @@
         @Html.Partial("~/Views/Shared/action/edit-button.cshtml", ((MyAppAspNet.Models.GroupLevel)Model["item"]).id)
         @Html.Partial("~/Views/Shared/action/delete-button.cshtml", ((MyAppAspNet.Models.GroupLevel)Model["item"]).id)
     </td>
+	
 </tr>
 @foreach (var item in ((MyAppAspNet.Models.GroupLevel)Model["item"]).GroupLevel1.OrderBy(a => a.Groups.name).ToList())
 {
