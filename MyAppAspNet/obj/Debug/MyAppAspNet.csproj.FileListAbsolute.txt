@@ -114,7 +114,6 @@ E:\Project\visual studio\MyAppAspNet\MyAppAspNet\bin\System.Web.WebPages.Razor.x
 E:\Project\visual studio\MyAppAspNet\MyAppAspNet\bin\Antlr3.Runtime.pdb
 E:\Project\visual studio\MyAppAspNet\MyAppAspNet\obj\Debug\MyAppAspNet.dll
 E:\Project\visual studio\MyAppAspNet\MyAppAspNet\obj\Debug\MyAppAspNet.pdb
-E:\Project\visual studio\MyAppAspNet\MyAppAspNet\obj\Debug\MyAppAspNet.csprojResolveAssemblyReference.cache
 E:\Project\visual studio\MyAppAspNet\MyAppAspNet\bin\System.Buffers.dll
 E:\Project\visual studio\MyAppAspNet\MyAppAspNet\bin\System.Memory.dll
 E:\Project\visual studio\MyAppAspNet\MyAppAspNet\bin\System.Runtime.CompilerServices.Unsafe.dll

@@ -335,6 +335,8 @@
     <Content Include="Views\appdashboard\adminsystem\GroupLevel\RoleGroupLevel\Index.cshtml" />
     <Content Include="Views\appdashboard\adminsystem\GroupLevel\Item.cshtml" />
     <Content Include="Views\appdashboard\adminsystem\User\UserGroupLevel\Item.cshtml" />
+    <Content Include="Views\appdashboard\adminsystem\GroupLevel\Option.cshtml" />
+    <Content Include="Views\appdashboard\masterdata\Menu\Option.cshtml" />
     <None Include="Views\Shared\action\add-button.cshtml" />
     <None Include="Views\Shared\action\delete-button.cshtml" />
     <Content Include="Views\Shared\action\details-button.cshtml" />

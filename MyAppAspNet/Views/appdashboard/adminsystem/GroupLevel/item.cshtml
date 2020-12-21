@@ -1,6 +1,6 @@
 ﻿@model Dictionary<String, Object>
 <tr @if ((string)Model["sparator"] == "") { @Html.Raw("style='font-weight:bold'")  }>
-    <td>
+    <td key=" @Html.DisplayFor(modelItem => ((MyAppAspNet.Models.GroupLevel)Model["item"]).id)">
         @Html.Raw((string)Model["sparator"]) ❯ @Html.DisplayFor(modelItem => ((MyAppAspNet.Models.GroupLevel)Model["item"]).Groups.name)
     </td>
     <td>

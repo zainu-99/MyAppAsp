@@ -1,0 +1,15 @@
+﻿@model Dictionary<String, Object>
+@{
+    var itemid = (Int32?)Model["itemid"];
+}
+<option @if ( itemid == ((MyAppAspNet.Models.MenuApp)Model["item"]).ID) { @Html.Raw("selected")  } value="@Html.DisplayFor(modelItem => ((MyAppAspNet.Models.MenuApp)Model["item"]).ID)">
+    @Html.Raw((string)Model["sparator"]) ❯ @Html.DisplayFor(modelItem => ((MyAppAspNet.Models.MenuApp)Model["item"]).MenuText)
+</option>
+@foreach (var item in ((MyAppAspNet.Models.MenuApp)Model["item"]).MenuApp1.OrderBy(a => a.OrderSort).ToList())
+{
+    var dir = new Dictionary<String, Object>();
+    dir["sparator"] = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + (string)Model["sparator"];
+    dir["itemid"] = itemid;
+    dir["item"] = item;
+    @Html.Partial("~/Views/appdashboard/masterdata/Menu/Option.cshtml", dir);
+}

@@ -25,8 +25,17 @@
         <div class="form-group">
             Parent
             <div class="col-md-10">
-                @Html.DropDownList("id_parent", null, "No Parent", htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.id_parent, "", new { @class = "text-danger" })
+                <select name="id_parent" class="form-control">
+                    <option value>No Parent</option>
+                    @foreach (var item in ViewBag.parent)
+                    {
+                        var dir = new Dictionary<String, Object>();
+                        dir["sparator"] = "";
+                        dir["itemid"] = Model.id_parent;
+                        dir["item"] = item;
+                        @Html.Partial("~/Views/appdashboard/adminsystem/GroupLevel/Option.cshtml", dir);
+                    }
+                </select>
             </div>
         </div>
 

@@ -22,7 +22,7 @@ namespace MyAppAspNet.Controllers
         }
         public ActionResult Create()
         {
-            ViewBag.IDParentMenu = new SelectList(db.MenuApp, "ID", "MenuText");
+            ViewBag.parent = db.MenuApp.Where(a => a.IDParentMenu == null).ToList();
             ViewBag.RoleID = new SelectList(db.Roles, "id", "name");
             return View("~/Views/appdashboard/masterdata/Menu/Add.cshtml");
         }
@@ -37,7 +37,7 @@ namespace MyAppAspNet.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.IDParentMenu = new SelectList(db.MenuApp, "ID", "MenuText", menuApp.IDParentMenu);
+            ViewBag.parent = db.MenuApp.Where(a => a.IDParentMenu == null).ToList();
             ViewBag.RoleID = new SelectList(db.Roles, "id", "name", menuApp.RoleID);
             return View("~/Views/appdashboard/masterdata/Menu/Add.cshtml", menuApp);
         }
@@ -52,7 +52,7 @@ namespace MyAppAspNet.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.IDParentMenu = new SelectList(db.MenuApp.Where(a => a.ID != id), "ID", "MenuText", menuApp.IDParentMenu);
+            ViewBag.parent = db.MenuApp.Where(a => a.IDParentMenu == null).ToList();
             ViewBag.RoleID = new SelectList(db.Roles, "id", "name", menuApp.RoleID);
             return View("~/Views/appdashboard/masterdata/Menu/Edit.cshtml", menuApp);
         }
@@ -67,7 +67,7 @@ namespace MyAppAspNet.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.IDParentMenu = new SelectList(db.MenuApp.Where(a => a.ID != menuApp.ID), "ID", "MenuText", menuApp.IDParentMenu);
+            ViewBag.parent = db.MenuApp.Where(a => a.IDParentMenu == null).ToList();
             ViewBag.RoleID = new SelectList(db.Roles, "id", "name", menuApp.RoleID);
             return View("~/Views/appdashboard/masterdata/Menu/Edit.cshtml", menuApp);
         }

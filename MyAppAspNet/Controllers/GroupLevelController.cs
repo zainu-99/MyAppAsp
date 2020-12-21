@@ -24,7 +24,7 @@ namespace MyAppAspNet.Controllers
         // GET: GroupLevels/Create
         public ActionResult Create()
         {
-            ViewBag.id_parent = new SelectList(db.GroupLevel, "id", "remark");
+            ViewBag.parent = db.GroupLevel.Include(g => g.GroupLevel2).Include(g => g.Groups).Where(a => a.id_parent == null).ToList();
             ViewBag.id_group = new SelectList(db.Groups, "id", "name");
             return View("~/Views/appdashboard/adminsystem/GroupLevel/Add.cshtml");
         }
@@ -43,7 +43,7 @@ namespace MyAppAspNet.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.id_parent = new SelectList(db.GroupLevel, "id", "remark", groupLevel.id_parent);
+            ViewBag.parent = db.GroupLevel.Include(g => g.GroupLevel2).Include(g => g.Groups).Where(a => a.id_parent == null).ToList();
             ViewBag.id_group = new SelectList(db.Groups, "id", "name", groupLevel.id_group);
             return View("~/Views/appdashboard/adminsystem/GroupLevel/Add.cshtml",groupLevel);
         }
@@ -60,7 +60,7 @@ namespace MyAppAspNet.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.id_parent = new SelectList(db.GroupLevel.Where(a => a.id != id), "id", "remark", groupLevel.id_parent);
+            ViewBag.parent = db.GroupLevel.Include(g => g.GroupLevel2).Include(g => g.Groups).Where(a => a.id_parent == null).ToList();
             ViewBag.id_group = new SelectList(db.Groups, "id", "name", groupLevel.id_group);
             return View("~/Views/appdashboard/adminsystem/GroupLevel/Edit.cshtml",groupLevel);
         }
@@ -78,7 +78,7 @@ namespace MyAppAspNet.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.id_parent = new SelectList(db.GroupLevel.Where(a => a.id != groupLevel.id), "id", "remark", groupLevel.id_parent);
+            ViewBag.parent = db.GroupLevel.Include(g => g.GroupLevel2).Include(g => g.Groups).Where(a => a.id_parent == null).ToList();
             ViewBag.id_group = new SelectList(db.Groups, "id", "name", groupLevel.id_group);
             return View("~/Views/appdashboard/adminsystem/GroupLevel/Edit.cshtml",groupLevel);
         }
