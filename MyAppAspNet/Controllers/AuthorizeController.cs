@@ -2,7 +2,6 @@
 using Microsoft.Owin.Security;
 using MyAppAspNet.Helper;
 using MyAppAspNet.Models;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,26 +20,41 @@ namespace MyAppAspNet.Controllers
             if (user.userid == null) return View();
             MyAppEntities myAppEntities = new MyAppEntities();
             var pass = MyAppHelper.GetHashMD5(user.password);
-            var usr = myAppEntities.Users.Where(a => a.userid == user.userid).Where(a => a.password == pass).FirstOrDefault();
+            var usr = myAppEntities.Users.Where(a => a.userid == user.userid).FirstOrDefault();
             if (usr != null)
             {
-                var claims = new List<Claim>();
-                claims.Add(new Claim(ClaimTypes.NameIdentifier, usr.userid));
-                claims.Add(new Claim(ClaimTypes.Name, usr.name));
-                claims.Add(new Claim(ClaimTypes.Email, usr.email));
-                var identity = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
-                AuthenticationManager.SignIn(new AuthenticationProperties()
+                bool verify = false;
+                try{
+                    verify = BCrypt.Net.BCrypt.Verify(user.password, usr.password);
+                }
+                catch{
+                    verify = MyAppHelper.GetHashMD5(user.password)==user.password;
+                }
+                if (verify)
                 {
-                    AllowRefresh = true,
-                    IsPersistent = false,
-                    ExpiresUtc = DateTime.UtcNow.AddDays(7)
-                }, identity);
-                
-                return RedirectToAction("Index", "Home");
+                    var claims = new List<Claim>();
+                    claims.Add(new Claim(ClaimTypes.NameIdentifier, usr.userid));
+                    claims.Add(new Claim(ClaimTypes.Name, usr.name));
+                    claims.Add(new Claim(ClaimTypes.Email, usr.email));
+                    var identity = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
+                    AuthenticationManager.SignIn(new AuthenticationProperties()
+                    {
+                        AllowRefresh = true,
+                        IsPersistent = false,
+                        ExpiresUtc = DateTime.UtcNow.AddDays(7)
+                    }, identity);
+
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    TempData["Message"] = "Login Failed, Password wrong!";
+                    return View();
+                }
             }
             else
             {
-                TempData["Message"] = "Login Failed, Please Check Email Or Password!";
+                TempData["Message"] = "Login Failed, Email not found!";
                 return View();
             }
         }

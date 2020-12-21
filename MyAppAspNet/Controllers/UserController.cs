@@ -33,7 +33,7 @@ namespace MyAppAspNet.Controllers
         {
             try
             {
-                collection.password = MyAppHelper.GetHashMD5(collection.password);
+                collection.password = BCrypt.Net.BCrypt.HashPassword(collection.password);
                 TryUpdateModel(collection);
                 using (var myAppEntities = new MyAppEntities())
                 {
@@ -70,8 +70,7 @@ namespace MyAppAspNet.Controllers
                     }
                     else if(collection.AllKeys.Contains("reset_pass"))
                     {
-                        var pass = "123";
-                        pass = MyAppHelper.GetHashMD5(pass);
+                        var pass = BCrypt.Net.BCrypt.HashPassword("123");
                         string query = "update Users set password = '" + pass + "' where id = '" + id + "'";
                         myAppEntities.UserRole.SqlQuery(query).FirstOrDefault();
                     }

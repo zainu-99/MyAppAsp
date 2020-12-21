@@ -85,7 +85,6 @@ E:\Project\visual studio\MyAppAspNet\MyAppAspNet\bin\Microsoft.Owin.Security.Coo
 E:\Project\visual studio\MyAppAspNet\MyAppAspNet\bin\Microsoft.Owin.Security.dll
 E:\Project\visual studio\MyAppAspNet\MyAppAspNet\bin\Microsoft.Owin.Security.OAuth.dll
 E:\Project\visual studio\MyAppAspNet\MyAppAspNet\bin\Microsoft.Web.Infrastructure.dll
-E:\Project\visual studio\MyAppAspNet\MyAppAspNet\bin\Newtonsoft.Json.dll
 E:\Project\visual studio\MyAppAspNet\MyAppAspNet\bin\Owin.dll
 E:\Project\visual studio\MyAppAspNet\MyAppAspNet\bin\System.Web.Helpers.dll
 E:\Project\visual studio\MyAppAspNet\MyAppAspNet\bin\System.Web.Mvc.dll
@@ -105,7 +104,6 @@ E:\Project\visual studio\MyAppAspNet\MyAppAspNet\bin\Microsoft.Owin.Host.SystemW
 E:\Project\visual studio\MyAppAspNet\MyAppAspNet\bin\Microsoft.Owin.Security.xml
 E:\Project\visual studio\MyAppAspNet\MyAppAspNet\bin\Microsoft.Owin.Security.Cookies.xml
 E:\Project\visual studio\MyAppAspNet\MyAppAspNet\bin\Microsoft.Owin.Security.OAuth.xml
-E:\Project\visual studio\MyAppAspNet\MyAppAspNet\bin\Newtonsoft.Json.xml
 E:\Project\visual studio\MyAppAspNet\MyAppAspNet\bin\System.Web.Helpers.xml
 E:\Project\visual studio\MyAppAspNet\MyAppAspNet\bin\System.Web.Mvc.xml
 E:\Project\visual studio\MyAppAspNet\MyAppAspNet\bin\System.Web.Optimization.xml
@@ -117,3 +115,15 @@ E:\Project\visual studio\MyAppAspNet\MyAppAspNet\bin\Antlr3.Runtime.pdb
 E:\Project\visual studio\MyAppAspNet\MyAppAspNet\obj\Debug\MyAppAspNet.dll
 E:\Project\visual studio\MyAppAspNet\MyAppAspNet\obj\Debug\MyAppAspNet.pdb
 E:\Project\visual studio\MyAppAspNet\MyAppAspNet\obj\Debug\MyAppAspNet.csprojResolveAssemblyReference.cache
+E:\Project\visual studio\MyAppAspNet\MyAppAspNet\bin\System.Buffers.dll
+E:\Project\visual studio\MyAppAspNet\MyAppAspNet\bin\System.Memory.dll
+E:\Project\visual studio\MyAppAspNet\MyAppAspNet\bin\System.Runtime.CompilerServices.Unsafe.dll
+E:\Project\visual studio\MyAppAspNet\MyAppAspNet\bin\System.Buffers.xml
+E:\Project\visual studio\MyAppAspNet\MyAppAspNet\bin\System.Memory.xml
+E:\Project\visual studio\MyAppAspNet\MyAppAspNet\bin\System.Runtime.CompilerServices.Unsafe.xml
+E:\Project\visual studio\MyAppAspNet\MyAppAspNet\bin\Newtonsoft.Json.dll
+E:\Project\visual studio\MyAppAspNet\MyAppAspNet\bin\Newtonsoft.Json.xml
+E:\Project\visual studio\MyAppAspNet\MyAppAspNet\bin\System.Threading.Tasks.Extensions.dll
+E:\Project\visual studio\MyAppAspNet\MyAppAspNet\bin\System.Threading.Tasks.Extensions.xml
+E:\Project\visual studio\MyAppAspNet\MyAppAspNet\bin\BCrypt.Net-Next.dll
+E:\Project\visual studio\MyAppAspNet\MyAppAspNet\bin\BCrypt.Net-Next.xml
