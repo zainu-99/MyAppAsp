@@ -63,6 +63,7 @@ namespace MyAppAspNet.Helper
             {
                 Console.Write(e.Message);
             }
+            con.Close();
             return ds.Tables[tableName];
         }
         public static ModSqlCommand GetCommand(String query)
@@ -81,10 +82,10 @@ namespace MyAppAspNet.Helper
         }
         public static void ExecuteQuery(String query)
         {
+            var con = new SqlConnection(stringcon);
+            con.Open();
             try
             {
-                var con = new SqlConnection(stringcon);
-                con.Open();
                 var sqlcom = new SqlCommand(query, con);
                 sqlcom.ExecuteNonQuery();
             }
@@ -92,6 +93,7 @@ namespace MyAppAspNet.Helper
             {
                 Console.Write(e.Message);
             }
+            con.Close();
         }
         public static ModSqlDataReader GetDataReader(String query)
         {

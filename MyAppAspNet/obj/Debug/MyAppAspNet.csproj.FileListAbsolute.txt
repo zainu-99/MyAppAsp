@@ -126,3 +126,4 @@ E:\Project\visual studio\MyAppAspNet\MyAppAspNet\bin\System.Threading.Tasks.Exte
 E:\Project\visual studio\MyAppAspNet\MyAppAspNet\bin\System.Threading.Tasks.Extensions.xml
 E:\Project\visual studio\MyAppAspNet\MyAppAspNet\bin\BCrypt.Net-Next.dll
 E:\Project\visual studio\MyAppAspNet\MyAppAspNet\bin\BCrypt.Net-Next.xml
+E:\Project\visual studio\MyAppAspNet\MyAppAspNet\obj\Debug\MyAppAspNet.csprojResolveAssemblyReference.cache
